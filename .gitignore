@@ -1,0 +1,20 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Unit test / coverage reports
+.coverage
+
+# Mr Developer
+.idea
+*.db
+*.sublime*
+
+# Django stuff:
+*.log
+*.pot
+static/*
+
+# js stuff:
+*/static/vendor
+node_modules
