@@ -187,7 +187,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',
-                                'rest_framework.filters.SearchFilter')
+                                'rest_framework.filters.SearchFilter',
+                                'rest_framework.filters.OrderingFilter')
 }
 
 # A sample logging configuration. The only tangible logging
