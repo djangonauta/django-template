@@ -18,9 +18,9 @@ def migrate(ctx, settings='development'):
 
 
 @task
-def test(ctx, settings='test'):
+def test(ctx, tests='', settings='test'):
     """Testa as aplicações do projeto (com exceção dos testes funcionais)."""
-    cmd = 'coverage run ./manage.py test --settings={{ project_name }}.settings.{}'.format(settings)
+    cmd = 'coverage run ./manage.py test {} --settings={{ project_name }}.settings.{}'.format(tests, settings)
     ctx.run(cmd, echo=True, pty=True)
     cmd = 'coverage report'
     ctx.run(cmd, echo=True, pty=True)
