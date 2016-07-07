@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^rest_auth/', include('rest_auth.urls')),
     url(r'^api/v1/', include(router.urls, namespace='v1')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^core/', include('core.urls', namespace='core')),
     url(r'^admin/', include(site.urls)),
 ]
 

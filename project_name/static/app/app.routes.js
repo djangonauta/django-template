@@ -2,7 +2,7 @@
   'use strict';
 
   var app = angular.module('{{ project_name }}');
-  app.config(routeConfig);
+  app.config(['$stateProvider', '$urlRouterProvider', routeConfig]);
   app.run(function($rootScope, $state) {
     $rootScope.$state = $state;
   });
