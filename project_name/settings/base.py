@@ -81,6 +81,7 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'rest_auth',
+    'rest_auth.registration',
     'widget_tweaks',
 )
 
