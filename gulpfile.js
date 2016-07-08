@@ -1,22 +1,22 @@
-var gulp = require('gulp');
-var inject = require('gulp-inject');
-var wiredep = require('wiredep');
+const gulp = require('gulp');
+const inject = require('gulp-inject');
+const wiredep = require('wiredep');
 
-var wiredepOptions = {
+const wiredepOptions = {
   bowerJson: require('./bower.json'),
   directory: '{{ project_name }}/static/vendor'
 }
 
-var js_files = [
+const js_files = [
   '{{ project_name }}/static/app/**/*.module.js',
   '{{ project_name }}/static/app/**/*.js'
 ]
 
-var css_files = [
+const css_files = [
   '{{ project_name }}/static/css/**/*.css'
 ]
 
-gulp.task('inject', function () {
+gulp.task('inject', () => {
   return gulp.src('{{ project_name }}/templates/base.html')
             .pipe(wiredep.stream(wiredepOptions))
             .pipe(inject(gulp.src(js_files)))
@@ -24,10 +24,10 @@ gulp.task('inject', function () {
             .pipe(gulp.dest('{{ project_name }}/templates/'));
 });
 
-gulp.task('inject-static', ['inject'], function () {
-  var exec = require('child_process').exec;
-  var command = './manage.py add_static_tags base.html --settings={{ project_name }}.settings.development';
-  exec(command, function (err, stdout, stderr) {
+gulp.task('inject-static', ['inject'], () => {
+  const exec = require('child_process').exec;
+  const command = './manage.py add_static_tags base.html --settings={{ project_name }}.settings.development';
+  exec(command, (err, stdout, stderr) => {
     if (err) {
       throw err;
     }
