@@ -1,6 +1,6 @@
 """Módulo que contém as tarefas locais utilizadas com invoke."""
 
-from invoke import *
+from invoke import task
 
 
 @task
