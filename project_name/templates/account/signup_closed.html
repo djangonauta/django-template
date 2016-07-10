@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Registro suspenso{% endblock %}
+
+{% block body_class %}hold-transition register-page{% endblock body_class %}
+
+{% block body %}
+  <div class="login-box">
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        Registros de novas contas temporariamente suspenso.
+      </div>
+      <div class="panel-body">
+        O serviço para incluir novas contas está temporariamente
+        fechado. Pedimos desculpas pelo inconveniente. Para mais detalhes, entre em contato com a administração. Obrigado.
+        <hr/>
+        <a href="{% url 'account_login' %}">Login</a>
+      </div>
+    </div><!-- /.login-box-body -->
+  </div><!-- /.login-box -->
+{% endblock %}
