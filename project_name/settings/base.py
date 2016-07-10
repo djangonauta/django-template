@@ -167,10 +167,12 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = ''
-# ACCOUNT_ADAPTER = 'core.adapters.DisableSignupAdapter'
-# REST_AUTH_REGISTER_SERIALIZERS = {
-#    'REGISTER_SERIALIZER': 'core.serializers.DisableSignupSerializer'
-# }
+if environ.get('DISABLE_ACCOUNT_REGISTRATION', False):
+    ACCOUNT_ADAPTER = 'core.adapters.DisableSignupAdapter'
+    REST_AUTH_REGISTER_SERIALIZERS = {
+        'REGISTER_SERIALIZER': 'core.serializers.DisableSignupSerializer'
+    }
+
 OLD_PASSWORD_FIELD_ENABLED = True
 
 CELERY_TASK_SERIALIZER = 'json'
