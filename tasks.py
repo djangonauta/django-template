@@ -67,6 +67,7 @@ def install(ctx, settings='development'):
     migrate(ctx, settings)
     ctx.run('npm install', echo=True, pty=True)
     ctx.run('bower install', echo=True, pty=True)
+    ctx.run('gulp inject-static', echo=True, pty=True)
     collectstatic(ctx, settings, True)
 
 
