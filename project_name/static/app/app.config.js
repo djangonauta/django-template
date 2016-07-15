@@ -2,22 +2,19 @@
   'use strict';
 
   angular.module('{{ project_name }}')
-    .config(interpolateConfig)
-    .config(resourceConfig)
-    .config(httpConfig);
+    .config(['$interpolateProvider', interpolateConfig])
+    .config(['$resourceProvider', resourceConfig])
+    .config(['$httpProvider', httpConfig]);
 
-  interpolateConfig.$inject = ['$interpolateProvider'];
   function interpolateConfig($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
   }
 
-  resourceConfig.$inject = ['$resourceProvider'];
   function resourceConfig($resourceProvider) {
     $resourceProvider.defaults.stripTrailingSlashes = false;
   }
 
-  httpConfig.$inject = ['$httpProvider'];
   function httpConfig($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
