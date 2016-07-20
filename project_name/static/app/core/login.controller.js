@@ -5,6 +5,9 @@
 
   function controller($window) {
     var self = this;
-    self.next = $window.location.href.split('next=')[1]
+    if (!localStorage.login_redirect_url) {
+      localStorage.login_redirect_url = $window.location.href.split('next=')[1]
+    }
+    self.next = localStorage.login_redirect_url;
   }
 })();

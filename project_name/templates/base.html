@@ -40,6 +40,7 @@
       app.constant('logoutURL', '{% templatetag openblock %} url "account_logout" {% templatetag closeblock %}');
       app.constant('confirmModalTemplate', '{% templatetag openblock %} static "app/core/confirmModal.html" {% templatetag closeblock %}');
       app.constant('userInfoTemplate', '{% templatetag openblock %} url "core:user_info_template" {% templatetag closeblock %}');
+      {% templatetag openblock %} if user.is_authenticated {% templatetag closeblock %}delete localStorage.login_redirect_url{% templatetag openblock %} endif {% templatetag closeblock %}
     {% templatetag openblock %} endblock script {% templatetag closeblock %}
   </script>
 </head>
