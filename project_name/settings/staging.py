@@ -22,5 +22,3 @@ STATICFILES_LOCATION = 'static'
 # STATICFILES_STORAGE = 'core.storages.StaticLocationStorage'
 MEDIAFILES_LOCATION = 'media'
 # DEFAULT_FILE_STORAGE = 'core.storages.MediaLocationStorage'
-
-REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = ('rest_framework.renderers.JSONRenderer',)
