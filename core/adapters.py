@@ -1,4 +1,4 @@
-"""Adaptadores para uso com a aplicação allauth."""
+"""Adaptadores da aplicação core."""
 
 from allauth.account.adapter import DefaultAccountAdapter
 
