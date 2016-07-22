@@ -4,16 +4,14 @@
 class SelectSerializerFieldsMixin:
     """Permite redefinir campos de exibição de um serializador."""
 
-    def __init__(self, *args, selected_field_names=None, **kwargs):
-        """
-        Atualiza os campos deste serializador.
+    param_field_names = 'field_names'
 
-        A variável selected_field_names é uma lista de campos selecionados para este serializador.
-        """
-        super(SelectSerializerFieldsMixin, self).__init__(*args, **kwargs)
-        if selected_field_names is not None:
-            original_field_names = self.fields.keys()
+    def to_representation(self, data):
+        """Seleciona os campos de exibição em função de parâmetros da solicitação."""
+        data = super(SelectSerializerFieldsMixin, self).to_representation(data)
+        fields = self.context['request'].query_params.get(self.param_field_names, None)
+        if fields:
+            fields = set(fields.split(','))
+            data = {k: v for k, v in data.items() if k in fields}
 
-            # Remove os campos que não foram selecionados.
-            for field_name in original_field_names - selected_field_names:
-                self.fields.pop(field_name)
+        return data
