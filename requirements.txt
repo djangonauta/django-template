@@ -14,7 +14,7 @@ curtsies==0.2.6
 defusedxml==0.4.1
 dj-database-url==0.4.1
 dj-email-url==0.0.8
-Django==1.9.8
+Django==1.9.9
 django-allauth==0.26.1
 django-cache-url==1.2.0
 django-debug-toolbar==1.5
@@ -26,7 +26,7 @@ django-rest-auth==0.8.1
 django-widget-tweaks==1.4.1
 djangorestframework==3.4.1
 factory-boy==2.7.0
-fake-factory==0.5.9
+fake-factory==0.5.10
 greenlet==0.4.10
 gunicorn==19.6.0
 hiredis==0.2.0
