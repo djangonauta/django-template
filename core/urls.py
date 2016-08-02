@@ -1,9 +1,9 @@
 """Core urls."""
 
-from django.conf.urls import url
+from django.conf import urls
 
-from .views import UserInfoTemplateView
+from . import views
 
 urlpatterns = [
-    url(r'^navbar/template/$', UserInfoTemplateView.as_view(), name='user_info_template')
+    urls.url(r'^navbar/template/$', views.UserInfoTemplateView.as_view(), name='user_info_template')
 ]

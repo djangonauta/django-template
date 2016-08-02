@@ -1,12 +1,12 @@
 """Testes relacionados ao comandos customizados da aplicação core."""
 
-from tempfile import NamedTemporaryFile
-from unittest import TestCase
+import tempfile
+import unittest
 
-from ..management.commands.add_static_tags import Command
+from ..management.commands import add_static_tags
 
 
-class CommandsTests(TestCase):
+class CommandsTests(unittest.TestCase):
     """Testa comandos da aplicação."""
 
     @classmethod
@@ -18,10 +18,10 @@ class CommandsTests(TestCase):
         """
         super().setUpClass()
 
-        cls.href_file = NamedTemporaryFile('w+t', delete=False)
-        cls.src_file = NamedTemporaryFile('w+t', delete=False)
-        cls.multi_file = NamedTemporaryFile('w+t', delete=False)
-        cls.multi_tag = NamedTemporaryFile('w+t', delete=False)
+        cls.href_file = tempfile.NamedTemporaryFile('w+t', delete=False)
+        cls.src_file = tempfile.NamedTemporaryFile('w+t', delete=False)
+        cls.multi_file = tempfile.NamedTemporaryFile('w+t', delete=False)
+        cls.multi_tag = tempfile.NamedTemporaryFile('w+t', delete=False)
 
         with cls.href_file as f:
             f.write('<link rel="stylesheet" href="/static/css/style.css" />')
@@ -39,7 +39,7 @@ class CommandsTests(TestCase):
 
     def test_add_static_tags_href(self):
         """Testa o comando add_static_tags utilizando href."""
-        Command().replace(self.href_file.name)
+        add_static_tags.Command().replace(self.href_file.name)
         with open(self.href_file.name) as f:
             self.assertEqual(
                 f.read(),
@@ -49,7 +49,7 @@ class CommandsTests(TestCase):
 
     def test_add_static_tags_src(self):
         """Testa o comando add_static_tags utilizando src."""
-        Command().replace(self.src_file.name)
+        add_static_tags.Command().replace(self.src_file.name)
         with open(self.src_file.name) as f:
             self.assertEqual(
                 f.read(),
@@ -59,7 +59,7 @@ class CommandsTests(TestCase):
 
     def test_add_static_tags_multiple_lines(self):
         """Testa o comando add_static_tags em multiplas linhas."""
-        Command().replace(self.multi_file.name)
+        add_static_tags.Command().replace(self.multi_file.name)
         with open(self.multi_file.name) as f:
             self.assertEqual(
                 f.read(),
@@ -71,7 +71,7 @@ class CommandsTests(TestCase):
 
     def test_add_static_tags_multiple_tags(self):
         """Testa o comando add_static_tags em multiplas tags em uma linha."""
-        Command().replace(self.multi_tag.name)
+        add_static_tags.Command().replace(self.multi_tag.name)
         with open(self.multi_tag.name) as f:
             self.assertEqual(
                 f.read(),

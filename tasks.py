@@ -1,23 +1,23 @@
 """Módulo que contém as tarefas locais utilizadas com invoke."""
 
-from invoke import task
+import invoke
 
 
-@task
+@invoke.task
 def makemigrations(ctx, settings='development'):
     """Gera os arquivos de migração."""
     cmd = './manage.py makemigrations --settings={{ project_name }}.settings.{}'.format(settings)
     ctx.run(cmd, echo=True, pty=True)
 
 
-@task
+@invoke.task
 def migrate(ctx, settings='development'):
     """Aplica as migrações."""
     cmd = './manage.py migrate --settings={{ project_name }}.settings.{}'.format(settings)
     ctx.run(cmd, echo=True, pty=True)
 
 
-@task
+@invoke.task
 def test(ctx, tests='', settings='test'):
     """Testa as aplicações do projeto (com exceção dos testes funcionais)."""
     cmd = 'coverage run ./manage.py test {} --settings={{ project_name }}.settings.{}'.format(tests, settings)
@@ -26,7 +26,7 @@ def test(ctx, tests='', settings='test'):
     ctx.run(cmd, echo=True, pty=True)
 
 
-@task
+@invoke.task
 def functional_tests(ctx, package='functional_tests.histories', settings='test'):
     """Executa os testes funcionais."""
     collectstatic(ctx, settings, True)
@@ -37,7 +37,7 @@ def functional_tests(ctx, package='functional_tests.histories', settings='test')
     ctx.run(cmd, echo=True, pty=True)
 
 
-@task(default=True)
+@invoke.task(default=True)
 def run_server(ctx, settings='development'):
     """Executa o servidor web."""
     cmd = './manage.py runserver --settings=project.settings.{}'.format(settings)
@@ -47,7 +47,7 @@ def run_server(ctx, settings='development'):
     ctx.run(cmd, echo=True, pty=True)
 
 
-@task
+@invoke.task
 def collectstatic(ctx, settings='development', noinput=False, clear=False):
     """Coleta arquivos estáticos."""
     noinput = '--noinput' if noinput else ''
@@ -57,7 +57,7 @@ def collectstatic(ctx, settings='development', noinput=False, clear=False):
     ctx.run(cmd, echo=True, pty=True)
 
 
-@task
+@invoke.task
 def install(ctx, settings='development'):
     """
     Instala migrações e arquivos estáticos.
@@ -74,7 +74,7 @@ def install(ctx, settings='development'):
     collectstatic(ctx, settings, True)
 
 
-@task
+@invoke.task
 def celery(ctx, settings='development'):
     """Executa celery."""
     cmd = 'DJANGO_SETTINGS_MODULE={{ project_name }}.settings.{} '
@@ -83,7 +83,7 @@ def celery(ctx, settings='development'):
     ctx.run(cmd, echo=True, pty=True)
 
 
-@task
+@invoke.task
 def send_queued_mail(ctx, settings='development'):
     """Envia emails enfileirados pela aplicação django_post_office."""
     cmd = './manage.py send_queued_mail --settings={{ project_name }}.settings.{}'.format(settings)

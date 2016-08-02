@@ -1,15 +1,15 @@
 """Comandos customizados da aplicação core."""
 
+import fileinput
 import re
-from fileinput import FileInput
 
-from django.core.management.base import BaseCommand
-from django.template.loader import get_template
+from django.core.management import base
+from django.template import loader
 
 pattern = re.compile(r'(src|href)=".+?static/(.+?)"')
 
 
-class Command(BaseCommand):
+class Command(base.BaseCommand):
     """Insere static tags em atributos 'src' e 'href' mantendo a url/uri original."""
 
     def add_arguments(self, parser):
@@ -23,7 +23,7 @@ class Command(BaseCommand):
         Esse passo é necessário já que bower é utilizado para injetar arquivos js/css e ele remove static
         tags previamente inseridas.
         """
-        with FileInput(path, inplace=True) as f:
+        with fileinput.FileInput(path, inplace=True) as f:
             for line in f:
                 repl = r'''\1="{% templatetag openblock %} static '\2' {% templatetag closeblock %}"'''
                 line = pattern.sub(repl, line)
@@ -31,6 +31,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """Executa o comando."""
-        paths = [get_template(t).template.origin.name for t in options['files']]
+        paths = [loader.get_template(t).template.origin.name for t in options['files']]
         for path in paths:
             self.replace(path)

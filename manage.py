@@ -1,10 +1,10 @@
 #!/usr/bin/env python3.5
 """Módulo de administração django."""
 
-from os import environ
-from sys import argv
+import os
+import sys
 
-from django.core.management import execute_from_command_line
+from django.core import management
 
-environ.setdefault('DJANGO_SETTINGS_MODULE', '{{ project_name }}.settings')
-execute_from_command_line(argv)
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{{ project_name }}.settings')
+management.execute_from_command_line(sys.argv)

@@ -1,11 +1,8 @@
 """Configuração de administração da aplicação core."""
 
-from django.contrib.admin import ModelAdmin, register
-from django.contrib.auth import get_user_model
+from django.contrib import admin, auth
 
 
-@register(get_user_model())
-class UserAdmin(ModelAdmin):
+@admin.register(auth.get_user_model())
+class UserAdmin(admin.ModelAdmin):
     """Registra o usuário base na aplicação admin."""
-
-    pass

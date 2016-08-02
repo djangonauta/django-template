@@ -1,28 +1,27 @@
 """Configurações gerais do projeto {{ project_name }}."""
 
-from os import environ
-from os.path import abspath, dirname, join
+import os
+from os import path
 
 import dj_database_url
 import dj_email_url
 import django_cache_url
 from django.conf import global_settings
-from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import reverse_lazy
+from django.core import exceptions, urlresolvers
 
 
 def get_environment_variable(variable):
     """Obtém o valor de uma variável de ambiente requerida obrigatoriamente pelo projeto."""
     try:
-        return environ[variable]
+        return os.environ[variable]
 
     except KeyError:
-        raise ImproperlyConfigured('You must set {} environment variable.'.format(variable))
+        raise exceptions.ImproperlyConfigured('You must set {} environment variable.'.format(variable))
 
 
-def get_path(path):
+def get_path(p):
     """Helper para obter caminhos de arquivos referentes a este módulo de configuração."""
-    return abspath(join(BASE_DIR, path))
+    return path.abspath(path.join(BASE_DIR, p))
 
 
 def get_name_email(value):
@@ -36,11 +35,11 @@ def get_name_email(value):
 
 # export ADMINS=username1,email1@domain.com:username2,email2@domain.com
 ADMINS = get_name_email(get_environment_variable('ADMINS'))
-managers = environ.get('MANAGERS', None)
+managers = os.environ.get('MANAGERS', None)
 MANAGERS = get_name_email(managers) if managers else ADMINS
 
 # Build paths inside the project like this: join(BASE_DIR, ...)
-BASE_DIR = dirname(abspath(__file__))
+BASE_DIR = path.abspath(path.dirname(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_environment_variable('SECRET_KEY')
@@ -57,12 +56,13 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 dj_email_url.SCHEMES.update(postoffice='post_office.EmailBackend')
 vars().update(dj_email_url.config())
 
-DEFAULT_CHARSET = environ.get('DEFAULT_CHARSET', 'utf-8')  # default charset in django.core.email.
+DEFAULT_CHARSET = os.environ.get('DEFAULT_CHARSET', 'utf-8')  # default charset in django.core.email.
 # default from_email in EmailMessage.
-DEFAULT_FROM_EMAIL = environ.get('DEFAULT_FROM_EMAIL', 'webmaster@localhost')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'webmaster@localhost')
 # default prefix + subject in mail_admins/managers.
-EMAIL_SUBJECT_PREFIX = environ.get('EMAIL_SUBJECT_PREFIX', '[Django]')
-SERVER_EMAIL = environ.get('SERVER_EMAIL', 'admin@localhost')  # default from: header in mail_admins/managers.
+EMAIL_SUBJECT_PREFIX = os.environ.get('EMAIL_SUBJECT_PREFIX', '[Django]')
+# default from: header in mail_admins/managers.
+SERVER_EMAIL = os.environ.get('SERVER_EMAIL', 'admin@localhost')
 
 # Application definition
 INSTALLED_APPS = (
@@ -158,7 +158,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = get_path('../../media')
 
 AUTH_USER_MODEL = 'core.User'
-LOGIN_URL = reverse_lazy('account_login')
+LOGIN_URL = urlresolvers.reverse_lazy('account_login')
 LOGIN_REDIRECT_URL = '/'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
@@ -168,7 +168,7 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = ''
-if environ.get('DISABLE_ACCOUNT_REGISTRATION', False):
+if os.environ.get('DISABLE_ACCOUNT_REGISTRATION', False):
     ACCOUNT_ADAPTER = 'core.adapters.DisableSignupAdapter'
     REST_AUTH_REGISTER_SERIALIZERS = {
         'REGISTER_SERIALIZER': 'core.serializers.DisableSignupSerializer'

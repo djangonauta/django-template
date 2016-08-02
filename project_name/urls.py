@@ -1,27 +1,26 @@
 """Módulo de configuração de urls do projeto."""
 
-from core.views import UserViewSet
-from django.conf import settings
-from django.conf.urls import include, url
-from django.conf.urls.static import static
-from django.contrib.admin import site
-from rest_framework.routers import DefaultRouter
+from core import views as core_views
+from django.conf import settings, urls
+from django.conf.urls import static
+from django.contrib import admin
+from rest_framework import routers
 
-from .views import IndexView
+from . import views
 
-router = DefaultRouter()
-router.register('users', UserViewSet)
+router = routers.DefaultRouter()
+router.register('users', core_views.UserViewSet)
 
 urlpatterns = [
-    url(r'^$', IndexView.as_view(), name='home'),
-    url(r'^rest_auth/', include('rest_auth.urls')),
-    url(r'^rest_auth/registration/', include('rest_auth.registration.urls')),
-    url(r'^contas/', include('allauth.urls')),
-    url(r'^api/v1/', include(router.urls, namespace='v1')),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^core/', include('core.urls', namespace='core')),
-    url(r'^admin/', include(site.urls)),
+    urls.url(r'^$', views.IndexView.as_view(), name='home'),
+    urls.url(r'^rest_auth/', urls.include('rest_auth.urls')),
+    urls.url(r'^rest_auth/registration/', urls.include('rest_auth.registration.urls')),
+    urls.url(r'^contas/', urls.include('allauth.urls')),
+    urls.url(r'^api/v1/', urls.include(router.urls, namespace='v1')),
+    urls.url(r'^api-auth/', urls.include('rest_framework.urls', namespace='rest_framework')),
+    urls.url(r'^core/', urls.include('core.urls', namespace='core')),
+    urls.url(r'^admin/', urls.include(admin.site.urls)),
 ]
 
 # media files in development
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

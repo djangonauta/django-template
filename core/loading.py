@@ -1,6 +1,6 @@
 """Contém funções relacionadas ao carregamento de objetos."""
 
-from importlib import import_module
+import importlib
 
 
 def import_string(dotted_path):
@@ -12,7 +12,7 @@ def import_string(dotted_path):
         msg = '"{}" não é um módulo válido.'.format(dotted_path)
         raise ImportError(msg) from e
 
-    module = import_module(module_path)
+    module = importlib.import_module(module_path)
 
     try:
         return getattr(module, class_name)

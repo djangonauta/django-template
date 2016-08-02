@@ -1,9 +1,9 @@
 """Adaptadores da aplicação core."""
 
-from allauth.account.adapter import DefaultAccountAdapter
+from allauth.account import adapter
 
 
-class DisableSignupAdapter(DefaultAccountAdapter):
+class DisableSignupAdapter(adapter.DefaultAccountAdapter):
     """Adaptador customizado."""
 
     def is_open_for_signup(self, request):

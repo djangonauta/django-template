@@ -1,9 +1,9 @@
 """Core permissions."""
 
-from rest_framework.permissions import DjangoModelPermissions
+from rest_framework import permissions
 
 
-class CoreModelPermissions(DjangoModelPermissions):
+class CoreModelPermissions(permissions.DjangoModelPermissions):
     """Permissões genéricas para modelos."""
 
     perms_map = {

@@ -1,23 +1,23 @@
 """Testa o módulo loading."""
 
-from unittest import TestCase
+import unittest
 
-from ..loading import import_string
+from .. import loading
 
 
-class LoadingTests(TestCase):
+class LoadingTests(unittest.TestCase):
     """Testes de importação de objetos."""
 
     def test_import_module(self):
         """Verifica se um objeto é importado corretamente."""
-        join = import_string('os.path.join')
+        join = loading.import_string('os.path.join')
         self.assertIsNotNone(join)
         self.assertEqual(join('a', 'b'), 'a/b')
 
     def test_import_module_path_error(self):
         """Verifica se é lançada uma exceção para um módulo definido incorretamente."""
         with self.assertRaises(ImportError) as exc:
-            import_string('incorrect module')
+            loading.import_string('incorrect module')
 
         self.assertIsInstance(exc.exception.__cause__, ValueError)
         self.assertEqual(exc.exception.args[0], '"incorrect module" não é um módulo válido.')
@@ -25,7 +25,7 @@ class LoadingTests(TestCase):
     def test_import_module_object_error(self):
         """Verifica se é lançada uma exceção para um objeto não definido em um módulo."""
         with self.assertRaises(ImportError) as exc:
-            import_string('os.path.not_exist')
+            loading.import_string('os.path.not_exist')
 
         self.assertIsInstance(exc.exception.__cause__, AttributeError)
         self.assertEqual(
