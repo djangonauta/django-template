@@ -50,6 +50,7 @@ SECRET_KEY = get_environment_variable('SECRET_KEY')
 DATABASES = {
     'default': dj_database_url.config()
 }
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # Email
 # https://docs.djangoproject.com/en/dev/topics/email/
