@@ -65,7 +65,7 @@ EMAIL_SUBJECT_PREFIX = os.environ.get('EMAIL_SUBJECT_PREFIX', '[Django]')
 SERVER_EMAIL = os.environ.get('SERVER_EMAIL', 'admin@localhost')
 
 # Application definition
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
@@ -76,7 +76,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
     'gunicorn',
-    'post_office',
+    # 'post_office',
     'rest_framework',
     'rest_framework.authtoken',
     'allauth',
@@ -84,18 +84,17 @@ INSTALLED_APPS = (
     'rest_auth',
     'rest_auth.registration',
     'widget_tweaks',
-)
+]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-)
+]
 
 SITE_ID = 1
 
