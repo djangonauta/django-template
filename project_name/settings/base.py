@@ -76,7 +76,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
     'gunicorn',
-    # 'post_office',
+    'post_office',
     'rest_framework',
     'rest_framework.authtoken',
     'allauth',
