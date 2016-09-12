@@ -40,7 +40,7 @@ def functional_tests(ctx, package='functional_tests.histories', settings='test')
 @invoke.task(default=True)
 def run_server(ctx, settings='development'):
     """Executa o servidor web."""
-    cmd = './manage.py runserver --settings=project.settings.{}'.format(settings)
+    cmd = './manage.py runserver --settings={{ project_name }}.settings.{}'.format(settings)
     if 'prod' in settings:
         cmd = 'gunicorn {{ project_name }}.wsgi --workers=4'
 
