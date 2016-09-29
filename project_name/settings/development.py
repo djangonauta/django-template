@@ -9,6 +9,6 @@ DEBUG = True
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
 # Django Debug Toolbar
-INSTALLED_APPS += (
+INSTALLED_APPS += [
     'debug_toolbar',
-)
+]

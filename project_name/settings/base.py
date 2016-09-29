@@ -33,6 +33,7 @@ def get_name_email(value):
 
     return result
 
+
 # export ADMINS=username1,email1@domain.com:username2,email2@domain.com
 ADMINS = get_name_email(get_environment_variable('ADMINS'))
 managers = os.environ.get('MANAGERS', None)
@@ -65,7 +66,7 @@ EMAIL_SUBJECT_PREFIX = os.environ.get('EMAIL_SUBJECT_PREFIX', '[Django]')
 SERVER_EMAIL = os.environ.get('SERVER_EMAIL', 'admin@localhost')
 
 # Application definition
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
@@ -84,18 +85,17 @@ INSTALLED_APPS = (
     'rest_auth',
     'rest_auth.registration',
     'widget_tweaks',
-)
+]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-)
+]
 
 SITE_ID = 1
 
@@ -209,6 +209,12 @@ REST_FRAMEWORK = {
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'django.server': {
+            '()': 'django.utils.log.ServerFormatter',
+            'format': '[%(server_time)s] %(message)s',
+        }
+    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse',
@@ -227,7 +233,12 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'django.server': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'django.server',
+        },
     },
     'loggers': {
         'django': {
@@ -241,6 +252,11 @@ LOGGING = {
         'django.security': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ['django.server'],
+            'level': 'INFO',
             'propagate': False,
         },
         'py.warnings': {
