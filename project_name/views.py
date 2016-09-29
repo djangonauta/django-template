@@ -1,10 +1,9 @@
 """Módulo contém views genéricas ou globais ao projeto."""
 
-from django.contrib.auth import mixins
 from django.views import generic
 
 
-class IndexView(mixins.LoginRequiredMixin, generic.TemplateView):
+class IndexView(generic.TemplateView):
     """
     Página base da aplicação.
 

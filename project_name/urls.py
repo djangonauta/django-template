@@ -18,7 +18,6 @@ urlpatterns = [
     urls.url(r'^contas/', urls.include('allauth.urls')),
     urls.url(r'^api/v1/', urls.include(router.urls, namespace='v1')),
     urls.url(r'^api-auth/', urls.include('rest_framework.urls', namespace='rest_framework')),
-    urls.url(r'^core/', urls.include('core.urls', namespace='core')),
     urls.url(r'^admin/', urls.include(admin.site.urls)),
 ]
 
