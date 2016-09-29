@@ -33,6 +33,7 @@ def get_name_email(value):
 
     return result
 
+
 # export ADMINS=username1,email1@domain.com:username2,email2@domain.com
 ADMINS = get_name_email(get_environment_variable('ADMINS'))
 managers = os.environ.get('MANAGERS', None)
