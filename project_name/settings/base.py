@@ -213,7 +213,11 @@ LOGGING = {
         'django.server': {
             '()': 'django.utils.log.ServerFormatter',
             'format': '[%(server_time)s] %(message)s',
-        }
+        },
+        'TTCC': {
+            'class': 'logging.Formatter',
+            'format': '%(msecs)d [%(threadName)s] %(levelname)s %(module)s - %(message)s',
+        },
     },
     'filters': {
         'require_debug_false': {
@@ -239,6 +243,10 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'django.server',
         },
+        'console_TTCC': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'TTCC',
+        },
     },
     'loggers': {
         'django': {
@@ -261,6 +269,10 @@ LOGGING = {
         },
         'py.warnings': {
             'handlers': ['console'],
+        },
+        'core': {
+            'handlers': ['console_TTCC'],
+            'level': 'DEBUG',
         },
     }
 }
