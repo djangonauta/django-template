@@ -1,7 +1,5 @@
 """Configurações de produção."""
 
-import os
-
 from .staging import *
 
 # Security
@@ -18,5 +16,5 @@ SECURE_SSL_REDIRECT = True
 CSRF_COOKIE_HTTPONLY = False
 X_FRAME_OPTIONS = 'DENY'
 
-if os.environ.get('DJANGO_SETTINGS_MODULE', None) == '{{ project_name }}.settings':
-    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = ('rest_framework.renderers.JSONRenderer',)
+REST_FRAMEWORK = REST_FRAMEWORK.copy()
+REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = ('rest_framework.renderers.JSONRenderer',)
