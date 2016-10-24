@@ -182,6 +182,8 @@ CELERY_ACCEPT_CONTENT = ['pickle', 'json']
 CACHES = {
     'default': django_cache_url.config()
 }
+
+INTERNAL_IPS = ['127.0.0.1']
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
