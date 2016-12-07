@@ -5,9 +5,12 @@
 
   function controller($window) {
     var self = this;
-    if (!localStorage.login_redirect_url) {
-      localStorage.login_redirect_url = $window.location.href.split('next=')[1]
-    }
-    self.next = localStorage.login_redirect_url;
+    self.focus = 0;
+    self.focus++;
+
+    var login_redirect_url = $window.location.href.split('next=')[1];
+    $window.localStorage.login_redirect_url = login_redirect_url || $window.localStorage.login_redirect_url;
+
+    self.next = $window.localStorage.login_redirect_url;
   }
 })();
