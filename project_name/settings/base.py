@@ -80,6 +80,7 @@ INSTALLED_APPS = [
     'post_office',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_swagger',
     'allauth',
     'allauth.account',
     'rest_auth',
@@ -89,6 +90,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -159,6 +161,7 @@ MEDIA_ROOT = get_path('../../media')
 
 AUTH_USER_MODEL = 'core.User'
 LOGIN_URL = urlresolvers.reverse_lazy('account_login')
+LOGOUT_URL = urlresolvers.reverse_lazy('account_logout')
 LOGIN_REDIRECT_URL = '/'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'

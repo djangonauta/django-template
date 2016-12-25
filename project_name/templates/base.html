@@ -9,25 +9,40 @@
 
   <title>{% templatetag openblock %} block title {% templatetag closeblock %}Bem vindo{% templatetag openblock %} endblock title {% templatetag closeblock %}</title>
 
-  {% templatetag openblock %} block bower_css {% templatetag closeblock %}
-    <!-- bower:css -->
-    <!-- endbower -->
-  {% templatetag openblock %} endblock bower_css {% templatetag closeblock %}
+  {% templatetag openblock %} block css {% templatetag closeblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-busy/4.1.3/angular-busy.min.css"/>
 
-  {% templatetag openblock %} block inject_css {% templatetag closeblock %}
-    <!-- inject:css -->
-    <!-- endinject -->
-  {% templatetag openblock %} endblock inject_css {% templatetag closeblock %}
+    <link rel="stylesheet" href="{% templatetag openblock %} static 'css/AdminLTE.min.css' {% templatetag closeblock %}">
+    <link rel="stylesheet" href="{% templatetag openblock %} static 'css/base.css' {% templatetag closeblock %}">
+    <link rel="stylesheet" href="{% templatetag openblock %} static 'css/skins/skin-black.min.css' {% templatetag closeblock %}">
+  {% templatetag openblock %} endblock css {% templatetag closeblock %}
 
-  {% templatetag openblock %} block bower_js {% templatetag closeblock %}
-    <!-- bower:js -->
-    <!-- endbower -->
-  {% templatetag openblock %} endblock bower_js {% templatetag closeblock %}
-  
-  {% templatetag openblock %} block inject_js {% templatetag closeblock %}
-    <!-- inject:js -->
-    <!-- endinject -->
-  {% templatetag openblock %} endblock inject_js {% templatetag closeblock %}
+  {% templatetag openblock %} block js {% templatetag closeblock %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.9/angular-resource.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.3.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.tpls.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-busy/4.1.3/angular-busy.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-filestyle/1.2.1/bootstrap-filestyle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.0/angular-locale_pt-br.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-input-masks/2.5.0/angular-input-masks-standalone.min.js"></script>
+    <script src="{% templatetag openblock %} static 'js/focusIf.min.js' {% templatetag closeblock %}"></script>
+
+    <script src="{% templatetag openblock %} static 'app/app.module.js' {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static 'app/admin.lite.min.js' {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static 'app/app.config.js' {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static 'app/app.routes.js' {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static 'app/core/confirmModal.service.js' {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static 'app/core/submit.directive.js' {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static 'app/core/userInfo.directive.js' {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static 'app/core/file.directive.js' {% templatetag closeblock %}"></script>
+  {% templatetag openblock %} endblock js {% templatetag closeblock %}
   
   <script>
     {% templatetag openblock %} block script {% templatetag closeblock %}

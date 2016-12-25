@@ -1,6 +1,0 @@
-{
-    "directory": "{{ project_name }}/static/vendor",
-    "scripts": {
-        "postinstall": "gulp inject-static"
-    }
-}

@@ -1,10 +1,14 @@
 """Módulo de configuração de urls do projeto."""
 
+import os
+
 from core import views as core_views
 from django.conf import settings, urls
 from django.conf.urls import static
 from django.contrib import admin
+from django.contrib.auth.views import password_reset_complete, password_reset_confirm
 from rest_framework import routers
+from rest_framework_swagger.views import get_swagger_view
 
 from . import views
 
@@ -22,9 +26,19 @@ urlpatterns = [
     urls.url(r'^admin/', urls.include(admin.site.urls)),
 ]
 
+# auth urls utilizadas pelo rest_auth
+urlpatterns += [
+    urls.url(r'^contas/reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+             password_reset_confirm, name='password_reset_confirm'),
+    urls.url(r'^contas/reset/done/$', password_reset_complete, name='password_reset_complete'),
+]
+
 # media files in development
 urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if settings.DEBUG:
+if settings.DEBUG or 'heroku' in os.environ.get('DJANGO_SETTINGS_MODULE'):
     import debug_toolbar
-    urlpatterns += [urls.url(r'^__debug__/', urls.include(debug_toolbar.urls))]
+    urlpatterns += [
+        urls.url(r'^__debug__/', urls.include(debug_toolbar.urls)),
+        urls.url(r'^schema/$', get_swagger_view(title='{{ project_name }}')),
+    ]

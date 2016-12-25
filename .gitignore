@@ -14,6 +14,8 @@ __pycache__/
 *.log
 *.pot
 static/*
+media/*
+test_media/*
 
 # js stuff:
 */static/vendor

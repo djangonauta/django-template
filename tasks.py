@@ -38,9 +38,9 @@ def functional_tests(ctx, package='functional_tests.histories', settings='test')
 
 
 @invoke.task(default=True)
-def run_server(ctx, settings='development'):
+def run_server(ctx, addr='0.0.0.0:8000', settings='development'):
     """Executa o servidor web."""
-    cmd = './manage.py runserver --settings={{ project_name }}.settings.{}'.format(settings)
+    cmd = './manage.py runserver {} --settings={{ project_name }}.settings.{}'.format(addr, settings)
     if 'prod' in settings:
         cmd = 'gunicorn {{ project_name }}.wsgi --workers=4'
 
@@ -55,23 +55,6 @@ def collectstatic(ctx, settings='development', noinput=False, clear=False):
     cmd = './manage.py collectstatic {} {} --settings={{ project_name }}.settings.{}'
     cmd = cmd.format(noinput, clear, settings)
     ctx.run(cmd, echo=True, pty=True)
-
-
-@invoke.task
-def install(ctx, settings='development'):
-    """
-    Instala migrações e arquivos estáticos.
-
-    Essa tarefa é utilizada no ambiente de produção para configurar a aplicação:
-    invoke install --settings production
-    """
-    ctx.run('pip3 install -r requirements.txt')
-    makemigrations(ctx, settings)
-    migrate(ctx, settings)
-    ctx.run('npm install', echo=True, pty=True)
-    ctx.run('bower install', echo=True, pty=True)
-    ctx.run('gulp inject-static', echo=True, pty=True)
-    collectstatic(ctx, settings, True)
 
 
 @invoke.task
