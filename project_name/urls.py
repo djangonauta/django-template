@@ -2,7 +2,7 @@
 
 import os
 
-from core import views as core_views
+from core.views import UserViewSet
 from django.conf import settings, urls
 from django.conf.urls import static
 from django.contrib import admin
@@ -13,7 +13,7 @@ from rest_framework_swagger.views import get_swagger_view
 from . import views
 
 router = routers.DefaultRouter()
-router.register('users', core_views.UserViewSet)
+router.register('users', UserViewSet)
 
 urlpatterns = [
     urls.url(r'^$', views.IndexView.as_view(), name='home'),
@@ -36,9 +36,14 @@ urlpatterns += [
 # media files in development
 urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if settings.DEBUG or 'heroku' in os.environ.get('DJANGO_SETTINGS_MODULE'):
+_settings_module = os.environ.get('DJANGO_SETTINGS_MODULE')
+
+if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [
         urls.url(r'^__debug__/', urls.include(debug_toolbar.urls)),
-        urls.url(r'^schema/$', get_swagger_view(title='{{ project_name }}')),
+        urls.url(r'^schema/$', get_swagger_view(title='{{ project_name }}'))
     ]
+
+elif 'staging' in _settings_module:
+    urlpatterns += [urls.url(r'^schema/$', get_swagger_view(title='{{ project_name }}'))]
