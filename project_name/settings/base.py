@@ -244,6 +244,13 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'ttcc',
         },
+        'file_ttcc': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'filename': get_path('../../production.log'),
+            'formatter': 'ttcc',
+        },
         'django.server': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
@@ -266,7 +273,7 @@ LOGGING = {
             'propagate': False,
         },
         'core': {
-            'handlers': ['console_ttcc'],
+            'handlers': ['console_ttcc', 'file_ttcc'],
             'level': 'DEBUG',
         },
     }
