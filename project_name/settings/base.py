@@ -214,16 +214,6 @@ REST_FRAMEWORK = {
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'formatters': {
-        'django.server': {
-            '()': 'django.utils.log.ServerFormatter',
-            'format': '[%(server_time)s] %(message)s',
-        },
-        'TTCC': {
-            'class': 'logging.Formatter',
-            'format': '%(msecs)d [%(threadName)s] %(levelname)s %(module)s - %(message)s',
-        },
-    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse',
@@ -232,51 +222,51 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugTrue',
         },
     },
+    'formatters': {
+        'django.server': {
+            '()': 'django.utils.log.ServerFormatter',
+            'format': '[%(server_time)s] %(message)s',
+        },
+        'ttcc': {
+            'class': 'core.formatters.UserFormatter',
+            'datefmt': '%d/%b/%Y %H:%M:%S',
+            'format': '[%(server_time)s] %(levelname)s %(current_user)s %(message)s',
+        },
+    },
     'handlers': {
         'console': {
             'level': 'INFO',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
         },
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
+        'console_ttcc': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'ttcc',
         },
         'django.server': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'django.server',
         },
-        'console_TTCC': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'TTCC',
-        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
     },
     'loggers': {
         'django': {
-            'handlers': ['console'],
-        },
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
-        'django.security': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': False,
+            'handlers': ['console', 'mail_admins'],
+            'level': 'INFO',
         },
         'django.server': {
             'handlers': ['django.server'],
             'level': 'INFO',
             'propagate': False,
         },
-        'py.warnings': {
-            'handlers': ['console'],
-        },
         'core': {
-            'handlers': ['console_TTCC'],
+            'handlers': ['console_ttcc'],
             'level': 'DEBUG',
         },
     }
