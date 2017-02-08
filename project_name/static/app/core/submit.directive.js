@@ -1,8 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('{{ project_name }}')
-    .directive('submit', submit);
+  angular.module('{{ project_name }}').directive('submit', submit);
 
   /**
    * Submete um formulário desativando o botão de submissão quando clicado.
