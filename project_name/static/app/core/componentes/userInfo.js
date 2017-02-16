@@ -9,8 +9,7 @@
       templateUrl: userInfoTemplate,
       controller: ['$window', 'confirmModalService', 'logoutURL', controller],
       controllerAs: 'vm',
-      replace: true,
-      scope: {}
+      replace: true
     }
   }
 
@@ -19,9 +18,14 @@
     self.logout = logout;
 
     function logout() {
-      confirmModalService.openModal('Logout', 'Deseja sair da aplicação?', 'Sim', 'Cancelar').then(success);
+      confirmModalService.openModal('Logout', 'Deseja sair da aplicação?', 'Sim', 'Cancelar').then(success).catch(error);
+
       function success() {
         $window.location = logoutURL;
+      }
+
+      function error() {
+        console.log('error')
       }
     }
   }

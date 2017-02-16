@@ -1,4 +1,4 @@
-<!doctype html>{% templatetag openblock %} load static from staticfiles {% templatetag closeblock %}{% templatetag openblock %} load gravatar_url from core_tags {% templatetag closeblock %}
+<!doctype html>{% templatetag openblock %} load static from staticfiles {% templatetag closeblock %}
 <html lang="en" ng-app="{{ project_name }}">
 <head>
   {% templatetag openblock %} block meta {% templatetag closeblock %}
@@ -24,7 +24,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.3.0/ui-bootstrap-tpls.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.tpls.min.js"></script>
@@ -32,17 +32,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-filestyle/1.2.1/bootstrap-filestyle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.1/angular-locale_pt-br.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-input-masks/2.5.0/angular-input-masks-standalone.min.js"></script>
+    <script src="{% templatetag openblock %} static 'js/admin.lite.min.js' {% templatetag closeblock %}"></script>
     <script src="{% templatetag openblock %} static 'js/focusIf.min.js' {% templatetag closeblock %}"></script>
 
     <script src="{% templatetag openblock %} static 'app/app.module.js' {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static 'app/admin.lite.min.js' {% templatetag closeblock %}"></script>
     <script src="{% templatetag openblock %} static 'app/app.config.js' {% templatetag closeblock %}"></script>
     <script src="{% templatetag openblock %} static 'app/app.routes.js' {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static 'app/core/core.service.js' {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static 'app/core/confirmModal.service.js' {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static 'app/core/submit.directive.js' {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static 'app/core/userInfo.directive.js' {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static 'app/core/file.directive.js' {% templatetag closeblock %}"></script>
+
+    <script src="{% templatetag openblock %} static 'app/core/serviços.js' {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static 'app/core/componentes/confirmModal.js' {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static 'app/core/componentes/userInfo.js' {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static 'app/core/componentes/submit.js' {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static 'app/core/componentes/file.js' {% templatetag closeblock %}"></script>
   {% templatetag openblock %} endblock js {% templatetag closeblock %}
   
   <script>
@@ -52,10 +53,13 @@
         templateUrl: '{% templatetag openblock %} static "templates/angular-busy.html" {% templatetag closeblock %}',
         message: 'Aguarde...'
       });
+
+      app.constant('User', {% templatetag openblock %} if user.is_authenticated {% templatetag closeblock %}{% templatetag openvariable %} User | safe {% templatetag closevariable %}{% templatetag openblock %} else {% templatetag closeblock %}{}{% templatetag openblock %} endif {% templatetag closeblock %});
       app.constant('loginURL', '{% templatetag openblock %} url "account_login" {% templatetag closeblock %}');
       app.constant('logoutURL', '{% templatetag openblock %} url "account_logout" {% templatetag closeblock %}');
-      app.constant('confirmModalTemplate', '{% templatetag openblock %} static "app/core/confirmModal.html" {% templatetag closeblock %}');
-      app.constant('userInfoTemplate', '{% templatetag openblock %} url "core:user_info_template" {% templatetag closeblock %}');
+
+      app.constant('confirmModalTemplate', '{% templatetag openblock %} static "app/core/componentes/confirmModal.html" {% templatetag closeblock %}');
+      app.constant('userInfoTemplate', '{% templatetag openblock %} static "app/core/componentes/userInfo.html" {% templatetag closeblock %}');
     {% templatetag openblock %} endblock script {% templatetag closeblock %}
   </script>
 </head>
@@ -98,7 +102,7 @@
                         <a class="pointer">
                           <div class="pull-left">
                             <!-- User Image -->
-                            <img src="{% templatetag openblock %} gravatar_url user.email {%templatetag closeblock %}" class="img-circle" alt="User Image">
+                            <img ng-src="[[ User.gravatar_url ]]" class="img-circle" alt="User Image">
                           </div>
                           <!-- Message title and timestamp -->
                           <h4>
@@ -197,10 +201,10 @@
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="{% templatetag openblock %} gravatar_url user.email {% templatetag closeblock %}" class="img-circle" alt="User Image">
+              <img ng-src="[[ User.gravatar_url ]]" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p>{% templatetag openvariable %} user.username.title {% templatetag closevariable %}</p>
+              <p>[[ User.username ]]</p>
               <!-- Status -->
               <a class="pointer"><i class="fa fa-circle text-success"></i> Online</a>
             </div>

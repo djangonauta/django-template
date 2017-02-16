@@ -3,9 +3,7 @@
 
   var app = angular.module('{{ project_name }}');
   app.config(['$stateProvider', '$urlRouterProvider', routeConfig]);
-  app.run(function($rootScope, $state) {
-    $rootScope.$state = $state;
-  });
+  app.run(['$rootScope', '$state', 'User', run]);
 
   function routeConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -29,5 +27,10 @@
       url: '/child2',
       template: '<div>Child2</div>'
     });
+  }
+
+  function run($rootScope, $state, User) {
+    $rootScope.$state = $state;
+    $rootScope.User = User;
   }
 })();

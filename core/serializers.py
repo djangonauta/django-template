@@ -7,9 +7,11 @@ from rest_framework import serializers
 class UserSerializer(serializers.ModelSerializer):
     """User serializer."""
 
+    gravatar_url = serializers.ReadOnlyField(source='get_gravatar_url')
+
     class Meta:
         model = auth.get_user_model()
-        fields = ['id', 'username']
+        fields = ['id', 'username', 'gravatar_url', 'created']
 
 
 class DisableSignupSerializer(serializers.Serializer):

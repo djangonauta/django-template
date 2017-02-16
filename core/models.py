@@ -1,11 +1,17 @@
 """Modelos da aplicação core."""
 
+import hashlib
+
 from django.contrib.auth import models
-from model_utils import models as model_utils_models
+from model_utils.models import TimeStampedModel
 
 
-class User(model_utils_models.TimeStampedModel, models.AbstractUser):
+class User(TimeStampedModel, models.AbstractUser):
     """Usuário base do projeto."""
+
+    def get_gravatar_url(self):
+        """Obtém a URL gravatar para esse usuário."""
+        return '//www.gravatar.com/avatar/{}'.format(hashlib.md5(self.email.encode('utf-8')).hexdigest())
 
     class Meta:
         verbose_name = 'Usuário'
