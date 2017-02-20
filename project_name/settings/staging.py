@@ -5,6 +5,7 @@ from .base import *
 # Security
 DEBUG = False
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
+ASSETS_ROOT = STATIC_ROOT
 
 # cache
 # MIDDLEWARE_CLASSES = (

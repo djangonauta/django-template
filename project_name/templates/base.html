@@ -1,4 +1,4 @@
-<!doctype html>{% templatetag openblock %} load static from staticfiles {% templatetag closeblock %}
+<!doctype html>{% templatetag openblock %} load static from staticfiles {% templatetag closeblock %}{% templatetag openblock %} load assets from assets {% templatetag closeblock %}
 <html lang="en" ng-app="{{ project_name }}">
 <head>
   {% templatetag openblock %} block meta {% templatetag closeblock %}
@@ -35,15 +35,9 @@
     <script src="{% templatetag openblock %} static 'js/admin.lite.min.js' {% templatetag closeblock %}"></script>
     <script src="{% templatetag openblock %} static 'js/focusIf.min.js' {% templatetag closeblock %}"></script>
 
-    <script src="{% templatetag openblock %} static 'app/app.module.js' {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static 'app/app.config.js' {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static 'app/app.routes.js' {% templatetag closeblock %}"></script>
-
-    <script src="{% templatetag openblock %} static 'app/core/serviços.js' {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static 'app/core/componentes/confirmModal.js' {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static 'app/core/componentes/userInfo.js' {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static 'app/core/componentes/submit.js' {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static 'app/core/componentes/file.js' {% templatetag closeblock %}"></script>
+    {% templatetag openblock %} assets 'js_all' {% templatetag closeblock %}
+      <script src="{% templatetag openvariable %} ASSET_URL {% templatetag closevariable %}"></script>
+    {% templatetag openblock %} endassets {% templatetag closeblock %}
   {% templatetag openblock %} endblock js {% templatetag closeblock %}
   
   <script>

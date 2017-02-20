@@ -1,7 +1,8 @@
 (function () {
   'use strict';
 
-  angular.module('{{ project_name }}').factory('confirmModalService', confirmModalService);
+  angular.module('{{ project_name }}').factory('confirmModalService',
+                                              ['$uibModal', 'confirmModalTemplate', confirmModalService]);
 
   /**
    * Modal de confirmação reutilizável. Ex:
@@ -22,7 +23,7 @@
     function openModal(title, message, okLabel, cancelLabel) {
       return $uibModal.open({
         templateUrl: confirmModalTemplate,
-        controller: controller,
+        controller: ['$uibModalInstance', 'title', 'message', 'okLabel', 'cancelLabel', controller],
         controllerAs: 'vm',
         resolve: {
           title: function () { return title; },

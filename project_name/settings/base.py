@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_assets',
     'core.apps.CoreConfig',
     'gunicorn',
     'post_office',
@@ -155,6 +156,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = get_path('../../static')
 STATICFILES_DIRS = (get_path('../static'),)
+STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['django_assets.finders.AssetsFinder']
+ASSETS_ROOT = get_path('../static')
+UGLIFYJS_EXTRA_ARGS = ['--compress', '--mangle']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = get_path('../../media')

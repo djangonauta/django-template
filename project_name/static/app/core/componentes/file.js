@@ -8,7 +8,7 @@
       scope: {
         fileread: '='
       },
-      link: function (scope, element, attributes) {
+      link: function (scope, element, attrs) {
         element.bind('change', function (changeEvent) {
           scope.$apply(function () {
             scope.fileread = changeEvent.target.files[0];
