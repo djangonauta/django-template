@@ -5,6 +5,7 @@
 
 {% templatetag openblock %} block body {% templatetag closeblock %}
   <div class="login-box">
+    {% templatetag openblock %}include "account/includes/header_logo.html" {% templatetag closeblock %}
     {% templatetag openblock %} if form.non_field_errors {% templatetag closeblock %}
       <div class="alert alert-warning alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -12,45 +13,42 @@
       </div>
     {% templatetag openblock %} endif {% templatetag closeblock %}
 
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        Você precisa fazer login para acessar nossa aplicação
-      </div>
+    <div class="login-box-body">
+      <p class="login-box-msg">Você precisa fazer login para acessar nossa aplicação.</p>
 
-      <div class="panel-body">
-        <form action="{% templatetag openblock %} url 'account_login' {% templatetag closeblock %}" method="post" novalidate>{% templatetag openblock %} csrf_token {% templatetag closeblock %}
-          <div class="form-group has-feedback {% templatetag openblock %} if form.login.errors {% templatetag closeblock %}has-error{% templatetag openblock %} endif {% templatetag closeblock %}">
-            {% templatetag openblock %} render_field form.login class="form-control" placeholder="Usuário ou email" autofocus="autofocus" {% templatetag closeblock %}
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            {% templatetag openblock %} if form.login.errors {% templatetag closeblock %}
-              <span class="text-danger">{% templatetag openvariable %} form.login.errors.0 {% templatetag closevariable %}</span>
-            {% templatetag openblock %} endif {% templatetag closeblock %}
-          </div>
+      <form action="{% templatetag openblock %} url 'account_login' {% templatetag closeblock %}" method="post" novalidate>{% templatetag openblock %} csrf_token {% templatetag closeblock %}
+        <div class="form-group has-feedback {% templatetag openblock %} if form.login.errors {% templatetag closeblock %}has-error{% templatetag openblock %} endif {% templatetag closeblock %}">
+          {% templatetag openblock %} render_field form.login class="form-control" placeholder="Usuário ou email" autofocus="autofocus" {% templatetag closeblock %}
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          {% templatetag openblock %} if form.login.errors {% templatetag closeblock %}
+            <span class="text-danger">{% templatetag openvariable %} form.login.errors.0 {% templatetag closevariable %}</span>
+          {% templatetag openblock %} endif {% templatetag closeblock %}
+        </div>
 
-          <div class="form-group has-feedback {% templatetag openblock %} if form.password.errors {% templatetag closeblock %}has-error{% templatetag openblock %} endif {% templatetag closeblock %}">
-            {% templatetag openblock %} render_field form.password class="form-control" placeholder="Senha" {% templatetag closeblock %}
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            {% templatetag openblock %} if form.password.errors {% templatetag closeblock %}
-              <span class="text-danger">{% templatetag openvariable %} form.password.errors.0 {% templatetag closevariable %}</span>
-            {% templatetag openblock %} endif {% templatetag closeblock %}
-          </div>
+        <div class="form-group has-feedback {% templatetag openblock %} if form.password.errors {% templatetag closeblock %}has-error{% templatetag openblock %} endif {% templatetag closeblock %}">
+          {% templatetag openblock %} render_field form.password class="form-control" placeholder="Senha" {% templatetag closeblock %}
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          {% templatetag openblock %} if form.password.errors {% templatetag closeblock %}
+            <span class="text-danger">{% templatetag openvariable %} form.password.errors.0 {% templatetag closevariable %}</span>
+          {% templatetag openblock %} endif {% templatetag closeblock %}
+        </div>
 
-          <input type="hidden" name="{% templatetag openvariable %} redirect_field_name {% templatetag closevariable %}" value="{% templatetag openvariable %} redirect_field_value {% templatetag closevariable %}" />
+        <input type="hidden" name="{% templatetag openvariable %} redirect_field_name {% templatetag closevariable %}" value="{% templatetag openvariable %} redirect_field_value {% templatetag closevariable %}" />
 
-          <div class="checkbox clearfix">
-            <label class="pull-right">
-              {% templatetag openvariable %} form.remember {% templatetag closevariable %} Lembrar
-            </label>
-          </div>
-          <hr/>
+        <div class="checkbox clearfix">
+          <label class="pull-right">
+            {% templatetag openvariable %} form.remember {% templatetag closevariable %} Lembrar
+          </label>
+        </div>
+        <hr/>
 
-          <button submit type="submit" class="btn btn-primary btn-flat pull-right" id="id_login_button">
-            <span class="glyphicon glyphicon-log-in"></span> Login
-          </button>
-        </form>
+        <button submit type="submit" class="btn btn-primary btn-flat pull-right" id="id_login_button">
+          <span class="glyphicon glyphicon-log-in"></span> Login
+        </button>
+      </form>
 
-        <a href="{% templatetag openblock %} url 'account_reset_password' {% templatetag closeblock %}" id="id_password_reset_link">Esqueci minha senha</a><br>
-        <a href="{% templatetag openblock %} url 'account_signup' {% templatetag closeblock %}" class="text-center" id="id_register_link">Registrar</a>
-    </div><!-- /.login-box-body -->
-  </div><!-- /.login-box -->
+      <a href="{% templatetag openblock %} url 'account_reset_password' {% templatetag closeblock %}" id="id_password_reset_link">Esqueci minha senha</a><br>
+      <a href="{% templatetag openblock %} url 'account_signup' {% templatetag closeblock %}" class="text-center" id="id_register_link">Registrar</a>
+    </div>
+  </div>
 {% templatetag openblock %} endblock {% templatetag closeblock %}
