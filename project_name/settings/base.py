@@ -186,6 +186,7 @@ CACHES = {
     'default': django_cache_url.config()
 }
 
+ALLOWED_HOSTS = ['*']
 INTERNAL_IPS = ['127.0.0.1']
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
