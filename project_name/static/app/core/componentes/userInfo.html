@@ -12,28 +12,16 @@
       <img ng-src="[[ User.gravatar_url ]]" class="img-circle" alt="User Image">
       <p>
         [[ User.username ]]
-        <small>Desde [[ User.created ]]</small>
+        <small>Desde [[ User.created | date:"d 'de' MMMM 'de' yyyy" ]]</small>
       </p>
     </li>
-    <!-- Menu Body -->
-    <li class="user-body">
-      <div class="col-xs-4 text-center">
-        <a class="pointer">Followers</a>
-      </div>
-      <div class="col-xs-4 text-center">
-        <a class="pointer">Sales</a>
-      </div>
-      <div class="col-xs-4 text-center">
-        <a class="pointer">Friends</a>
-      </div>
-    </li>
+
     <!-- Menu Footer-->
     <li class="user-footer">
-      <div class="pull-left">
-        <a class="btn btn-default btn-flat pointer">Profile</a>
-      </div>
       <div class="pull-right">
-        <a ng-click="vm.logout()" class="btn btn-default btn-flat">Logout</a>
+        <a ng-click="vm.logout()" class="btn btn-default btn-flat">
+          <i class="fa fa-sign-out"></i> <span>Logout</span>
+        </a>
       </div>
     </li>
   </ul>

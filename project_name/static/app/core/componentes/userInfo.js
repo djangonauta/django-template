@@ -7,26 +7,24 @@
     return  {
       restrict: 'E',
       templateUrl: userInfoTemplate,
-      controller: ['$window', 'confirmModalService', 'logoutURL', controller],
+      controller: ['$window', 'confirmModalService', controller],
       controllerAs: 'vm',
       replace: true
     }
   }
 
-  function controller($window, confirmModalService, logoutURL) {
+  function controller($window, confirmModalService) {
     var self = this;
     self.logout = logout;
 
     function logout() {
-      confirmModalService.openModal('Logout', 'Deseja sair da aplicação?', 'Sim', 'Cancelar').then(success).catch(error);
+      confirmModalService.openModal('Logout', 'Deseja sair da aplicação?', 'Sim', 'Cancelar').then(close, dismiss);
 
-      function success() {
-        $window.location = logoutURL;
+      function close() {
+        $window.location = '/contas/logout/';
       }
 
-      function error() {
-        console.log('error')
-      }
+      function dismiss() {}
     }
   }
 })();
