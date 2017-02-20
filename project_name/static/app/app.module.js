@@ -6,6 +6,7 @@
     'ui.bootstrap',
     'ui.utils.masks',
     'ngResource',
+    'ngMessages',
     'cgBusy',
     'toastr'
   ]);

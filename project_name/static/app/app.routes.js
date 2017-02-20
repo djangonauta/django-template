@@ -2,10 +2,10 @@
   'use strict';
 
   var app = angular.module('{{ project_name }}');
-  app.config(['$stateProvider', '$urlRouterProvider', routeConfig]);
+  app.config(['$stateProvider', '$urlRouterProvider', 'configTemplate', routeConfig]);
   app.run(['$rootScope', '$state', 'User', run]);
 
-  function routeConfig($stateProvider, $urlRouterProvider) {
+  function routeConfig($stateProvider, $urlRouterProvider, configTemplate) {
     $urlRouterProvider.otherwise('/');
 
     $stateProvider.state('index', {
@@ -13,7 +13,7 @@
       template: '<h4>Working!</h4>'
     }).state('config', {
       url: '/config',
-      template: '<h4>Config</h4>'
+      templateUrl: configTemplate
     });
 
     $stateProvider.state('parent', {

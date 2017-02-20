@@ -24,6 +24,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-messages.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.3.0/ui-bootstrap-tpls.min.js"></script>
@@ -48,10 +49,14 @@
         message: 'Aguarde...'
       });
 
+      <!-- application -->
       app.constant('User', {% templatetag openblock %} if user.is_authenticated {% templatetag closeblock %}{% templatetag openvariable %} User | safe {% templatetag closevariable %}{% templatetag openblock %} else {% templatetag closeblock %}{}{% templatetag openblock %} endif {% templatetag closeblock %});
+      app.constant('configTemplate', '{% templatetag openblock %} static "templates/config.html" {% templatetag closeblock %}');
 
+      <!-- core -->
       app.constant('confirmModalTemplate', '{% templatetag openblock %} static "app/core/componentes/confirmModal.html" {% templatetag closeblock %}');
       app.constant('userInfoTemplate', '{% templatetag openblock %} static "app/core/componentes/userInfo.html" {% templatetag closeblock %}');
+      app.constant('updatePasswordTemplate', '{% templatetag openblock %} static "app/core/componentes/updatePassword.html" {% templatetag closeblock %}');
     {% templatetag openblock %} endblock script {% templatetag closeblock %}
   </script>
 </head>
@@ -95,7 +100,7 @@
               <img ng-src="[[ User.gravatar_url ]]" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p>[[ User.username ]]</p>
+              <p>[[ User.full_name ? User.full_name : User.username ]]</p>
               <!-- Status -->
               <a class="pointer"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -106,7 +111,7 @@
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
             <li ui-sref-active="active"><a ui-sref="index"><i class="fa fa-link"></i> <span>Index</span></a></li>
-            <li ui-sref-active="active"><a ui-sref="config"><i class="fa fa-link"></i> <span>Config</span></a></li>
+            <li ui-sref-active="active"><a ui-sref="config"><i class="fa fa-gears"></i> <span>Configurações</span></a></li>
             <li class="treeview" ng-class="{active: $state.includes('parent')}">
               <a href=""><i class="fa fa-link"></i> <span>Parent</span>
                 <span class="pull-right-container">

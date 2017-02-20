@@ -8,10 +8,11 @@ class UserSerializer(serializers.ModelSerializer):
     """User serializer."""
 
     gravatar_url = serializers.ReadOnlyField(source='get_gravatar_url')
+    full_name = serializers.ReadOnlyField(source='get_full_name')
 
     class Meta:
         model = auth.get_user_model()
-        fields = ['id', 'username', 'gravatar_url', 'created']
+        fields = ['id', 'username', 'gravatar_url', 'full_name', 'created']
 
 
 class DisableSignupSerializer(serializers.Serializer):

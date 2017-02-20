@@ -1,11 +1,12 @@
 (function () {
   'use strict';
 
-  angular.module('{{ project_name }}').factory('Core', Core);
+  angular.module('{{ project_name }}').factory('Core', ['$http', Core]);
 
-  function Core() {
+  function Core($http) {
     return {
-      setUpResource: setUpResource
+      setUpResource: setUpResource,
+      updatePassword: updatePassword
     }
 
     /**
@@ -19,6 +20,10 @@
       });
       objects.results = results;
       return objects;
+    }
+
+    function updatePassword(data) {
+      return $http.post('/rest_auth/password/change/', data);
     }
   }
 })();

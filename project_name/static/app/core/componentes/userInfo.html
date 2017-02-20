@@ -4,14 +4,14 @@
     <!-- The user image in the navbar-->
     <img ng-src="[[ User.gravatar_url ]]" class="user-image" alt="User Image">
     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-    <span class="hidden-xs">[[ User.username ]]</span>
+    <span class="hidden-xs">[[ User.full_name ? User.full_name : User.username  ]]</span>
   </a>
   <ul class="dropdown-menu">
     <!-- The user image in the menu -->
     <li class="user-header">
       <img ng-src="[[ User.gravatar_url ]]" class="img-circle" alt="User Image">
       <p>
-        [[ User.username ]]
+        [[ User.full_name ? User.full_name : User.username ]]
         <small>Desde [[ User.created | date:"d 'de' MMMM 'de' yyyy" ]]</small>
       </p>
     </li>
