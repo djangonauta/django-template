@@ -33,7 +33,7 @@
           {% templatetag openblock %} endif {% templatetag closeblock %}
         </div>
 
-        <input type="hidden" name="{% templatetag openvariable %} redirect_field_name {% templatetag closevariable %}" value="{% templatetag openvariable %} redirect_field_value {% templatetag closevariable %}" />
+        <input type="hidden" name="{% templatetag openvariable %} redirect_field_name {% templatetag closevariable %}" value="{% templatetag openvariable %} redirect_field_value | default:'/' {% templatetag closevariable %}" />
 
         <div class="checkbox clearfix">
           <label class="pull-right">
