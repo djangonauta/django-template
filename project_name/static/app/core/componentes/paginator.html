@@ -1,0 +1,19 @@
+<nav aria-label="Page navigation" class="pull-right" ng-show="vm.data.page_range.length > 1">
+  <ul class="pagination pagination-sm">
+    <li ng-class="{'disabled': !vm.data.has_previous}">
+      <a ng-click="vm.data.previous_page_number && vm.loader({'page': vm.data.previous_page_number, 'page_size': vm.pageSize, 'search': vm.query})"
+          aria-label="Previous" ng-class="{'pointer': vm.data.has_previous}">
+        <span aria-hidden="true"><i class="fa fa-chevron-left"></i></span>
+      </a>
+    </li>
+    <li ng-repeat="num_page in vm.data.page_range" ng-class="{'active': num_page === vm.data.number}" class="pointer">
+      <a ng-click="vm.loader({'page': num_page, 'page_size': vm.pageSize, 'search': vm.query})">[[ num_page ]]</a>
+    </li>
+    <li ng-class="{'disabled': !vm.data.has_next}">
+      <a ng-click="vm.data.next_page_number && vm.loader({'page': vm.data.next_page_number, 'page_size': vm.pageSize, 'search': vm.query})"
+          aria-label="Next" ng-class="{'pointer': vm.data.has_next}">
+        <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
+      </a>
+    </li>
+  </ul>
+</nav>
