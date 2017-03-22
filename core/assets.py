@@ -7,7 +7,7 @@ files = [
     'app/app.config.js',
     'app/app.routes.js',
     'app/**/*.js',
-    'app/**/componentes/*.js',
+    'app/**/components/*.js',
 ]
 
 js_all = django_assets.Bundle(*files, filters='uglifyjs', output='js/bundle')
