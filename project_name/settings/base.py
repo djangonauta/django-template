@@ -11,7 +11,7 @@ from django.core import exceptions, urlresolvers
 
 
 def get_environment_variable(variable):
-    """Obtém o valor de uma variável de ambiente requerida obrigatoriamente pelo projeto."""
+    """Obtém o valor de uma variável de ambiente requerida pelo projeto."""
     try:
         return os.environ[variable]
 
@@ -47,9 +47,7 @@ SECRET_KEY = get_environment_variable('SECRET_KEY')
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {
-    'default': dj_database_url.config()
-}
+DATABASES = {'default': dj_database_url.config()}
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # Email
@@ -186,9 +184,7 @@ OLD_PASSWORD_FIELD_ENABLED = True
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['pickle', 'json']
 
-CACHES = {
-    'default': django_cache_url.config()
-}
+CACHES = {'default': django_cache_url.config()}
 
 ALLOWED_HOSTS = ['*']
 INTERNAL_IPS = ['127.0.0.1']
