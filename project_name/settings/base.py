@@ -38,7 +38,7 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # Email
 # https://docs.djangoproject.com/en/dev/topics/email/
-env.DB_SCHEMES.update(postoffice='post_office.EmailBackend')
+env.EMAIL_SCHEMES.update(postoffice='post_office.EmailBackend')
 vars().update(env.email_url())
 
 DEFAULT_CHARSET = env('DEFAULT_CHARSET', default='utf-8')  # default charset in django.core.email.
