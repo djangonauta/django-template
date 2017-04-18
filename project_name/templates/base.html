@@ -1,5 +1,5 @@
 <!doctype html>{% templatetag openblock %} load static from staticfiles {% templatetag closeblock %}{% templatetag openblock %} load assets from assets {% templatetag closeblock %}
-<html lang="en" ng-app="{{ project_name }}">
+<html lang="en" ng-app="{{ project_name }}" ng-strict-di>
 <head>
   {% templatetag openblock %} block meta {% templatetag closeblock %}
     <meta charset="UTF-8">
