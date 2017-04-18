@@ -1,27 +1,15 @@
 """Configurações gerais do projeto {{ project_name }}."""
 
-import os
-from os import path
-
-import dj_database_url
-import dj_email_url
-import django_cache_url
+import environ
 from django.conf import global_settings
-from django.core import exceptions, urlresolvers
+from django.core import urlresolvers
 
+root = environ.Path(__file__) - 3
+env = environ.Env(DEBUG=(bool, True))
+environ.Env.read_env()
 
-def get_environment_variable(variable):
-    """Obtém o valor de uma variável de ambiente requerida pelo projeto."""
-    try:
-        return os.environ[variable]
-
-    except KeyError:
-        raise exceptions.ImproperlyConfigured('You must set {} environment variable.'.format(variable))
-
-
-def get_path(p):
-    """Helper para obter caminhos de arquivos referentes a este módulo de configuração."""
-    return path.abspath(path.join(BASE_DIR, p))
+# Build paths inside the {{ project_name }} like this: join(BASE_DIR, ...)
+BASE_DIR = root()
 
 
 def get_name_email(value):
@@ -35,33 +23,31 @@ def get_name_email(value):
 
 
 # export ADMINS=username1,email1@domain.com:username2,email2@domain.com
-ADMINS = get_name_email(get_environment_variable('ADMINS'))
-managers = os.environ.get('MANAGERS', None)
+ADMINS = get_name_email(env('ADMINS'))
+managers = env('MANAGERS', default=None)
 MANAGERS = get_name_email(managers) if managers else ADMINS
 
-# Build paths inside the project like this: join(BASE_DIR, ...)
-BASE_DIR = path.abspath(path.dirname(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_environment_variable('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {'default': dj_database_url.config()}
+DATABASES = {'default': env.db()}
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # Email
 # https://docs.djangoproject.com/en/dev/topics/email/
-dj_email_url.SCHEMES.update(postoffice='post_office.EmailBackend')
-vars().update(dj_email_url.config())
+env.DB_SCHEMES.update(postoffice='post_office.EmailBackend')
+vars().update(env.email_url())
 
-DEFAULT_CHARSET = os.environ.get('DEFAULT_CHARSET', 'utf-8')  # default charset in django.core.email.
+DEFAULT_CHARSET = env('DEFAULT_CHARSET', default='utf-8')  # default charset in django.core.email.
 # default from_email in EmailMessage.
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'webmaster@localhost')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='webmaster@localhost')
 # default prefix + subject in mail_admins/managers.
-EMAIL_SUBJECT_PREFIX = os.environ.get('EMAIL_SUBJECT_PREFIX', '[Django]')
+EMAIL_SUBJECT_PREFIX = env('EMAIL_SUBJECT_PREFIX', default='[Django]')
 # default from: header in mail_admins/managers.
-SERVER_EMAIL = os.environ.get('SERVER_EMAIL', 'admin@localhost')
+SERVER_EMAIL = env('SERVER_EMAIL', default='admin@localhost')
 
 # Application definition
 INSTALLED_APPS = [
@@ -103,7 +89,7 @@ SITE_ID = 1
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [get_path('../templates')],
+        'DIRS': [root.path('{{ project_name }}')('templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,14 +138,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = get_path('../../static')
-STATICFILES_DIRS = (get_path('../static'),)
+STATIC_ROOT = root.path('')('static')
+STATICFILES_DIRS = (root.path('{{ project_name }}')('static'),)
 STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['django_assets.finders.AssetsFinder']
-ASSETS_ROOT = get_path('../static')
+ASSETS_ROOT = root.path('{{ project_name }}')('static')
 UGLIFYJS_EXTRA_ARGS = ['--compress', '--mangle']
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = get_path('../../media')
+MEDIA_ROOT = root.path('')('media')
 
 AUTH_USER_MODEL = 'core.User'
 LOGIN_URL = urlresolvers.reverse_lazy('account_login')
@@ -173,7 +159,7 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = ''
-if os.environ.get('DISABLE_ACCOUNT_REGISTRATION', False):
+if env('DISABLE_ACCOUNT_REGISTRATION', default=False):
     ACCOUNT_ADAPTER = 'core.adapters.DisableSignupAdapter'
     REST_AUTH_REGISTER_SERIALIZERS = {
         'REGISTER_SERIALIZER': 'core.serializers.DisableSignupSerializer'
@@ -184,7 +170,7 @@ OLD_PASSWORD_FIELD_ENABLED = True
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['pickle', 'json']
 
-CACHES = {'default': django_cache_url.config()}
+CACHES = {'default': env.cache()}
 
 ALLOWED_HOSTS = ['*']
 INTERNAL_IPS = ['127.0.0.1']
@@ -249,7 +235,7 @@ LOGGING = {
             'level': 'INFO',
             'filters': ['require_debug_false'],
             'class': 'logging.FileHandler',
-            'filename': get_path('../../production.log'),
+            'filename': root.path('')('production.log'),
             'formatter': 'ttcc',
         },
         'django.server': {
