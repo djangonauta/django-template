@@ -1,8 +1,8 @@
 """Configurações gerais do projeto {{ project_name }}."""
 
 import environ
+from django import urls
 from django.conf import global_settings
-from django.core import urlresolvers
 
 root = environ.Path(__file__) - 3
 env = environ.Env(DEBUG=(bool, True))
@@ -148,8 +148,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = root.path('')('media')
 
 AUTH_USER_MODEL = 'core.User'
-LOGIN_URL = urlresolvers.reverse_lazy('account_login')
-LOGOUT_URL = urlresolvers.reverse_lazy('account_logout')
+LOGIN_URL = urls.reverse_lazy('account_login')
+LOGOUT_URL = urls.reverse_lazy('account_logout')
 LOGIN_REDIRECT_URL = '/'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
