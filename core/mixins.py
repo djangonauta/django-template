@@ -1,5 +1,7 @@
 """Mixins da aplicação core."""
 
+from rest_framework import response
+
 
 class SelectSerializerFieldsMixin:
     """Permite redefinir campos de exibição de um serializador."""
@@ -15,3 +17,17 @@ class SelectSerializerFieldsMixin:
             data = {k: v for k, v in data.items() if k in fields}
 
         return data
+
+
+class PaginatedResponseMixin:
+    """Mixin para respostas paginadas."""
+
+    def build_paginated_response(self, objects):
+        """Construct response."""
+        page = self.paginate_queryset(objects)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(objects, many=True)
+        return response.Response(serializer.data)
