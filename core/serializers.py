@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class DisableSignupSerializer(serializers.Serializer):
-    """Serializador customizado."""
+    """Serializador customizado para processo de registro."""
 
     def validate(self, data):
         """Desativa a criação de novas contas."""

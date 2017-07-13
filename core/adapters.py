@@ -4,7 +4,7 @@ from allauth.account import adapter
 
 
 class DisableSignupAdapter(adapter.DefaultAccountAdapter):
-    """Adaptador customizado."""
+    """Adaptador para contas."""
 
     def is_open_for_signup(self, request):
         """Desativa o processo de registro."""

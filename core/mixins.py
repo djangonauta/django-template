@@ -23,7 +23,7 @@ class PaginatedResponseMixin:
     """Mixin para respostas paginadas."""
 
     def build_paginated_response(self, objects):
-        """Construct response."""
+        """Obtém a resposta paginada quando possível."""
         page = self.paginate_queryset(objects)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
