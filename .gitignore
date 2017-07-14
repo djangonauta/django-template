@@ -20,3 +20,4 @@ test_media/*
 # js stuff:
 */static/vendor
 node_modules
+**/.webassets-cache/*
