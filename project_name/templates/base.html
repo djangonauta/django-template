@@ -1,5 +1,5 @@
-<!doctype html>{% templatetag openblock %} load static from staticfiles {% templatetag closeblock %}
-<html lang="en" ng-app="{{ project_name }}">
+<!doctype html>
+<html lang="en">
 <head>
   {% templatetag openblock %} block meta {% templatetag closeblock %}
     <meta charset="UTF-8">
@@ -8,38 +8,8 @@
   {% templatetag openblock %} endblock meta {% templatetag closeblock %}
 
   <title>{% templatetag openblock %} block title {% templatetag closeblock %}Bem vindo{% templatetag openblock %} endblock title {% templatetag closeblock %}</title>
-
-  {% templatetag openblock %} block bower_css {% templatetag closeblock %}
-    <!-- bower:css -->
-    <!-- endbower -->
-  {% templatetag openblock %} endblock bower_css {% templatetag closeblock %}
-
-  {% templatetag openblock %} block inject_css {% templatetag closeblock %}
-    <!-- inject:css -->
-    <!-- endinject -->
-  {% templatetag openblock %} endblock inject_css {% templatetag closeblock %}
-
-  {% templatetag openblock %} block bower_js {% templatetag closeblock %}
-    <!-- bower:js -->
-    <!-- endbower -->
-  {% templatetag openblock %} endblock bower_js {% templatetag closeblock %}
-  
-  {% templatetag openblock %} block inject_js {% templatetag closeblock %}
-    <!-- inject:js -->
-    <!-- endinject -->
-  {% templatetag openblock %} endblock inject_js {% templatetag closeblock %}
-  
-  <script>
-    {% templatetag openblock %} block script {% templatetag closeblock %}
-      var app = angular.module('{{ project_name }}');
-      app.constant('cgBusyDefaults', {
-        templateUrl: '{% templatetag openblock %} static "templates/angular-busy.html" {% templatetag closeblock %}',
-        message: 'Aguarde...'
-      });
-    {% templatetag openblock %} endblock script {% templatetag closeblock %}
-  </script>
 </head>
-<body class="{% templatetag openblock %} block body_class {% templatetag closeblock %}{% templatetag openblock %} endblock body_class {% templatetag closeblock %}">
+<body>
   {% templatetag openblock %} block body {% templatetag closeblock %}
     <h4>Working.</h4>
   {% templatetag openblock %} endblock body {% templatetag closeblock %}
