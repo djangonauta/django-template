@@ -63,6 +63,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'allauth',
     'allauth.account',
+    'auditlog',
     'django_assets',
     'gunicorn',
     'post_office',
