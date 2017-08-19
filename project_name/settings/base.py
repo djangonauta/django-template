@@ -49,23 +49,32 @@ EMAIL_SUBJECT_PREFIX = env('EMAIL_SUBJECT_PREFIX', default='[Django]')
 SERVER_EMAIL = env('SERVER_EMAIL', default='admin@localhost')
 
 # Application definition
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core.apps.CoreConfig',
+]
+
+THIRD_PARTY_APPS = [
+    'allauth',
+    'allauth.account',
+    'django_assets',
     'gunicorn',
     'post_office',
     'rest_framework',
-    'allauth',
-    'allauth.account',
     'widget_tweaks',
 ]
+
+PROJECT_APPS = [
+    'core.apps.CoreConfig',
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -130,9 +139,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
-STATIC_URL = '/static/'
-STATIC_ROOT = root.path('')('static')
-STATICFILES_DIRS = [root.path('{{ project_name }}')('static')]
+STATIC_URL = '/assets/'
+STATIC_ROOT = root.path('')('assets')
+STATICFILES_DIRS = [root.path('{{ project_name }}')('assets')]
+STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['django_assets.finders.AssetsFinder']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = root.path('')('media')
@@ -178,6 +188,8 @@ REST_FRAMEWORK = {
                                 'rest_framework.filters.SearchFilter',
                                 'rest_framework.filters.OrderingFilter')
 }
+
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
