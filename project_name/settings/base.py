@@ -9,20 +9,10 @@ env = environ.Env()
 environ.Env.read_env()
 
 
-def get_name_email(value):
-    """Utilitário para obter nome e email de admins e/ou managers da aplicação."""
-    result = []
-    for token in value.split(':'):
-        name, email = token.split(',')
-        result.append((name, email))
-
-    return result
-
-
-# export ADMINS=username1,email1@domain.com:username2,email2@domain.com
-ADMINS = env('ADMINS')
-managers = env('MANAGERS', default=None)
-MANAGERS = get_name_email(managers) if managers else ADMINS
+# ADMINS = 'Fulano de tal=fulano@email.com,Beltrano=beltrano@email.com'
+admins = env.dict('ADMINS')
+ADMINS = admins.items()
+MANAGERS = env.dict('MANAGERS', default=admins).items()
 
 # Build paths inside the project like this: join(BASE_DIR, ...)
 BASE_DIR = root()
@@ -83,6 +73,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'auditlog.middleware.AuditlogMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
