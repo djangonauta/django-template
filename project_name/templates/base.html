@@ -9,6 +9,10 @@
 
   <title>{% templatetag openblock %} block title {% templatetag closeblock %}Bem vindo{% templatetag openblock %} endblock title {% templatetag closeblock %}</title>
 
+  {% templatetag openblock %} block css {% templatetag closeblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-busy/4.1.4/angular-busy.min.css">
+  {% templatetag openblock %} endblock css {% templatetag closeblock %}
+
   {% templatetag openblock %} assets "css_all" {% templatetag closeblock %}<link rel="stylesheet" href="{% templatetag openvariable %} ASSET_URL {% templatetag closevariable %}">{% templatetag openblock %} endassets {% templatetag closeblock %}
 
   {% templatetag openblock %} block scripts {% templatetag closeblock %}
@@ -17,6 +21,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-resource.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.5/angular-locale_pt-br.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.5/angular-sanitize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-busy/4.1.4/angular-busy.min.js"></script>
   {% templatetag openblock %} endblock scripts {% templatetag closeblock %}
 
   {% templatetag openblock %} block angular_scripts {% templatetag closeblock %}
@@ -27,6 +32,10 @@
   <script>
     {% templatetag openblock %} block local_scripts {% templatetag closeblock %}
       var app = angular.module('{{ project_name }}');
+      app.constant('cgBusyDefaults', {
+        message: 'Carregando...',
+        templateUrl: '{% templatetag openblock %} static "templates/angular-busy.html" {% templatetag closeblock %}'
+      });
     {% templatetag openblock %} endblock local_scripts {% templatetag closeblock %}
   </script>
 </head>

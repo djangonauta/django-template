@@ -4,5 +4,6 @@
   angular.module('{{ project_name }}', [
     'ngResource',
     'ngSanitize',
+    'cgBusy',
   ]);
 })();
