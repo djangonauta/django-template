@@ -4,7 +4,7 @@ from core.views import UserViewSet
 from django.conf import settings, urls
 from django.conf.urls import static
 from django.contrib import admin
-from rest_framework import routers
+from rest_framework import documentation, routers
 
 from . import views
 
@@ -17,6 +17,7 @@ urlpatterns = [
     urls.url(r'^api/v1/', urls.include(router.urls, namespace='v1')),
     urls.url(r'^api-auth/', urls.include('rest_framework.urls', namespace='rest_framework')),
     urls.url(r'^admin/', urls.include(admin.site.urls)),
+    urls.url(r'^docs/', documentation.include_docs_urls(title='Documentação funcional da API')),
 ]
 
 # media files in development

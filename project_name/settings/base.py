@@ -55,7 +55,6 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'auditlog',
     'django_assets',
-    'gunicorn',
     'post_office',
     'rest_framework',
     'widget_tweaks',
