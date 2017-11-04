@@ -10,18 +10,18 @@
   <title>{% templatetag openblock %} block title {% templatetag closeblock %}Bem vindo{% templatetag openblock %} endblock title {% templatetag closeblock %}</title>
 
   {% templatetag openblock %} block css {% templatetag closeblock %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-busy/4.1.4/angular-busy.min.css">
+    <link rel="stylesheet" href="{% templatetag openblock %} static "angular-busy/dist/angular-busy.min.css" {% templatetag closeblock %}">
   {% templatetag openblock %} endblock css {% templatetag closeblock %}
 
   {% templatetag openblock %} assets "css_all" {% templatetag closeblock %}<link rel="stylesheet" href="{% templatetag openvariable %} ASSET_URL {% templatetag closevariable %}">{% templatetag openblock %} endassets {% templatetag closeblock %}
 
   {% templatetag openblock %} block scripts {% templatetag closeblock %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-resource.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.5/angular-locale_pt-br.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.5/angular-sanitize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-busy/4.1.4/angular-busy.min.js"></script>
+    <script src="{% templatetag openblock %} static "jquery/dist/jquery.min.js" {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static "angular/angular.min.js" {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static "angular-resource/angular-resource.min.js" {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static "angular-i18n/angular-locale_pt-br.js" {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static "angular-sanitize/angular-sanitize.min.js" {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static "angular-busy/dist/angular-busy.min.js" {% templatetag closeblock %}"></script>
   {% templatetag openblock %} endblock scripts {% templatetag closeblock %}
 
   {% templatetag openblock %} block angular_scripts {% templatetag closeblock %}

@@ -6,6 +6,7 @@ import invoke
 @invoke.task
 def collectstatic(ctx, settings='development', noinput=True, clear=False):
     """Coleta arquivos estáticos."""
+    ctx.run('yarn install', echo=True, pty=True)
     noinput = '--noinput' if noinput else ''
     clear = '--clear' if clear else ''
     cmd = './manage.py collectstatic {} {} --settings={{ project_name }}.settings.{}'
