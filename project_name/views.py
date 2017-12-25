@@ -4,10 +4,9 @@ from django.views import generic
 
 
 class IndexView(generic.TemplateView):
-    """
-    Página base da aplicação.
-
-    Esta página contém a infraestrutura SPA (Single Page Application): scripts, estilos, etc.
-    """
+    """Index."""
 
     template_name = 'base.html'
+
+
+index = IndexView.as_view()
