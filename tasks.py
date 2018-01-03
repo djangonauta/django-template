@@ -4,28 +4,28 @@ import invoke
 
 
 @invoke.task
-def collectstatic(ctx, settings='development', noinput=True, clear=False):
+def collectstatic(ctx, noinput=True, clear=False, verbosity=0, settings='development'):
     """Coleta arquivos estáticos."""
     ctx.run('yarn install', echo=True, pty=True)
     noinput = '--noinput' if noinput else ''
     clear = '--clear' if clear else ''
-    cmd = './manage.py collectstatic {} {} --settings={{ project_name }}.settings.{}'
-    cmd = cmd.format(noinput, clear, settings)
+    cmd = './manage.py collectstatic {} {} --verbosity={} --settings={{ project_name }}.settings.{}'
+    cmd = cmd.format(noinput, clear, verbosity, settings)
     ctx.run(cmd, echo=True, pty=True)
 
 
 @invoke.task
-def assetsbuild(ctx, settings='development', noinput=True, clear=False):
+def assetsbuild(ctx, noinput=True, clear=False, verbosity=0, settings='development'):
     """Constroe bundles."""
-    collectstatic(ctx, settings, noinput, clear)
+    collectstatic(ctx, noinput, clear, verbosity, settings)
     cmd = './manage.py assets build'
     ctx.run(cmd, echo=True, pty=True)
 
 
 @invoke.task(default=True)
-def run_server(ctx, settings='development', noinput=True, clear=False):
+def run_server(ctx, noinput=True, clear=False, verbosity=0, settings='development'):
     """Executa o servidor web."""
-    assetsbuild(ctx, settings, noinput, clear)
+    assetsbuild(ctx, noinput, clear, verbosity, settings)
     cmd = './manage.py runserver 0.0.0.0:8000 --settings={{ project_name }}.settings.{}'.format(settings)
     ctx.run(cmd, echo=True, pty=True)
 
