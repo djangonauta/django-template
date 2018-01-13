@@ -108,7 +108,11 @@ venv.bak/
 /uploads/
 /static/
 /assets/
+/public/
 
 # node
 bower_components/
 node_modules/
+
+# editors
+.vscode
