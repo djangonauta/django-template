@@ -133,7 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 STATIC_URL = '/assets/'
 STATIC_ROOT = root.path('')('public')
-STATICFILES_DIRS = [root.path('controle_ponto')('assets'), root.path('')('node_modules')]
+STATICFILES_DIRS = [root.path('{{ project_name }}')('assets'), root.path('')('node_modules')]
 STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['django_assets.finders.AssetsFinder']
 
 MEDIA_URL = '/media/'
