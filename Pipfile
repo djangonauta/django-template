@@ -24,10 +24,10 @@ gunicorn = "*"
 invoke = "*"
 boto = "*"
 weasyprint = "*"
-"psycopg2" = "*"
 coreapi = "*"
 pillow = "*"
 django = "==1.11.*"
+"psycopg2-binary" = "*"
 
 
 [dev-packages]
