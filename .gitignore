@@ -21,3 +21,4 @@ test_media/*
 */static/vendor
 node_modules
 **/.webassets-cache/*
+.env
