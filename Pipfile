@@ -26,8 +26,8 @@ boto = "*"
 weasyprint = "*"
 coreapi = "*"
 pillow = "*"
-django = "==1.11.*"
 "psycopg2-binary" = "*"
+django = "*"
 
 
 [dev-packages]
@@ -38,4 +38,4 @@ bpython = "*"
 factory-boy = "*"
 selenium = "*"
 pyinotify = "*"
-django = "==1.11.*"
+django = "*"

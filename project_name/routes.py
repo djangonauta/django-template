@@ -1,9 +1,10 @@
 """Rotas da API."""
 
-from core.views import UserViewSet
 from rest_framework import routers
+
+from core.views import UserViewSet
 
 router = routers.DefaultRouter()
 router.register('users', UserViewSet)
 
-urls = router.urls
+urls = router.urls, 'controle_ponto', 'v1'

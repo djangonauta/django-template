@@ -10,9 +10,9 @@ from . import routes, views
 urlpatterns = [
     urls.url(r'^$', views.index, name='index'),
     urls.url(r'^contas/', urls.include('allauth.urls')),
-    urls.url(r'^api/v1/', urls.include(routes.urls, namespace='v1')),
+    urls.url(r'^api/v1/', routes.urls),
     urls.url(r'^api-auth/', urls.include('rest_framework.urls', namespace='rest_framework')),
-    urls.url(r'^admin/', urls.include(admin.site.urls)),
+    urls.url(r'^admin/', admin.site.urls),
     urls.url(r'^docs/', documentation.include_docs_urls(title='Documentação funcional da API')),
 ]
 
