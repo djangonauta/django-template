@@ -131,7 +131,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
-STATIC_URL = '/assets/'
+STATIC_URL = '/public/'
 STATIC_ROOT = root.path('')('public')
 STATICFILES_DIRS = [root.path('{{ project_name }}')('assets'), root.path('')('node_modules')]
 STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['django_assets.finders.AssetsFinder']
