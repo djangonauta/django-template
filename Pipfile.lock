@@ -179,10 +179,10 @@
         },
         "django-extra-fields": {
             "hashes": [
-                "sha256:a182e6316fee50726a4cc92224234c08cfdef5499f7bf47727918e3d1a10d0e5"
+                "sha256:d19d6ff698008521982f2b2653843bab83f1fcf1b79a8cf1a934a4eed67c0e37"
             ],
             "index": "pypi",
-            "version": "==0.9"
+            "version": "==0.10"
         },
         "django-filter": {
             "hashes": [
@@ -304,9 +304,10 @@
         },
         "oauthlib": {
             "hashes": [
-                "sha256:ce57b501e906ff4f614e71c36a3ab9eacbb96d35c24d1970d2539bbc3ec70ce1"
+                "sha256:09d438bcac8f004ae348e721e9d8a7792a9e23cd574634e973173344046287f5",
+                "sha256:909665297635fa11fe9914c146d875f2ed41c8c2d78e21a529dd71c0ba756508"
             ],
-            "version": "==2.0.6"
+            "version": "==2.0.7"
         },
         "pdfrw": {
             "hashes": [
@@ -496,11 +497,11 @@
         },
         "weasyprint": {
             "hashes": [
-                "sha256:0197ac81a38e8a277e9edc142af6aedbebef6b455192c63c5863f045b56116fe",
-                "sha256:46dd37cb8f9e78d2f44bd12f5e15a0db9443ab16953c6bd0dba9287dba7889a8"
+                "sha256:4d35e37cf9d2cea199ddfe4b038c80024619e8a05a2f2eb99b80a2bfb6063eb7",
+                "sha256:a9d198afb74cf4f29275cca7dc5d42eafd2d6abed3edb76c2d0d0429fead3907"
             ],
             "index": "pypi",
-            "version": "==0.42.2"
+            "version": "==0.42.3"
         },
         "webassets": {
             "hashes": [
