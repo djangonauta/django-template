@@ -7,4 +7,4 @@ from core.views import UserViewSet
 router = routers.DefaultRouter()
 router.register('users', UserViewSet)
 
-urls = router.urls, 'controle_ponto', 'v1'
+urls = router.urls, '{{ project_name }}', 'v1'
