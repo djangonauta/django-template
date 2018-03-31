@@ -5,5 +5,5 @@ from django.contrib.auth.admin import UserAdmin
 
 
 @admin.register(auth.get_user_model())
-class UserAdmin(UserAdmin):
+class UserModelAdmin(UserAdmin):
     """Registra o usuário base na aplicação admin."""
