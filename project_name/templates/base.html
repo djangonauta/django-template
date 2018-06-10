@@ -1,5 +1,5 @@
 <!doctype html>{% templatetag openblock %} load assets static {% templatetag closeblock %}
-<html lang="en" ng-app="{{ project_name }}" ng-strict-di>
+<html lang="en">
 <head>
   {% templatetag openblock %} block meta {% templatetag closeblock %}
     <meta charset="UTF-8">
@@ -10,38 +10,46 @@
   <title>{% templatetag openblock %} block title {% templatetag closeblock %}Bem vindo{% templatetag openblock %} endblock title {% templatetag closeblock %}</title>
 
   {% templatetag openblock %} block css {% templatetag closeblock %}
-    <link rel="stylesheet" href="{% templatetag openblock %} static "angular-busy/dist/angular-busy.min.css" {% templatetag closeblock %}">
   {% templatetag openblock %} endblock css {% templatetag closeblock %}
 
-  {% templatetag openblock %} assets "css_all" {% templatetag closeblock %}<link rel="stylesheet" href="{% templatetag openvariable %} ASSET_URL {% templatetag closevariable %}">{% templatetag openblock %} endassets {% templatetag closeblock %}
+  {% templatetag openblock %} assets "css_all" {% templatetag closeblock %}
+    <link rel="stylesheet" href="{% templatetag openvariable %} ASSET_URL {% templatetag closevariable %}">
+  {% templatetag openblock %} endassets {% templatetag closeblock %}
 
   {% templatetag openblock %} block scripts {% templatetag closeblock %}
+    <!-- vendor -->
     <script src="{% templatetag openblock %} static "jquery/dist/jquery.min.js" {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static "angular/angular.min.js" {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static "angular-resource/angular-resource.min.js" {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static "angular-i18n/angular-locale_pt-br.js" {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static "angular-sanitize/angular-sanitize.min.js" {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static "angular-busy/dist/angular-busy.min.js" {% templatetag closeblock %}"></script>
-  {% templatetag openblock %} endblock scripts {% templatetag closeblock %}
+    <script src="{% templatetag openblock %} static "vue/dist/vue.min.js" {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static "vue-resource/dist/vue-resource.min.js" {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static "vee-validate/dist/vee-validate.min.js" {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} static "lodash/lodash.min.js" {% templatetag closeblock %}"></script>
 
-  {% templatetag openblock %} block angular_scripts {% templatetag closeblock %}
-    <script src="{% templatetag openblock %} static "app/app.module.js" {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static "app/app.config.js" {% templatetag closeblock %}"></script>
-  {% templatetag openblock %} endblock angular_scripts {% templatetag closeblock %}
+    <!-- app -->
+    <script src="{% templatetag openblock %} static "app/core/mensagem.js" {% templatetag closeblock %}"></script> <!-- remover -->
+    <script src="{% templatetag openblock %} static "app/main.js" {% templatetag closeblock %}"></script>
+  {% templatetag openblock %} endblock scripts {% templatetag closeblock %}
 
   <script>
     {% templatetag openblock %} block local_scripts {% templatetag closeblock %}
-      var app = angular.module('{{ project_name }}');
-      app.constant('cgBusyDefaults', {
-        message: 'Carregando...',
-        templateUrl: '{% templatetag openblock %} static "templates/angular-busy.html" {% templatetag closeblock %}'
+      window.addEventListener('load', function () {
+        new Vue({
+          el: '#app',
+          delimiters: ['[[', ']]'],
+          data: function () {
+            return {
+              mensagem: this.Mensagem.obterMensagem() // remover
+            }
+          }
+        });
       });
     {% templatetag openblock %} endblock local_scripts {% templatetag closeblock %}
   </script>
 </head>
 <body>
   {% templatetag openblock %} block body {% templatetag closeblock %}
-    working
+    <div id="app">
+      [[ mensagem ]]
+    </div>
   {% templatetag openblock %} endblock body {% templatetag closeblock %}
 </body>
 </html>
