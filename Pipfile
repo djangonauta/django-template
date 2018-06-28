@@ -1,6 +1,6 @@
 [[source]]
 
-url = "https://pypi.python.org/simple"
+url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
@@ -39,3 +39,6 @@ factory_boy = "*"
 selenium = "*"
 pyinotify = "*"
 Django = "*"
+
+[requires]
+python_version = "3.7"
