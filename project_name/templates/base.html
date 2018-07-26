@@ -1,4 +1,4 @@
-<!doctype html>{% templatetag openblock %} load assets static {% templatetag closeblock %}
+<!doctype html>{% templatetag openblock %} load pipeline static {% templatetag closeblock %}
 <html lang="en">
 <head>
   {% templatetag openblock %} block meta {% templatetag closeblock %}
@@ -11,39 +11,6 @@
 
   {% templatetag openblock %} block css {% templatetag closeblock %}
   {% templatetag openblock %} endblock css {% templatetag closeblock %}
-
-  {% templatetag openblock %} assets "css_all" {% templatetag closeblock %}
-    <link rel="stylesheet" href="{% templatetag openvariable %} ASSET_URL {% templatetag closevariable %}">
-  {% templatetag openblock %} endassets {% templatetag closeblock %}
-
-  {% templatetag openblock %} block scripts {% templatetag closeblock %}
-    <!-- vendor -->
-    <script src="{% templatetag openblock %} static "jquery/dist/jquery.min.js" {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static "vue/dist/vue.min.js" {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static "vue-resource/dist/vue-resource.min.js" {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static "vee-validate/dist/vee-validate.min.js" {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static "lodash/lodash.min.js" {% templatetag closeblock %}"></script>
-
-    <!-- app -->
-    <script src="{% templatetag openblock %} static "app/core/mensagem.js" {% templatetag closeblock %}"></script> <!-- remover -->
-    <script src="{% templatetag openblock %} static "app/main.js" {% templatetag closeblock %}"></script>
-  {% templatetag openblock %} endblock scripts {% templatetag closeblock %}
-
-  <script>
-    {% templatetag openblock %} block local_scripts {% templatetag closeblock %}
-      window.addEventListener('load', function () {
-        new Vue({
-          el: '#app',
-          delimiters: ['[[', ']]'],
-          data: function () {
-            return {
-              mensagem: this.Mensagem.obterMensagem() // remover
-            }
-          }
-        });
-      });
-    {% templatetag openblock %} endblock local_scripts {% templatetag closeblock %}
-  </script>
 </head>
 <body>
   {% templatetag openblock %} block body {% templatetag closeblock %}
@@ -51,5 +18,21 @@
       [[ mensagem ]]
     </div>
   {% templatetag openblock %} endblock body {% templatetag closeblock %}
+
+  {% templatetag openblock %} javascript 'main' {% templatetag closeblock %}
+
+  {% templatetag openblock %} block page_scripts {% templatetag closeblock %}
+    <script>
+      new Vue({
+        el: '#app',
+        delimiters: ['[[', ']]'],
+        data: function () {
+          return {
+            mensagem: this.Mensagem.obterMensagem() // remover
+          }
+        }
+      });
+    </script>
+  {% templatetag openblock %} endblock page_scripts {% templatetag closeblock %}
 </body>
 </html>

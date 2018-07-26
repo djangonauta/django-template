@@ -55,7 +55,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'auditlog',
-    'django_assets',
+    'pipeline',
     'post_office',
     'rest_framework',
     'widget_tweaks',
@@ -76,6 +76,7 @@ MIDDLEWARE = [
     'auditlog.middleware.AuditlogMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'pipeline.middleware.MinifyHTMLMiddleware',
 ]
 
 SITE_ID = 1
@@ -134,10 +135,28 @@ USE_TZ = True
 STATIC_URL = '/public/'
 STATIC_ROOT = root.path('')('public')
 STATICFILES_DIRS = [root.path('{{ project_name }}')('assets'), root.path('')('node_modules')]
-STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['django_assets.finders.AssetsFinder']
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['pipeline.finders.PipelineFinder']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = root.path('')('media')
+
+PIPELINE = {
+    'JAVASCRIPT': {
+        'main': {
+            'source_filenames': (
+                'jquery/dist/jquery.min.js',
+                'vue/dist/vue.min.js',
+                'vue-resource/dist/vue-resource.min.js',
+                'vee-validate/dist/vee-validate.min.js',
+                'lodash/lodash.min.js',
+                'app/**/*.js',
+                'app/*.js',
+            ),
+            'output_filename': 'js/main.min.js',
+        }
+    }
+}
 
 AUTH_USER_MODEL = 'core.User'
 LOGIN_URL = urls.reverse_lazy('account_login')

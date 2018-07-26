@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 celery = "*"
 django-allauth = "*"
-django-assets = "*"
 django-auditlog = "*"
 django-environ = "*"
 cssmin = "*"
@@ -26,6 +25,7 @@ Pillow = "*"
 psycopg2-binary = "*"
 Django = "*"
 pyinvoke = "*"
+django-pipeline = "*"
 
 [dev-packages]
 coverage = "*"

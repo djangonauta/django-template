@@ -1,8 +1,8 @@
-(function () { 'use strict';
-  Vue.use(VueResource);
-  Vue.use(VeeValidate);
-  Vue.use(Mensagem); // remover
+'use strict';
 
-  Vue.http.headers.common['xsrfCookieName'] = 'csrftoken';
-  Vue.http.headers.common['xsrfHeaderName'] = 'X-CSRFToken';
-})();
+Vue.use(VueResource);
+Vue.use(VeeValidate);
+Vue.use(Mensagem); // remover
+
+Vue.http.headers.common['xsrfCookieName'] = 'csrftoken';
+Vue.http.headers.common['xsrfHeaderName'] = 'X-CSRFToken';

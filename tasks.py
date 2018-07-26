@@ -14,18 +14,10 @@ def collectstatic(ctx, noinput=True, clear=False, verbosity=0, settings='develop
     ctx.run(cmd, echo=True, pty=True)
 
 
-@invoke.task
-def assetsbuild(ctx, noinput=True, clear=False, verbosity=0, settings='development'):
-    """Constroe bundles."""
-    collectstatic(ctx, noinput, clear, verbosity, settings)
-    cmd = './manage.py assets build'
-    ctx.run(cmd, echo=True, pty=True)
-
-
 @invoke.task(default=True)
 def run_server(ctx, noinput=True, clear=False, verbosity=0, settings='development'):
     """Executa o servidor web."""
-    assetsbuild(ctx, noinput, clear, verbosity, settings)
+    collectstatic(ctx, noinput, clear, verbosity, settings)
     cmd = './manage.py runserver 0.0.0.0:8000 --settings={{ project_name }}.settings.{}'.format(settings)
     ctx.run(cmd, echo=True, pty=True)
 
@@ -33,7 +25,8 @@ def run_server(ctx, noinput=True, clear=False, verbosity=0, settings='developmen
 @invoke.task
 def test(ctx, package='', settings='test'):
     """Testa as aplicações do projeto (com exceção dos testes funcionais)."""
-    cmd = 'coverage run ./manage.py test {} --settings={{ project_name }}.settings.{}'.format(package, settings)
+    cmd = 'coverage run ./manage.py test {} --settings={{ project_name }}.settings.{}'.format(
+        package, settings)
     ctx.run(cmd, echo=True, pty=True)
     cmd = 'coverage report'
     ctx.run(cmd, echo=True, pty=True)
