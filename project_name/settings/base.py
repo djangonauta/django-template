@@ -141,22 +141,36 @@ STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['pipeline.finders.P
 MEDIA_URL = '/media/'
 MEDIA_ROOT = root.path('')('media')
 
-PIPELINE = {
-    'JAVASCRIPT': {
-        'main': {
-            'source_filenames': (
-                'jquery/dist/jquery.min.js',
-                'vue/dist/vue.min.js',
-                'vue-resource/dist/vue-resource.min.js',
-                'vee-validate/dist/vee-validate.min.js',
-                'lodash/lodash.min.js',
-                'app/**/*.js',
-                'app/*.js',
-            ),
-            'output_filename': 'js/main.min.js',
-        }
+PIPELINE = dict()
+PIPELINE['JAVASCRIPT'] = {
+    'main': {
+        'source_filenames': [
+            'jquery/dist/jquery.min.js',
+            'axios/dist/axios.min.js',
+            'vue/dist/vue.min.js',
+            'bootstrap-vue/dist/bootstrap-vue.min.js',
+            'vee-validate/dist/vee-validate.min.js',
+            'lodash/lodash.min.js',
+            'app/core/*.es6',
+            'app/*.es6',
+        ],
+        'output_filename': 'js/main.min.js',
     }
 }
+PIPELINE['STYLESHEETS'] = {
+    'base': {
+        'source_filenames': [
+            'bootstrap/dist/css/bootstrap.min.css',
+            'bootstrap-vue/dist/bootstrap-vue.min.css',
+            'css/base.css',
+        ],
+        'output_filename': 'css/base.min.css'
+    }
+}
+PIPELINE['COMPILERS'] = [
+    'pipeline.compilers.es6.ES6Compiler',
+]
+PIPELINE['BABEL_ARGUMENTS'] = '--presets env'
 
 AUTH_USER_MODEL = 'core.User'
 LOGIN_URL = urls.reverse_lazy('account_login')

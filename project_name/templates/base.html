@@ -9,13 +9,19 @@
 
   <title>{% templatetag openblock %} block title {% templatetag closeblock %}Bem vindo{% templatetag openblock %} endblock title {% templatetag closeblock %}</title>
 
+  {% templatetag openblock %} stylesheet 'base' {% templatetag closeblock %}
+
   {% templatetag openblock %} block css {% templatetag closeblock %}
   {% templatetag openblock %} endblock css {% templatetag closeblock %}
 </head>
 <body>
   {% templatetag openblock %} block body {% templatetag closeblock %}
     <div id="app">
-      [[ mensagem ]]
+      <b-container fluid>
+        <b-row>
+          <b-table striped hover :items="users" :fields="fields"></b-table>
+        </b-row>
+      </b-container>
     </div>
   {% templatetag openblock %} endblock body {% templatetag closeblock %}
 
@@ -28,8 +34,20 @@
         delimiters: ['[[', ']]'],
         data: function () {
           return {
-            mensagem: this.Mensagem.obterMensagem() // remover
+            fields: ['id', 'name', 'username'],
+            users: []
           }
+        },
+        methods: {
+          carregarUsuarios: function (params) {
+            var self = this;
+            self.User.query(params).then(function (response) {
+              self.users = response.data;
+            });
+          }
+        },
+        mounted: function () {
+          this.carregarUsuarios();
         }
       });
     </script>
