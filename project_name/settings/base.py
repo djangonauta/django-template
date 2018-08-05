@@ -227,7 +227,14 @@ LOGGING = {
     'formatters': {
         'django.server': {
             '()': 'django.utils.log.ServerFormatter',
-            'format': '[%(server_time)s] %(message)s',
+            'format': '[{server_time}] {message}',
+            'style': '{',
+        },
+        'console.server': {
+            '()': 'django.utils.log.ServerFormatter',
+            'format': '[{server_time}] {message}',
+            'style': '{',
+            'datefmt': '%d/%b/%Y %H:%M:%S'
         }
     },
     'filters': {
@@ -243,6 +250,11 @@ LOGGING = {
             'level': 'INFO',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
+        },
+        'dev.console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'console.server',
         },
         'mail_admins': {
             'level': 'ERROR',
