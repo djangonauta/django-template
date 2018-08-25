@@ -26,6 +26,7 @@ psycopg2-binary = "*"
 Django = "*"
 pyinvoke = "*"
 django-pipeline = "*"
+django-celery-results = "*"
 
 [dev-packages]
 coverage = "*"

@@ -55,6 +55,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'auditlog',
+    'django_celery_results',
     'pipeline',
     'post_office',
     'rest_framework',
@@ -191,14 +192,15 @@ if env('DISABLE_ACCOUNT_REGISTRATION', default=False):
 
 OLD_PASSWORD_FIELD_ENABLED = True
 
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_ACCEPT_CONTENT = ['pickle', 'json']
+AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
+    ['allauth.account.auth_backends.AuthenticationBackend']
+
+# Celery
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BROKER_URL = env('BROKER_URL')
 
 CACHES = {'default': env.cache_url()}
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
-
-AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
-    ['allauth.account.auth_backends.AuthenticationBackend']
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
