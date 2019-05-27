@@ -27,6 +27,10 @@ Django = "*"
 pyinvoke = "*"
 django-pipeline = "*"
 django-celery-results = "*"
+django-weasyprint = "*"
+redis = "==2.10.6"
+django-rest-auth = "*"
+fabric = "*"
 
 [dev-packages]
 coverage = "*"
