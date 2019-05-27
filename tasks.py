@@ -1,32 +1,21 @@
-"""Módulo que contém as tarefas locais utilizadas com invoke."""
+#!/usr/bin/env python3
+"""Tarefas administrativas."""
 
 import invoke
 
 
-@invoke.task
-def collectstatic(ctx, noinput=True, clear=False, verbosity=0, settings='development'):
-    """Coleta arquivos estáticos."""
-    ctx.run('yarn install', echo=True, pty=True)
-    noinput = '--noinput' if noinput else ''
-    clear = '--clear' if clear else ''
-    cmd = './manage.py collectstatic {} {} --verbosity={} --settings={{ project_name }}.settings.{}'
-    cmd = cmd.format(noinput, clear, verbosity, settings)
-    ctx.run(cmd, echo=True, pty=True)
-
-
 @invoke.task(default=True)
-def run_server(ctx, noinput=True, clear=False, verbosity=0, settings='development'):
+def run_server(ctx, noinput=True, clear=False, verbosity=0, settings='development', port=8000):
     """Executa o servidor web."""
     collectstatic(ctx, noinput, clear, verbosity, settings)
-    cmd = './manage.py runserver 0.0.0.0:8000 --settings={{ project_name }}.settings.{}'.format(settings)
+    cmd = f'./manage.py runserver 0.0.0.0:{port} --settings={{ project_name }}settings.{settings}'
     ctx.run(cmd, echo=True, pty=True)
 
 
 @invoke.task
 def test(ctx, package='', settings='test'):
     """Testa as aplicações do projeto (com exceção dos testes funcionais)."""
-    cmd = 'coverage run ./manage.py test {} --settings={{ project_name }}.settings.{}'.format(
-        package, settings)
+    cmd = f'coverage run ./manage.py test {package} --settings={{ project_name }}settings.{settings}'
     ctx.run(cmd, echo=True, pty=True)
     cmd = 'coverage report'
     ctx.run(cmd, echo=True, pty=True)
@@ -36,8 +25,30 @@ def test(ctx, package='', settings='test'):
 def functional_tests(ctx, package='functional_tests.histories', settings='test'):
     """Executa os testes funcionais."""
     collectstatic(ctx, settings, True)
-    cmd = 'coverage run ./manage.py test {} . --settings={{ project_name }}.settings.{}'
-    cmd = cmd.format(package, settings)
+    cmd = f'coverage run ./manage.py test {package} . --settings={{ project_name }}settings.{settings}'
     ctx.run(cmd, echo=True, pty=True)
     cmd = 'coverage report'
     ctx.run(cmd, echo=True, pty=True)
+
+
+@invoke.task
+def collectstatic(ctx, noinput=True, clear=False, verbosity=0, settings='development'):
+    """Coleta arquivos estáticos."""
+    ctx.run('yarn install', echo=True, pty=True)
+    noinput = '--noinput' if noinput else ''
+    clear = '--clear' if clear else ''
+    cmd = f'./manage.py collectstatic {noinput} {clear} --verbosity={verbosity} '
+    cmd += f'--settings={{ project_name }}settings.{settings}'
+    ctx.run(cmd, echo=True, pty=True)
+
+
+@invoke.task
+def make_migrations(ctx):
+    """Gera migrações."""
+    ctx.run('./manage.py makemigrations')
+
+
+@invoke.task
+def migrate(ctx):
+    """Executa as migrações."""
+    ctx.run('./manage.py migrate')
