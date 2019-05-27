@@ -44,6 +44,7 @@ DJANGO_APPS = [
     'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -59,6 +60,8 @@ THIRD_PARTY_APPS = [
     'pipeline',
     'post_office',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
     'widget_tweaks',
 ]
 
@@ -77,7 +80,7 @@ MIDDLEWARE = [
     'auditlog.middleware.AuditlogMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'pipeline.middleware.MinifyHTMLMiddleware',
+    # 'pipeline.middleware.MinifyHTMLMiddleware',
 ]
 
 SITE_ID = 1
@@ -139,39 +142,35 @@ STATICFILES_DIRS = [root.path('{{ project_name }}')('assets'), root.path('')('no
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['pipeline.finders.PipelineFinder']
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = root.path('')('media')
-
 PIPELINE = dict()
+
 PIPELINE['JAVASCRIPT'] = {
-    'main': {
+    'app': {
         'source_filenames': [
-            'jquery/dist/jquery.min.js',
-            'axios/dist/axios.min.js',
-            'vue/dist/vue.min.js',
-            'bootstrap-vue/dist/bootstrap-vue.min.js',
-            'vee-validate/dist/vee-validate.min.js',
-            'lodash/lodash.min.js',
-            'app/core/*.es6',
-            'app/*.es6',
+            'app/**/*.es6',
+            'app/core/**/*.es6',
+            'app/app.config.es6',
+            'app/app.main.es6',
         ],
-        'output_filename': 'js/main.min.js',
-    }
+        'output_filename': 'js/app/app.min.js',
+    },
 }
+
 PIPELINE['STYLESHEETS'] = {
     'base': {
         'source_filenames': [
-            'bootstrap/dist/css/bootstrap.min.css',
-            'bootstrap-vue/dist/bootstrap-vue.min.css',
             'css/base.css',
         ],
-        'output_filename': 'css/base.min.css'
+        'output_filename': 'css/base.min.css',
     }
 }
-PIPELINE['COMPILERS'] = [
-    'pipeline.compilers.es6.ES6Compiler',
-]
+PIPELINE['COMPILERS'] = {
+    'pipeline.compilers.es6.ES6Compiler'
+}
 PIPELINE['BABEL_ARGUMENTS'] = '--presets env'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = root.path('')('media')
 
 AUTH_USER_MODEL = 'core.User'
 LOGIN_URL = urls.reverse_lazy('account_login')
@@ -192,15 +191,15 @@ if env('DISABLE_ACCOUNT_REGISTRATION', default=False):
 
 OLD_PASSWORD_FIELD_ENABLED = True
 
-AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
-    ['allauth.account.auth_backends.AuthenticationBackend']
-
 # Celery
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_BROKER_URL = env('BROKER_URL')
 
 CACHES = {'default': env.cache_url()}
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+
+AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
+    ['allauth.account.auth_backends.AuthenticationBackend']
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

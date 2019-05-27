@@ -5,12 +5,12 @@ from django.conf.urls import static
 from django.contrib import admin
 from rest_framework import documentation
 
-from . import routes, views
+from . import api, views
 
 urlpatterns = [
     urls.url(r'^$', views.index, name='index'),
     urls.url(r'^contas/', urls.include('allauth.urls')),
-    urls.url(r'^api/v1/', routes.urls),
+    urls.url(r'^api/v1/', api.urls),
     urls.url(r'^api-auth/', urls.include('rest_framework.urls', namespace='rest_framework')),
     urls.url(r'^admin/', admin.site.urls),
     urls.url(r'^docs/', documentation.include_docs_urls(title='Documentação funcional da API')),

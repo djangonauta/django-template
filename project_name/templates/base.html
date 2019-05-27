@@ -9,48 +9,31 @@
 
   <title>{% templatetag openblock %} block title {% templatetag closeblock %}Bem vindo{% templatetag openblock %} endblock title {% templatetag closeblock %}</title>
 
+  <link rel="stylesheet" href="{% templatetag openblock %} static 'bootstrap/dist/css/bootstrap.css' {% templatetag closeblock %}">
+  <link rel="stylesheet" href="{% templatetag openblock %} static 'bootstrap-vue/dist/bootstrap-vue.min.css' {% templatetag closeblock %}">
+
   {% templatetag openblock %} stylesheet 'base' {% templatetag closeblock %}
 
-  {% templatetag openblock %} block css {% templatetag closeblock %}
-  {% templatetag openblock %} endblock css {% templatetag closeblock %}
+  {% templatetag openblock %} block styles {% templatetag closeblock %}{% templatetag openblock %} endblock styles {% templatetag closeblock %}
 </head>
 <body>
   {% templatetag openblock %} block body {% templatetag closeblock %}
     <div id="app">
       <b-container fluid>
         <b-row>
-          <b-table striped hover :items="users" :fields="fields"></b-table>
+          <h3>Home</h3>
         </b-row>
       </b-container>
     </div>
   {% templatetag openblock %} endblock body {% templatetag closeblock %}
 
-  {% templatetag openblock %} javascript 'main' {% templatetag closeblock %}
+  {% templatetag openblock %} block scripts {% templatetag closeblock %}{% templatetag openblock %} endblock scripts {% templatetag closeblock %}
 
-  {% templatetag openblock %} block page_scripts {% templatetag closeblock %}
-    <script>
-      new Vue({
-        el: '#app',
-        delimiters: ['[[', ']]'],
-        data: function () {
-          return {
-            fields: ['id', 'name', 'username'],
-            users: []
-          }
-        },
-        methods: {
-          carregarUsuarios: function (params) {
-            var self = this;
-            self.User.query(params).then(function (response) {
-              self.users = response.data;
-            });
-          }
-        },
-        mounted: function () {
-          this.carregarUsuarios();
-        }
-      });
-    </script>
-  {% templatetag openblock %} endblock page_scripts {% templatetag closeblock %}
+  <script src="{% templatetag openblock %} static 'jquery/dist/jquery.min.js' {% templatetag closeblock %}"></script>
+  <script src="{% templatetag openblock %} static 'axios/dist/axios.min.js' {% templatetag closeblock %}"></script>
+  <script src="{% templatetag openblock %} static 'vue/dist/vue.min.js' {% templatetag closeblock %}"></script>
+  <script src="{% templatetag openblock %} static 'bootstrap-vue/dist/bootstrap-vue.min.js' {% templatetag closeblock %}"></script>
+
+  {% templatetag openblock %} javascript 'app' {% templatetag closeblock %}
 </body>
 </html>

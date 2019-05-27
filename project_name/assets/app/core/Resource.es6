@@ -1,25 +1,13 @@
 window.Resource = {
   install(Vue, options) {
-    var instance = axios.create(options)
-    Vue.prototype.Resource = resource
-
-    function resource(path, actions) {
+    Vue.prototype.Resource = (url, actions) => {
       return Object.assign({
-        get(id) {
-          return instance.get(`${path}${id}/`)
-        },
-        save(obj) {
-          return instance.post(path, obj)
-        },
-        query(params) {
-          return instance.get(path, {params})
-        },
-        update(obj) {
-          return instance.put(`${path}${obj.id}/`, obj)
-        },
-        delete(obj) {
-          return instance.delete(`${path}${obj.id}/`)
-        }
+        get: id => axios.get(`${url}${id}/`),
+        query: params => axios.get(url, {params}),
+        update: obj => axios.put(`${url}${obj.id}/`, obj),
+        patch: (obj, params) => axios.patch(`${url}${obj.id}/`, params),
+        save: obj => axios.post(url, obj),
+        delete: obj => axios.delete(`${url}${obj.id}/`)
       }, actions)
     }
   }

@@ -2,9 +2,9 @@
 
 from rest_framework import routers
 
-from core.views import UserViewSet
+from core.api import UserViewSet
 
 router = routers.DefaultRouter()
-router.register('users', UserViewSet)
+router.register('usuarios', UserViewSet)
 
 urls = router.urls, '{{ project_name }}', 'v1'
