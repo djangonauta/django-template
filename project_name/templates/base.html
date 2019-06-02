@@ -1,5 +1,5 @@
-<!doctype html>{% templatetag openblock %} load static from staticfiles {% templatetag closeblock %}{% templatetag openblock %} load assets from assets {% templatetag closeblock %}
-<html lang="en" ng-app="{{ project_name }}" ng-strict-di>
+<!doctype html>{% templatetag openblock %} load pipeline static {% templatetag closeblock %}
+<html lang="en">
 <head>
   {% templatetag openblock %} block meta {% templatetag closeblock %}
     <meta charset="UTF-8">
@@ -9,150 +9,32 @@
 
   <title>{% templatetag openblock %} block title {% templatetag closeblock %}Bem vindo{% templatetag openblock %} endblock title {% templatetag closeblock %}</title>
 
-  {% templatetag openblock %} block css {% templatetag closeblock %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-busy/4.1.3/angular-busy.min.css"/>
+  <link rel="stylesheet" href="{% templatetag openblock %} static 'bootstrap/dist/css/bootstrap.css' {% templatetag closeblock %}">
+  <link rel="stylesheet" href="{% templatetag openblock %} static 'bootstrap-vue/dist/bootstrap-vue.min.css' {% templatetag closeblock %}">
+  <link rel="stylesheet" href="{% templatetag openblock %} static '@fortawesome/fontawesome-free/css/all.min.css' {% templatetag closeblock %}">
 
-    <link rel="stylesheet" href="{% templatetag openblock %} static 'css/AdminLTE.min.css' {% templatetag closeblock %}">
-    <link rel="stylesheet" href="{% templatetag openblock %} static 'css/base.css' {% templatetag closeblock %}">
-    <link rel="stylesheet" href="{% templatetag openblock %} static 'css/skins/skin-black.min.css' {% templatetag closeblock %}">
-  {% templatetag openblock %} endblock css {% templatetag closeblock %}
+  {% templatetag openblock %} stylesheet 'base' {% templatetag closeblock %}
 
-  {% templatetag openblock %} block js {% templatetag closeblock %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-messages.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.3.0/ui-bootstrap-tpls.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.tpls.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-busy/4.1.4/angular-busy.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-filestyle/1.2.1/bootstrap-filestyle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.1/angular-locale_pt-br.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-input-masks/2.5.0/angular-input-masks-standalone.min.js"></script>
-    <script src="{% templatetag openblock %} static 'js/admin.lite.min.js' {% templatetag closeblock %}"></script>
-    <script src="{% templatetag openblock %} static 'js/focusIf.min.js' {% templatetag closeblock %}"></script>
-
-    {% templatetag openblock %} assets 'js_all' {% templatetag closeblock %}
-      <script src="{% templatetag openvariable %} ASSET_URL {% templatetag closevariable %}"></script>
-    {% templatetag openblock %} endassets {% templatetag closeblock %}
-  {% templatetag openblock %} endblock js {% templatetag closeblock %}
-  
-  <script>
-    {% templatetag openblock %} block script {% templatetag closeblock %}
-      var app = angular.module('{{ project_name }}');
-      app.constant('cgBusyDefaults', {
-        templateUrl: '{% templatetag openblock %} static "templates/angular-busy.html" {% templatetag closeblock %}',
-        message: 'Aguarde...'
-      });
-
-      <!-- application -->
-      app.constant('User', {% templatetag openblock %} if user.is_authenticated {% templatetag closeblock %}{% templatetag openvariable %} User | safe {% templatetag closevariable %}{% templatetag openblock %} else {% templatetag closeblock %}{}{% templatetag openblock %} endif {% templatetag closeblock %});
-      app.constant('configTemplate', '{% templatetag openblock %} static "templates/config.html" {% templatetag closeblock %}');
-
-      <!-- core -->
-      app.constant('confirmModalTemplate', '{% templatetag openblock %} static "app/core/components/confirmModal.html" {% templatetag closeblock %}');
-      app.constant('userInfoTemplate', '{% templatetag openblock %} static "app/core/components/userInfo.html" {% templatetag closeblock %}');
-      app.constant('updatePasswordTemplate', '{% templatetag openblock %} static "app/core/components/updatePassword.html" {% templatetag closeblock %}');
-      app.constant('paginatorTemplate', '{% templatetag openblock %} static "app/core/components/paginator.html" {% templatetag closeblock %}');
-    {% templatetag openblock %} endblock script {% templatetag closeblock %}
-  </script>
+  {% templatetag openblock %} block styles {% templatetag closeblock %}{% templatetag openblock %} endblock styles {% templatetag closeblock %}
 </head>
-<body class="{% templatetag openblock %} block body_class {% templatetag closeblock %}hold-transition skin-black sidebar-mini{% templatetag openblock %} endblock body_class {% templatetag closeblock %}">
+<body>
   {% templatetag openblock %} block body {% templatetag closeblock %}
-    <div class="wrapper">
-      <!-- Main Header -->
-      <header class="main-header">
-
-        <!-- Logo -->
-        <a href="/" class="logo">
-          <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>A</b>LT</span>
-          <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Admin</b>LTE</span>
-        </a>
-
-        <!-- Header Navbar -->
-        <nav class="navbar navbar-static-top" role="navigation">
-          <!-- Sidebar toggle button-->
-          <a class="sidebar-toggle pointer" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-          </a>
-          <!-- Navbar Right Menu -->
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-              <user-info></user-info>
-            </ul>
-          </div>
-        </nav>
-      </header>
-      <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
-
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-
-          <!-- Sidebar user panel (optional) -->
-          <div class="user-panel">
-            <div class="pull-left image">
-              <img ng-src="[[ User.gravatar_url ]]" class="img-circle" alt="User Image">
-            </div>
-            <div class="pull-left info">
-              <p>[[ User.full_name ? User.full_name : User.username ]]</p>
-              <!-- Status -->
-              <a class="pointer"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-          </div>
-
-          <!-- Sidebar Menu -->
-          <ul class="sidebar-menu">
-            <li class="header">HEADER</li>
-            <!-- Optionally, you can add icons to the links -->
-            <li ui-sref-active="active"><a ui-sref="index"><i class="fa fa-link"></i> <span>Index</span></a></li>
-            <li ui-sref-active="active"><a ui-sref="config"><i class="fa fa-gears"></i> <span>Configurações</span></a></li>
-            <li class="treeview" ng-class="{active: $state.includes('parent')}">
-              <a href=""><i class="fa fa-link"></i> <span>Parent</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li ui-sref-active="active"><a ui-sref="parent.child1">Child 1</a></li>
-                <li ui-sref-active="active"><a ui-sref="parent.child2">Child 2</a></li>
-              </ul>
-            </li>
-          </ul><!-- /.sidebar-menu -->
-        </section>
-        <!-- /.sidebar -->
-      </aside>
-
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
-
-        <!-- Main content -->
-        <section class="content">
-
-          <ui-view></ui-view>
-
-        </section>
-        <!-- /.content -->
-      </div>
-      <!-- /.content-wrapper -->
-
-      <!-- Main Footer -->
-      <footer class="main-footer">
-        <!-- To the right -->
-        <div class="pull-right hidden-xs">
-          Anything you want
-        </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; 2016 <a class="pointer">Company</a>.</strong> All rights reserved.
-      </footer>
+    <div id="app">
+      <b-container fluid>
+        <b-row>
+          <h3>Home</h3>
+        </b-row>
+      </b-container>
     </div>
-    <!-- ./wrapper -->
   {% templatetag openblock %} endblock body {% templatetag closeblock %}
+
+  {% templatetag openblock %} block scripts {% templatetag closeblock %}{% templatetag openblock %} endblock scripts {% templatetag closeblock %}
+
+  <script src="{% templatetag openblock %} static 'jquery/dist/jquery.min.js' {% templatetag closeblock %}"></script>
+  <script src="{% templatetag openblock %} static 'axios/dist/axios.min.js' {% templatetag closeblock %}"></script>
+  <script src="{% templatetag openblock %} static 'vue/dist/vue.min.js' {% templatetag closeblock %}"></script>
+  <script src="{% templatetag openblock %} static 'bootstrap-vue/dist/bootstrap-vue.min.js' {% templatetag closeblock %}"></script>
+
+  {% templatetag openblock %} javascript 'app' {% templatetag closeblock %}
 </body>
 </html>
