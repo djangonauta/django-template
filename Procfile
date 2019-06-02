@@ -1,1 +1,1 @@
-web: gunicorn {{ project_name }}.heroku_wsgi --workers=4
+web: gunicorn {{ project_name }}.wsgi --workers=4
