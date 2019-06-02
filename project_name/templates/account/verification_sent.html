@@ -1,0 +1,21 @@
+{% templatetag openblock %} extends 'base.html' {% templatetag closeblock %}
+
+{% templatetag openblock %} block title {% templatetag closeblock %}Registro Inicializado{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block body {% templatetag closeblock %}
+  <div class="container-fluid">
+    <div class="row align-items-center" style="height: 100vh">
+      <div class="col"></div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header">Registro Inicializado</div>
+          
+          <div class="card-body">
+            <p>Um email com instruções para completar seu registro foi enviado.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
+{% templatetag openblock %} endblock body {% templatetag closeblock %}

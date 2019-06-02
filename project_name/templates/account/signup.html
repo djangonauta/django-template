@@ -1,0 +1,66 @@
+{% templatetag openblock %} extends 'base.html' {% templatetag closeblock %}
+{% templatetag openblock %} block title {% templatetag closeblock %}Registrar{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block body {% templatetag closeblock %}
+  <div class="container-fluid">
+    <div class="row align-items-center" style="height: 100vh">
+      <div class="col"></div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header">Novo Registro</div>
+          
+          <div class="card-body">
+            <form action="{% templatetag openblock %} url 'account_signup' {% templatetag closeblock %}" method="post">{% templatetag openblock %} csrf_token {% templatetag closeblock %}
+              <div class="form-group">
+                <input type="text" name="username" class="form-control form-control-sm{% templatetag openblock %} if form.username.errors {% templatetag closeblock %} is-invalid{% templatetag openblock %} endif {% templatetag closeblock %}"
+                  placeholder="Usuário" {% templatetag openblock %} if form.username.value {% templatetag closeblock %}value="{% templatetag openvariable %} form.username.value {% templatetag closevariable %}"{% templatetag openblock %} endif {% templatetag closeblock %} 
+                  autofocus required>
+                {% templatetag openblock %} if form.username.errors {% templatetag closeblock %}
+                  <div class="invalid-feedback">{% templatetag openvariable %} form.username.errors.0 {% templatetag closevariable %}</div>
+                {% templatetag openblock %} endif {% templatetag closeblock %}
+              </div>
+
+              <div class="form-group">
+                <input type="text" name="email" class="form-control form-control-sm{% templatetag openblock %} if form.email.errors {% templatetag closeblock %} is-invalid{% templatetag openblock %} endif {% templatetag closeblock %}"
+                  placeholder="Email" {% templatetag openblock %} if form.email.value {% templatetag closeblock %}value="{% templatetag openvariable %} form.email.value {% templatetag closevariable %}"{% templatetag openblock %} endif {% templatetag closeblock %} 
+                  required>
+                {% templatetag openblock %} if form.email.errors {% templatetag closeblock %}
+                  <div class="invalid-feedback">{% templatetag openvariable %} form.email.errors.0 {% templatetag closevariable %}</div>
+                {% templatetag openblock %} endif {% templatetag closeblock %}
+              </div>
+
+              <div class="form-group">
+                <input type="password" name="password1" class="form-control form-control-sm {% templatetag openblock %} if form.password1.errors {% templatetag closeblock %} is-invalid{% templatetag openblock %} endif {% templatetag closeblock %}"
+                  placeholder="Senha" required>
+                {% templatetag openblock %} if form.password1.errors {% templatetag closeblock %}
+                  <div class="invalid-feedback">{% templatetag openvariable %} form.password1.errors.0 {% templatetag closevariable %}</div>
+                {% templatetag openblock %} endif {% templatetag closeblock %}
+              </div>
+
+              <div class="form-group">
+                <input type="password" name="password2" class="form-control form-control-sm {% templatetag openblock %} if form.password2.errors {% templatetag closeblock %} is-invalid{% templatetag openblock %} endif {% templatetag closeblock %}"
+                  placeholder="Confirmar Senha" required>
+                {% templatetag openblock %} if form.password2.errors {% templatetag closeblock %}
+                  <div class="invalid-feedback">{% templatetag openvariable %} form.password2.errors.0 {% templatetag closevariable %}</div>
+                {% templatetag openblock %} endif {% templatetag closeblock %}
+              </div>
+
+              <div class="clearfix">
+                <div class="float-left">
+                  <a href="{% templatetag openblock %} url 'account_login' {% templatetag closeblock %}" id="id_login_button">Login</a>
+                </div>
+      
+                <div class="float-right">
+                  <button submit type="submit" class="btn btn-primary btn-sm" id="id_register_button">
+                    <i class="fas fa-user-plus"></i> Registrar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
+{% templatetag openblock %} endblock {% templatetag closeblock %}

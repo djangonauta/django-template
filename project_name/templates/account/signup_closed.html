@@ -1,0 +1,17 @@
+{% templatetag openblock %} extends 'base.html' {% templatetag closeblock %}
+{% templatetag openblock %} block title {% templatetag closeblock %}Registro suspenso{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block body {% templatetag closeblock %}
+  <div class="login-box">
+    <div class="login-box-body">
+      <p class="login-box-msg">Registros de novas contas temporariamente suspenso.</p>
+        
+      <div class="alert alert-danger">
+        O serviço para incluir novas contas está temporariamente
+        fechado. Pedimos desculpas pelo inconveniente. Para mais detalhes, entre em contato com a administração. Obrigado.
+      </div>
+      <hr/>
+      <a href="{% templatetag openblock %} url 'account_login' {% templatetag closeblock %}">Login</a>
+    </div>
+  </div>
+{% templatetag openblock %} endblock {% templatetag closeblock %}
