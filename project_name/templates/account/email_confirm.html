@@ -11,9 +11,10 @@
           <div class="card-header">Ativação de conta</div>
           
           <div class="card-body">
-            <p>Sua conta foi ativada com sucesso. Agora você pode fazer login em nosso site. Obrigado.</p>
-            <hr/>
-            <a href="{% templatetag openblock %} url 'account_login' {% templatetag closeblock %}">Login</a>
+            <p>Sua conta foi ativada com sucesso. Agora você pode fazer login em nosso site.</p>
+            <a href="{% templatetag openblock %} url 'account_login' {% templatetag closeblock %}" class="btn btn-primary btn-block">
+              <i class="fas fa-sign-in-alt"></i> Login
+            </a>
           </div>
         </div>
       </div>
