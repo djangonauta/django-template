@@ -89,7 +89,7 @@ SITE_ID = 1
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [root.path('{{ project_name }}')('templates')],
+        'DIRS': [root.path('{{ project_name }}', 'templates').root],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,8 +138,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 STATIC_URL = '/public/'
-STATIC_ROOT = root.path('')('public')
-STATICFILES_DIRS = [root.path('{{ project_name }}')('assets'), root.path('')('node_modules')]
+STATIC_ROOT = root.path('public').root
+STATICFILES_DIRS = [root.path('{{ project_name }}', 'assets').root, root.path('node_modules').root]
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['pipeline.finders.PipelineFinder']
 
@@ -171,7 +171,7 @@ PIPELINE['COMPILERS'] = {
 PIPELINE['BABEL_ARGUMENTS'] = '--presets env'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = root.path('')('media')
+MEDIA_ROOT = root.path('media').root
 
 AUTH_USER_MODEL = 'core.User'
 LOGIN_URL = urls.reverse_lazy('account_login')
