@@ -24,7 +24,7 @@ def collecstatic(c, project='project'):
 
 @fabric.task
 def make_migrations(c, project='project'):
-    """Executa as migrações."""
+    """Gera as migrações."""
     c.run(f'cd ~/{project} && pipenv run invoke make-migrations')
 
 
