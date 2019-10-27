@@ -1,4 +1,4 @@
-"""Configurações gerais do projeto {{ project_name }}."""
+"""Configurações base do projeto {{ project_name }}."""
 
 import environ
 from django.conf import global_settings
@@ -66,7 +66,9 @@ THIRD_PARTY_APPS = [
 ]
 
 PROJECT_APPS = [
-    'core.apps.CoreConfig',
+    'administrativo',
+    'administrativo.usuarios',
+    'arquitetura',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
@@ -173,7 +175,7 @@ PIPELINE['BABEL_ARGUMENTS'] = '--presets env'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = root.path('media').root
 
-AUTH_USER_MODEL = 'core.User'
+AUTH_USER_MODEL = 'usuarios.Usuario'
 LOGIN_URL = urls.reverse_lazy('account_login')
 LOGIN_REDIRECT_URL = '/'
 
