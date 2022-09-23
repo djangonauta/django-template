@@ -1,0 +1,26 @@
+<!doctype html>{% load static hijack %}
+<html lang="pt-br">
+<head>
+  {% block meta %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% endblock meta %}
+
+  <title>{% block title %}Bem vindo{% endblock title %}</title>
+
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/python-logo.png' %}" />
+
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+
+  {% block styles %}{% endblock styles %}
+</head>
+<body class="{% block body_class %}{% endblock body_class %}">
+  {% block body %}
+  {% endblock body %}
+
+  <script src="{% static 'js/app.js' %}"></script>
+
+  {% block scripts %}{% endblock scripts %}
+</body>
+</html>

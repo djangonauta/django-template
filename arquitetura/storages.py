@@ -1,1 +1,0 @@
-"""Storages da aplicação arquitetura."""

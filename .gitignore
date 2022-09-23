@@ -105,7 +105,8 @@ venv.bak/
 
 # assets
 /media/
-/uploads/
+/downloads/
+/downloads-test/
 /static/
 /assets/
 /public/
