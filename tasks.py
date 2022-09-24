@@ -10,8 +10,8 @@ def run_server(c, noinput=True, clear=False, verbosity=0, settings='development'
 
 
 @invoke.task
-def test(c, package='', settings='test'):
-    cmd = f'coverage run ./manage.py test {package} --settings=projeto.settings.{settings}'
+def test(c, flags='-Wa', package='', settings='test'):
+    cmd = f'python3 {flags} -m coverage run manage.py test {package} --settings=projeto.settings.{settings}'
     c.run(cmd, echo=True, pty=True)
     cmd = 'coverage report'
     c.run(cmd, echo=True, pty=True)
