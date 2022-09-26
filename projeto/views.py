@@ -10,14 +10,13 @@ def index(request):
     })
 
 
-
 class RelatorioTesteView(BaseReportResponseMixin, generic.TemplateView):
 
     template_name = '_reports/teste.html'
 
     def get_context_data(self, **kwargs):
         kwargs['mensagem'] = 'PDF WORKS'
-        return super(RelatorioTesteView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 relatorio = RelatorioTesteView.as_view()
