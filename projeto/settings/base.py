@@ -1,19 +1,22 @@
+import pathlib
+
 import environ
 from django import urls
 from django.conf import global_settings
 
-root = environ.Path(__file__) - 3
 env = environ.Env()
 environ.Env.read_env()
-
 
 # ADMINS = 'Fulano de tal=fulano@email.com,Beltrano=beltrano@email.com'
 admins = env.dict('ADMINS')
 ADMINS = admins.items()
 MANAGERS = env.dict('MANAGERS', default=admins).items()
 
-# Build paths inside the project like this: join(BASE_DIR, ...)
-BASE_DIR = root()
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
@@ -90,7 +93,7 @@ SITE_ID = 1
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [root.path('projeto', 'templates').root],
+        'DIRS': [BASE_DIR / 'projeto' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,11 +142,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 STATIC_URL = '/public/'
-STATIC_ROOT = root.path('public').root
-STATICFILES_DIRS = [root.path('projeto', 'assets').root]
+STATIC_ROOT = BASE_DIR / 'public'
+STATICFILES_DIRS = [BASE_DIR / 'projeto' / 'assets']
 
 MEDIA_URL = '/downloads/'
-MEDIA_ROOT = root.path('downloads').root
+MEDIA_ROOT = BASE_DIR / 'downloads'
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
 LOGIN_URL = urls.reverse_lazy('account_login')
@@ -173,7 +176,7 @@ AUTH_LDAP_SERVER_URI = env('AUTH_LDAP_SERVER_URI', default='')
 AUTH_LDAP_USER_DN_TEMPLATE = env('AUTH_LDAP_SERVER_URI', default='')
 
 # https://docs.djangoproject.com/en/dev/topics/i18n/
-LOCALE_PATHS = [root.path('projeto', 'locale').root]
+LOCALE_PATHS = [BASE_DIR / 'projeto' / 'locale']
 
 # https://django-q.readthedocs.io/en/latest/configure.html#redis-configuration
 Q_CLUSTER = {

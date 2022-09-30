@@ -12,4 +12,4 @@ INTERNAL_IPS = ['127.0.0.1']
 
 MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE  # noqa: F405
 
-MEDIA_ROOT = root.path('downloads-test').root  # noqa: F405
+MEDIA_ROOT = BASE_DIR / 'downloads-test'  # noqa: F405

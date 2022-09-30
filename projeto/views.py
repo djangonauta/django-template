@@ -1,13 +1,14 @@
-from django import shortcuts
 from django.views import generic
 
 from projeto.apps.arquitetura.mixins import BaseReportResponseMixin
 
 
-def index(request):
-    return shortcuts.render(request, 'index.html', {
-        'title': 'Bem vindo',
-    })
+class IndexView(generic.TemplateView):
+
+    template_name = 'index.html'
+
+
+index = IndexView.as_view()
 
 
 class RelatorioTesteView(BaseReportResponseMixin, generic.TemplateView):

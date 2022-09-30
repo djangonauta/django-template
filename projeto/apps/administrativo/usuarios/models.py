@@ -14,13 +14,29 @@ def diretorio_imagem_perfil(instance, filename):
 
 class Usuario(TimeStampedModel, AbstractUser):
 
+    class Tipo(models.IntegerChoices):
+        DEFAULT = 1,  'default'
+
+    tipo = models.IntegerField(choices=Tipo.choices, default=Tipo.DEFAULT)
+    tipo_usuario = Tipo.DEFAULT
+
+    imagem_perfil = models.ImageField(upload_to=diretorio_imagem_perfil, null=True, blank=True)
+    endereco = models.CharField(max_length=255)
+
+    history = AuditlogHistoryField()
+
     class Meta:
         verbose_name = 'Usuário'
         db_table = 'administrativo\".\"usuarios_usuario'
 
-    imagem_perfil = models.ImageField(upload_to=diretorio_imagem_perfil, null=True, blank=True)
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.tipo = self.tipo_usuario
 
-    history = AuditlogHistoryField()
+        return super().save(*args, **kwargs)
+
+    def is_default(self):
+        return self.tipo == self.Tipo.DEFAULT
 
     def gravatar_url(self):
         email_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
