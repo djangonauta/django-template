@@ -8,6 +8,8 @@ from . import api, views
 
 urlpatterns = [
     urls.re_path(r'^$', views.index, name='index'),
+    urls.re_path(r'^app/$', views.app, name='app'),
+    urls.re_path(r'^vinculos/$', views.vinculos, name='vinculos'),
     urls.re_path(r'^report/$', views.relatorio, name='report'),  # remover
     urls.re_path(r'^contas/', urls.include('allauth.urls')),
     urls.re_path(r'^hijack/', urls.include('hijack.urls', namespace='hijack')),
