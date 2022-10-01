@@ -8,10 +8,11 @@ class VinculoMiddleware:
 
     def __call__(self, request):
         # código pré-view
-        if (request.user.is_authenticated
-                and not request.session.get('vinculo', None)
-                and request.path.startswith(urls.reverse('app'))):
-            return shortcuts.redirect(f'/vinculos/?redirect_field={request.path}')
+        if (request.user.is_authenticated  # se usuário está autenticado
+                and request.path.startswith(urls.reverse('app'))  # acessando a aplicação
+                and not request.session.get('vinculo', None)):  # sem vínculo selecionado
+            # redirecionar para página de seleção de vínculo
+            return shortcuts.redirect(f'/vinculos/?redirect_field={request.path_info}')
 
         response = self.get_response(request)
 

@@ -31,7 +31,7 @@ class VinculoForm(forms.Form):
     vinculo = forms.ChoiceField(choices=VinculoOptions.choices)
     redirect_field = forms.CharField(max_length=255)
 
-    def salvar_vinculo(self, request):
+    def vincular(self, request):
         request.session['vinculo'] = self.cleaned_data['vinculo']
 
 
@@ -41,7 +41,7 @@ class VinculosView(mixins.LoginRequiredMixin, generic.FormView):
     template_name = 'vinculos.html'
 
     def form_valid(self, form):
-        form.salvar_vinculo(self.request)
+        form.vincular(self.request)
         self.success_url = form.cleaned_data['redirect_field']
         return super().form_valid(form)
 

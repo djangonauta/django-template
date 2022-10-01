@@ -7,23 +7,22 @@ from rest_framework import documentation
 from . import api, views
 
 urlpatterns = [
-    urls.re_path(r'^$', views.index, name='index'),
-    urls.re_path(r'^app/$', views.app, name='app'),
-    urls.re_path(r'^vinculos/$', views.vinculos, name='vinculos'),
-    urls.re_path(r'^report/$', views.relatorio, name='report'),  # remover
-    urls.re_path(r'^contas/', urls.include('allauth.urls')),
-    urls.re_path(r'^hijack/', urls.include('hijack.urls', namespace='hijack')),
-    urls.re_path(r'^api/v1/', api.urls),
-    # urls.re_path(r'^api-auth/', urls.include('rest_framework.urls', namespace='rest_framework')),
-    urls.re_path(r'^admin/', admin.site.urls),
-    urls.re_path(r'^docs/', documentation.include_docs_urls(title='Documentação funcional da API')),
+    urls.path('', views.index, {'mensagem': 'lula2022'}, name='index'),
+    urls.path('app/', views.app, name='app'),
+    urls.path('vinculos/', views.vinculos, name='vinculos'),
+    urls.path('report/', views.relatorio, name='report'),  # remover
+    urls.path('contas/', urls.include('allauth.urls')),
+    urls.path('hijack/', urls.include('hijack.urls', namespace='hijack')),
+    urls.path('api/v1/', api.urls),
+    # urls.path('api-auth/', urls.include('rest_framework.urls', namespace='rest_framework')),
+    urls.path('admin/', admin.site.urls),
+    urls.path('docs/', documentation.include_docs_urls(title='Documentação funcional da API')),
 ]
 
 # media files in development
 urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
-    import debug_toolbar
     urlpatterns += [
-        urls.re_path(r'^__debug__/', urls.include(debug_toolbar.urls))
+        urls.path('__debug__/', urls.include('debug_toolbar.urls'))
     ]
