@@ -7,7 +7,7 @@ from rest_framework import documentation
 from . import api, views
 
 urlpatterns = [
-    urls.path('', views.index, {'mensagem': 'lula2022'}, name='index'),
+    urls.path('', views.index, {'mensagem': 'kwargs'}, name='index'),
     urls.path('app/', views.app, name='app'),
     urls.path('vinculos/', views.vinculos, name='vinculos'),
     urls.path('report/', views.relatorio, name='report'),  # remover

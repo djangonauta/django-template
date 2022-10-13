@@ -170,7 +170,7 @@ OLD_PASSWORD_FIELD_ENABLED = True
 
 AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
     ['django_auth_ldap.backend.LDAPBackend',
-        'allauth.account.auth_backends.AuthenticationBackend']
+     'allauth.account.auth_backends.AuthenticationBackend']
 
 # ldap
 AUTH_LDAP_SERVER_URI = env('AUTH_LDAP_SERVER_URI', default='')
