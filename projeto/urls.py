@@ -9,7 +9,6 @@ from . import api, views
 urlpatterns = [
     urls.path('', views.index, {'mensagem': 'kwargs'}, name='index'),
     urls.path('app/', views.app, name='app'),
-    urls.path('vinculos/', views.vinculos, name='vinculos'),
     urls.path('report/', views.relatorio, name='report'),  # remover
     urls.path('contas/', urls.include('allauth.urls')),
     urls.path('hijack/', urls.include('hijack.urls', namespace='hijack')),
