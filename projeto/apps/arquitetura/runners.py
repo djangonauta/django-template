@@ -5,7 +5,7 @@ from django.test.runner import DiscoverRunner
 
 
 def prepare_database(self):
-    schemas = ['administrativo', 'arquitetura', 'clinica']
+    schemas = ['administrativo', 'arquitetura']
     comandos = map(lambda s: f'create schema {s}', schemas)
     self.connect()
     self.connection.cursor().execute(';'.join(comandos))
