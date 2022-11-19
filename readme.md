@@ -50,3 +50,10 @@ Atribuir permissões:
 ```bash
 sudo rabbitmqctl set_permissions -p projeto usuario ".*" ".*" ".*"
 ```
+
+Ativar inteface web localhost:15672
+
+```bash
+sudo rabbitmq-plugins enable rabbitmq_management # ativar o plugin
+sudo rabbitmqctl set_user_tags usuario administrator # adicionar permissão ao usuário
+```
