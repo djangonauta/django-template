@@ -9,6 +9,7 @@ As seguintes váriaveis de ambiente são requeridas (exemplos):
     EMAIL_URL='consolemail://:@'
     #EMAIL_URL='postoffice://:@localhost:1025'
     CACHE_URL='pymemcachecache://127.0.0.1:11211'
+    BROKER_URL='amqp://igor:123@localhost:5672/projeto'
     DISABLE_ACCOUNT_REGISTRATION=False
     CSRF_TRUSTED_ORIGINS='https://localhost'
 
@@ -20,4 +21,32 @@ Certificado teste
 
 ```bash
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365
+```
+
+RabbitMQ
+========
+
+Remover usuário guest:
+
+```bash
+sudo rabbitmqctl delete_user guest
+```
+
+Adicionar VHOST do projeto:
+
+```bash
+sudo rabbitmqctl delete_vhost /
+sudo rabbitmqctl add_vhost projeto
+```
+
+Adicionar usuário:
+
+```bash
+sudo rabbitmqctl add_user usuario senha
+```
+
+Atribuir permissões:
+
+```bash
+sudo rabbitmqctl set_permissions -p projeto usuario ".*" ".*" ".*"
 ```

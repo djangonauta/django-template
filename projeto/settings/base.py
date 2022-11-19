@@ -58,7 +58,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'auditlog',
-    'django_q',
+    'django_celery_results',
     'hijack',
     'hijack.contrib.admin',
     'post_office',
@@ -179,21 +179,11 @@ AUTH_LDAP_USER_DN_TEMPLATE = env('AUTH_LDAP_SERVER_URI', default='')
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 LOCALE_PATHS = [BASE_DIR / 'projeto' / 'locale']
 
-# https://django-q.readthedocs.io/en/latest/configure.html#redis-configuration
-Q_CLUSTER = {
-    'redis': {
-        'host': 'localhost',
-        'port': 6379,
-        'db': 0,
-        'password': None,
-        'socket_timeout': None,
-        'charset': 'utf-8',
-        'errors': 'strict',
-        'unix_socket_path': None
-    },
-    'retry': 60,
-    'timeout': 30
-}
+# https://docs.celeryq.dev/en/stable/userguide/configuration.html
+CELERY_BROKER_URL = env('BROKER_URL')
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
 
 env.CACHE_SCHEMES.update(redis='django.core.cache.backends.redis.RedisCache')
 CACHES = {'default': env.cache_url()}
