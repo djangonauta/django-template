@@ -78,6 +78,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -194,7 +195,7 @@ Q_CLUSTER = {
     'timeout': 30
 }
 
-env.CACHE_SCHEMES.update(pymemcachecache='django.core.cache.backends.memcached.PyMemcacheCache')
+env.CACHE_SCHEMES.update(redis='django.core.cache.backends.redis.RedisCache')
 CACHES = {'default': env.cache_url()}
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
