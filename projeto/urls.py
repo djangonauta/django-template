@@ -22,6 +22,4 @@ urlpatterns = [
 urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
-    urlpatterns += [
-        urls.path('__debug__/', urls.include('debug_toolbar.urls'))
-    ]
+    urlpatterns += [urls.path('__debug__/', urls.include('debug_toolbar.urls'))]

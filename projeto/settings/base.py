@@ -59,6 +59,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',
     'auditlog',
     'django_celery_results',
+    'formtools',
     'hijack',
     'hijack.contrib.admin',
     'post_office',
