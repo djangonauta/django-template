@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
+import inspect
+
 import invoke
+
+if not hasattr(inspect, 'getargspec'):
+    inspect.getargspec = inspect.getfullargspec
 
 
 @invoke.task(default=True)

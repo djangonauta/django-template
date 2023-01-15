@@ -59,6 +59,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',
     'auditlog',
     'django_celery_results',
+    'django_extensions',
     'formtools',
     'hijack',
     'hijack.contrib.admin',
@@ -149,6 +150,7 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 LOGIN_URL = urls.reverse_lazy('account_login')
 LOGIN_REDIRECT_URL = urls.reverse_lazy('app')
 
+# https://django-allauth.readthedocs.io/en/latest/
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
@@ -181,10 +183,18 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
+# https://django-extensions.readthedocs.io/en/latest/graph_models.html
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
+
+# https://docs.djangoproject.com/en/dev/topics/cache/
 env.CACHE_SCHEMES.update(redis='django.core.cache.backends.redis.RedisCache')
 CACHES = {'default': env.cache_url()}
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
+# https://www.django-rest-framework.org/
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
