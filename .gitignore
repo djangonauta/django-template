@@ -117,3 +117,7 @@ node_modules/
 
 # editors
 .vscode
+
+# server plus
+*.crt
+*.key

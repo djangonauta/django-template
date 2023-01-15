@@ -46,7 +46,9 @@ django-debug-toolbar = "*"
 factory_boy = "*"
 flake8 = "*"
 pyinotify = "*"
+pyopenssl = "*"
 selenium = "*"
+werkzeug = "*"
 
 [requires]
 python_version = "3.11"
