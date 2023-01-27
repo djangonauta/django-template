@@ -1,3 +1,4 @@
+# See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 from .staging import *  # noqa: F401, F403
 
 # Security

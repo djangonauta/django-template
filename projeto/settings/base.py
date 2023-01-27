@@ -7,16 +7,13 @@ from django.conf import global_settings
 env = environ.Env()
 environ.Env.read_env()
 
-# ADMINS = 'Fulano de tal=fulano@email.com,Beltrano=beltrano@email.com'
+# ADMINS = 'Fulano=fulano@email.com,Beltrano=beltrano@email.com'
 admins = env.dict('ADMINS')
 ADMINS = admins.items()
 MANAGERS = env.dict('MANAGERS', default=admins).items()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
@@ -170,7 +167,7 @@ AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
     ['django_auth_ldap.backend.LDAPBackend',
      'allauth.account.auth_backends.AuthenticationBackend']
 
-# ldap
+# https://django-auth-ldap.readthedocs.io/en/latest/
 AUTH_LDAP_SERVER_URI = env('AUTH_LDAP_SERVER_URI', default='')
 AUTH_LDAP_USER_DN_TEMPLATE = env('AUTH_LDAP_SERVER_URI', default='')
 

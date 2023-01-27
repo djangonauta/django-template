@@ -2,15 +2,16 @@
 <html lang="pt-br">
 <head>
   {% block meta %}
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
   {% endblock meta %}
 
   <title>{% block title %}Bem vindo{% endblock title %}</title>
 
   <link href="{% static 'images/python-logo.png' %}" rel="shortcut icon" type="image/png"/>
-  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"/>
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+  <link href="{% static 'bootstrap-icons/css/bootstrap-icons.css' %}" rel="stylesheet"/>
   
   <link href="{% static 'select2/css/select2.min.css' %}" rel="stylesheet"/>
   <link href="{% static 'css/app.css' %}" rel="stylesheet"/>
@@ -20,8 +21,8 @@
 <body class="{% block body_class %}{% endblock body_class %}">
   {% block body %}{% endblock body %}
 
-  <script src="{% static 'js/jquery.min.js' %}"></script>
-  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'jquery/js/jquery.min.js' %}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
   
   <script src="{% static 'select2/js/select2.min.js' %}"></script>
   <script src="{% static 'select2/js/i18n/pt-BR.js' %}"></script>
