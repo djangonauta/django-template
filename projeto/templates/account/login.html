@@ -2,19 +2,14 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
-<div class="row mt-5">
-  <div class="col"></div>
-
-  <div class="col-6">
+<div class="d-flex align-items-center justify-content-center" style="height: 100vh">
+  <div style="width: 25%">
     {% if form.non_field_errors %}
       <div class="alert alert-dismissible alert-danger">
         <div>{{ form.non_field_errors.0 }}</div>
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       </div>
     {% endif %}
-
-    <h4 class="mt-0">Login</h4>
-    <p class="text-muted mb-3">Entre com suas credenciais de acesso para fazer login no sistema.</p>
 
     <form action="" method="post">{% csrf_token %}
       <div class="card">
@@ -49,14 +44,13 @@
   
           <div class="d-flex">
             <button id="logar" class="btn btn-primary btn-sm" type="submit">
-              <i class="mdi mdi-login"></i> Fazer Login
+              <i class="mdi mdi-login"></i> Enviar
             </button>
           </div>
         </div>
       </div>
     </form>
   </div>
-  <div class="col"></div>
 </div>
 {% endblock body %}
 
@@ -65,12 +59,6 @@
   <script>
     $(function () {
       $('#id_login').focus();
-      $('#password-eye').click(function () {
-        var tipo = $('#id_password').attr('type') === 'text' ? 'password' : 'text';
-        var titulo = `Clique para ${tipo === 'text' ? 'esconder' : 'mostrar'} a senha`;
-        $('#id_password').attr('type', tipo);
-        $('#password-eye').attr('title', titulo);
-      })
     });
   </script>
 {% endblock scripts %}

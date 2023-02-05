@@ -39,12 +39,20 @@
           </div>
         </nav>
 
-        <select id="tipoMensagem" class="form-control form-control-sm">
-          <option value="primary">Primário</option>
-          <option value="secondary">Secondário</option>
-          <option value="danger">Perigo</option>
-          <option value="success">Sucesso</option>
-        </select>
+        <div class="mb-3">
+          <label for="tipoMensagem" class="form-label">Tipo da mensagem</label>
+          <select id="tipoMensagem" class="form-control form-control-sm">
+            <option value="primary">Primário</option>
+            <option value="secondary">Secondário</option>
+            <option value="danger">Perigo</option>
+            <option value="success">Sucesso</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="conteudo" class="form-label">Conteúdo</label>
+          <textarea id="conteudo" name="conteudo" cols="30" rows="5" class="form-control"></textarea>
+        </div>
 
         <div class="mt-3">
           <a id="liveAlertBtn" type="button" class="btn btn-primary btn-sm">Mostrar alerta</a>
@@ -68,21 +76,20 @@
 
 {% block scripts %}
   <script>
-    const alertPlaceholder = $('#liveAlertPlaceholder')
+    const alertTrigger = $('#liveAlertBtn')
+    if (alertTrigger) {
+      alertTrigger.click(() => {
+        var tipoMensagem = $('#tipoMensagem').find(':selected').val();
+        alert($('#conteudo').val(), tipoMensagem);
+        $('#conteudo').val('');
+      })
+    }
 
     const alert = (message, type) => {
       const wrapper = $('<div/>')
       wrapper.html($('#templateAlerta').html().replace(/__message__/g, message).replace(/__type__/g, type))
 
-      alertPlaceholder.append(wrapper)
-    }
-
-    const alertTrigger = $('#liveAlertBtn')
-    if (alertTrigger) {
-      alertTrigger.click(() => {
-        var tipoMensagem = $('#tipoMensagem').find(':selected').val()
-        alert(`Mensagem gerada do tipo ${tipoMensagem} `, tipoMensagem)
-      })
+      $('#liveAlertPlaceholder').append(wrapper)
     }
   </script>
 {% endblock scripts %}
