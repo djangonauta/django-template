@@ -55,6 +55,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'auditlog',
+    'django_celery_beat',
     'django_celery_results',
     'django_extensions',
     'formtools',
@@ -179,6 +180,7 @@ CELERY_BROKER_URL = env('BROKER_URL')
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 # https://django-extensions.readthedocs.io/en/latest/graph_models.html
 GRAPH_MODELS = {

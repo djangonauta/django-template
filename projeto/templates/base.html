@@ -9,12 +9,10 @@
 
   <title>{% block title %}Bem vindo{% endblock title %}</title>
 
-  <link href="{% static 'images/python-logo.png' %}" rel="shortcut icon" type="image/png"/>
-  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
-  <link href="{% static 'bootstrap-icons/css/bootstrap-icons.css' %}" rel="stylesheet"/>
-  
-  <link href="{% static 'select2/css/select2.min.css' %}" rel="stylesheet"/>
-  <link href="{% static 'css/app.css' %}" rel="stylesheet"/>
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/python-logo.png' %}"/>
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'bootstrap-icons/css/bootstrap-icons.css' %}"/>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}"/>
 
   {% block styles %}{% endblock styles %}
 </head>
@@ -23,9 +21,6 @@
 
   <script src="{% static 'jquery/js/jquery.min.js' %}"></script>
   <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-  
-  <script src="{% static 'select2/js/select2.min.js' %}"></script>
-  <script src="{% static 'select2/js/i18n/pt-BR.js' %}"></script>
   <script src="{% static 'js/app.js' %}"></script>
   {% block scripts %}{% endblock scripts %}
 </body>

@@ -4,6 +4,6 @@ from projeto.celery import app
 
 
 @app.task
-def tarefa(a, b):
+def somar(*elementos):
     time.sleep(5)
-    return a + b
+    return sum(elementos)

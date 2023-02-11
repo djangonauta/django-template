@@ -15,12 +15,12 @@
       <div class="card">
         <div class="card-header">Login</div>
         <div class="card-body">
-          <div class="mb-2">
+          <div class="mb-3">
             <label for="{{ form.login.id_for_label }}" class="form-label">Nome de usuário ou email</label>
             {% render_field form.login class="form-control form-control-sm" placeholder="Nome de usuário ou e-mail" %}
           </div>
   
-          <div class="mb-2">
+          <div class="mb-3">
             <label for="{{ form.password.id_for_label }}" class="form-label">Senha</label>
             <div class="input-group input-group-merge">
               {% render_field form.password class="form-control form-control-sm" placeholder="Senha" %}
@@ -43,8 +43,8 @@
           <hr/>
   
           <div class="d-flex">
-            <button id="logar" class="btn btn-primary btn-sm" type="submit">
-              <i class="mdi mdi-login"></i> Enviar
+            <button id="logar" class="ms-auto btn btn-primary btn-sm" type="submit">
+              <i class="bi bi-box-arrow-in-right"></i> Entrar
             </button>
           </div>
         </div>
@@ -58,7 +58,7 @@
   {{ block.super }}
   <script>
     $(function () {
-      $('#id_login').focus();
+      $('#{{ form.login.id_for_label }}').focus();
     });
   </script>
 {% endblock scripts %}
