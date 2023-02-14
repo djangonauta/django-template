@@ -14,6 +14,7 @@ def diretorio_imagem_perfil(instance, filename):
 
 class Usuario(TimeStampedModel, AbstractUser):
 
+    # Tipo do usuário automaticamente definido em save()
     class Tipo(models.IntegerChoices):
         DEFAULT = 1,  'default'
 
@@ -31,10 +32,11 @@ class Usuario(TimeStampedModel, AbstractUser):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.tipo = self.tipo_usuario
+            self.tipo = self.tipo_usuario  # ao herdar da classe Usuario especificar qual o tipo de usuário
 
         return super().save(*args, **kwargs)
 
+    # Métodos assim poderiam ser definidos na subclasse para verificar o tipo
     def is_default(self):
         return self.tipo == self.Tipo.DEFAULT
 
