@@ -4,16 +4,13 @@ from rest_framework import serializers
 
 class UsuarioSerializer(serializers.ModelSerializer):
 
-    nome_completo = serializers.ReadOnlyField(source='get_full_name')
-
     def to_representation(self, instance):
-        usuario_dict = super().to_representation(instance)
-        nome = usuario_dict.get('nome_completo', '') or usuario_dict['username']
-        return dict(id=usuario_dict['id'], text=nome)
+        # return dict(id=instance.id, text=instance.nome_completo) # select2
+        return super().to_representation(instance)
 
     class Meta:
         model = auth.get_user_model()
-        fields = ['id', 'username', 'nome_completo']
+        fields = ['id', 'username', 'perfil_imagem', 'nome_completo']
 
 
 class DisableSignupSerializer(serializers.Serializer):
