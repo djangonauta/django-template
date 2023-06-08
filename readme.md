@@ -4,13 +4,14 @@ Instalação
 As seguintes váriaveis de ambiente são requeridas (exemplos):
 
     SECRET_KEY='ztibsdwjar1v1pnp-6osx@r(1@!mfklak0$acg9^l^ut!7!sf1'
-    DATABASE_URL='postgres://igor:123@localhost:5432/project'
-    ADMINS='igor=igor.dev.py@gmail.com'
+    DATABASE_URL='postgres://igor:123@localhost:5432/django-template'
+    ADMINS='admin=admin@domain.com'
     EMAIL_URL='consolemail://:@'
     #EMAIL_URL='postoffice://:@localhost:1025'
-    CACHE_URL='pymemcachecache://127.0.0.1:11211'
+    CACHE_URL='redis://127.0.0.1:6379'
     BROKER_URL='amqp://igor:123@localhost:5672/projeto'
-    DISABLE_ACCOUNT_REGISTRATION=False
+    DISABLE_ACCOUNT_REGISTRATION='False'
+    ACCOUNT_EMAIL_VERIFICATION='none' # mandatory, optional
     CSRF_TRUSTED_ORIGINS='https://localhost'
 
 Essas variáveis devem ser definidas em {{ project_name }}/settings/.env
