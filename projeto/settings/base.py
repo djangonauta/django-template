@@ -150,7 +150,7 @@ LOGIN_REDIRECT_URL = urls.reverse_lazy('app')
 # https://django-allauth.readthedocs.io/en/latest/
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = env('ACCOUNT_EMAIL_VERIFICATION')
+ACCOUNT_EMAIL_VERIFICATION = env('ACCOUNT_EMAIL_VERIFICATION', default='none')
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_LOGOUT_ON_GET = True
@@ -160,8 +160,6 @@ if env('DISABLE_ACCOUNT_REGISTRATION', default=False):
     REST_AUTH_REGISTER_SERIALIZERS = {
         'REGISTER_SERIALIZER': 'projeto.apps.administrativo.usuarios.serializers.DisableSignupSerializer'
     }
-
-OLD_PASSWORD_FIELD_ENABLED = True
 
 AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
     ['django_auth_ldap.backend.LDAPBackend',
