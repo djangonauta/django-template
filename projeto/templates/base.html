@@ -4,14 +4,15 @@
   {% block meta %}
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
   {% endblock meta %}
 
   <title>{% block title %}Bem vindo{% endblock title %}</title>
 
-  <link rel="shortcut icon" type="image/png" href="{% static 'images/python-logo.png' %}"/>
-  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}"/>
-  <link rel="stylesheet" href="{% static 'bootstrap-icons/css/bootstrap-icons.css' %}"/>
+  <link rel="shortcut icon" href="{% static 'images/python-logo.png' %}"/>
+  <link rel="stylesheet" href="{% static 'libs/bulma-0.9.4/css/bulma.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'libs/select2-4.1.0.rc.0/css/select2.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'libs/font-awesome-6.4.0/css/all.min.css' %}"/>
   <link rel="stylesheet" href="{% static 'css/app.css' %}"/>
 
   {% block styles %}{% endblock styles %}
@@ -19,8 +20,9 @@
 <body class="{% block body_class %}{% endblock body_class %}">
   {% block body %}{% endblock body %}
 
-  <script src="{% static 'jquery/js/jquery.min.js' %}"></script>
-  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'libs/jquery-3.7.0/js/jquery.min.js' %}"></script>
+  <script src="{% static 'libs/select2-4.1.0.rc.0/js/select2.full.min.js' %}"></script>
+  <script src="{% static 'libs/select2-4.1.0.rc.0/js/i18n/pt-BR.js' %}"></script>
   <script src="{% static 'js/app.js' %}"></script>
   {% block scripts %}{% endblock scripts %}
 </body>

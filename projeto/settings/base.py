@@ -65,6 +65,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    'view_breadcrumbs',
     'widget_tweaks',
 ]
 
@@ -210,6 +211,8 @@ REST_FRAMEWORK = {
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+BREADCRUMBS_TEMPLATE = '_includes/breadcrumbs.html'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
