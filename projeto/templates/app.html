@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% load view_breadcrumbs %}
+{% extends 'base.html' %}{% load view_breadcrumbs widget_tweaks %}
 
 {% block body %}
 <div class="section pt-2">
@@ -54,6 +54,66 @@
             <h3>Outro conteúdo mais</h3>
           </div>
         </div>
+      </div>
+    </div>
+    <hr>
+
+    <div class="columns mb-3">
+      <div class="column is-one-quarter">
+        <form action="">
+          <div class="field">
+            <label for="{{ filter.form.object_repr.id_for_label }}" class="label">{{ filter.form.object_repr.label }}</label>
+            <div class="control">
+              {% render_field filter.form.object_repr class="input" %}
+            </div>
+          </div>
+          <div class="field">
+            <label for="{{ filter.form.action.id_for_label }}" class="label">{{ filter.form.action.label }}</label>
+            <div class="control">
+              <div class="select">
+                {% render_field filter.form.action %}
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button class="button is-primary">
+                <span class="icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <span>Buscar</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="column">
+      {% if entries %}
+      <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+        <caption class="title">Total de resultados: {{ paginator.count }}</caption>
+        <thead>
+          <th>Object Repr</th>
+          <th>Action</th>
+          <th>Changes</th>
+        </thead>
+
+        <tbody>
+          {% for entry in entries %}
+            <tr>
+              <td>{{ entry.object_repr }}</td>
+              <td>{{ entry.action }}</td>
+              <td>{{ entry.changes }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {% include '_includes/paginador.html' %}
+      {% else %}
+        <h3 class="title">Sem resultados</h3>
+        <p class="help-text">Tente refinar sua busca</p>
+      {% endif %}
       </div>
     </div>
     {% endblock conteudo %}

@@ -18,8 +18,8 @@
     {% endif %}
 
     <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">Login</p>
+      <header class="card-header has-background-grey-dark">
+        <p class="card-header-title has-text-light">Login</p>
       </header>
 
       <div class="card-content">
@@ -35,7 +35,7 @@
   
           <label for="{{ form.password.id_for_label }}" class="label">Senha <span class="has-text-danger">*</span></label>
           <div class="field has-addons">
-            <div class="control" style="width: 100%">
+            <div class="control is-expanded">
               {% render_field form.password class="input" placeholder="Senha" %}
               {% if form.password.errors %}<p class="help is-danger">{{ form.password.errors.0 }}</p>{% endif %}
             </div>
@@ -59,7 +59,7 @@
         <hr>
 
         <div class="is-clearfix">
-          <button class="button is-primary is-pulled-right" type="submit" onclick="this.setAttribute('disabled', 'disabled');submit()">
+          <button class="button is-primary is-pulled-right" type="submit" onclick="this.classList.toggle('is-loading');submit()">
             <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span> <span>Entrar</span>
           </button>
         </div>
