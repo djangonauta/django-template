@@ -2,70 +2,74 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
-<div class="is-flex is-justify-content-center is-align-items-center" style="height: 100vh">
-  <form action="" method="post" style="width: 25%" novalidate>{% csrf_token %}
-    {% if form.non_field_errors %}
-    <article class="message is-warning">
-      <div class="message-header">
-        <p>Erro</p>
+<div class="section">
+  <div class="columns is-centered">
+    <div class="column is-one-quarter">
+      <form action="" method="post" novalidate>{% csrf_token %}
+        {% if form.non_field_errors %}
+        <article class="message is-warning">
+          <div class="message-header">
+            <p>Erro</p>
 
-        <button type="button" class="delete" title="Clique para fechar essa mensagem"
-          onclick="this.parentElement.parentElement.style.display='none'"></button>
-      </div>
-
-      <div class="message-body">{{ form.non_field_errors.0 }}</div>
-    </article>
-    {% endif %}
-
-    <div class="card">
-      <header class="card-header has-background-grey-dark">
-        <p class="card-header-title has-text-light">Login</p>
-      </header>
-
-      <div class="card-content">
-        <div class="content">
-          <div class="field">
-            <label for="{{ form.login.id_for_label }}" class="label">Login <span class="has-text-danger">*</span></label>
-
-            <div class="control">
-              {% render_field form.login class="input" placeholder="Nome de usuário ou e-mail" autofocus="autofocus" %}
-              {% if form.login.errors %}<p class="help is-danger">{{ form.login.errors.0 }}</p>{% endif %}
-            </div>
+            <button type="button" class="delete" title="Clique para fechar essa mensagem"
+              onclick="this.parentElement.parentElement.style.display='none'"></button>
           </div>
-  
-          <label for="{{ form.password.id_for_label }}" class="label">Senha <span class="has-text-danger">*</span></label>
-          <div class="field has-addons">
-            <div class="control is-expanded">
-              {% render_field form.password class="input" placeholder="Senha" %}
-              {% if form.password.errors %}<p class="help is-danger">{{ form.password.errors.0 }}</p>{% endif %}
-            </div>
 
-            <div class="control">
-              <button id="password-eye" type="button" class="button" title="Clique para visualizar a senha">
-                <span class="icon"><i class="fa-solid fa-eye"></i></span>
+          <div class="message-body">{{ form.non_field_errors.0 }}</div>
+        </article>
+        {% endif %}
+
+        <div class="card">
+          <header class="card-header has-background-grey-dark">
+            <p class="card-header-title has-text-light">Login</p>
+          </header>
+
+          <div class="card-content">
+            <div class="content">
+              <div class="field">
+                <label for="{{ form.login.id_for_label }}" class="label">Login <span class="has-text-danger">*</span></label>
+
+                <div class="control">
+                  {% render_field form.login class="input" placeholder="Nome de usuário ou e-mail" autofocus="autofocus" %}
+                  {% if form.login.errors %}<p class="help is-danger">{{ form.login.errors.0 }}</p>{% endif %}
+                </div>
+              </div>
+
+              <label for="{{ form.password.id_for_label }}" class="label">Senha <span class="has-text-danger">*</span></label>
+              <div class="field has-addons">
+                <div class="control is-expanded">
+                  {% render_field form.password class="input" placeholder="Senha" %}
+                  {% if form.password.errors %}<p class="help is-danger">{{ form.password.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="control">
+                  <button id="password-eye" type="button" class="button" title="Clique para visualizar a senha">
+                    <span class="icon"><i class="fa-solid fa-eye"></i></span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="field is-clearfix">
+                <div class="is-pulled-right">
+                  {% render_field form.remember class="form-check-input ponteiro" title="Clique para permanecer logado mesmo fechando seu navegador" %}
+                  <label class="ponteiro" for="{{ form.remember.id_for_label }}" title="Clique para permanecer logado mesmo fechando seu navegador">Lembrar</label>
+                </div>
+              </div>
+
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value | default:'/' }}" />
+            </div>
+            <hr>
+
+            <div class="is-clearfix">
+              <button class="button is-primary is-pulled-right" type="submit" onclick="this.classList.toggle('is-loading');submit()">
+                <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span> <span>Entrar</span>
               </button>
             </div>
           </div>
-  
-          <div class="field is-clearfix">
-            <div class="is-pulled-right">
-              {% render_field form.remember class="form-check-input ponteiro" title="Clique para permanecer logado mesmo fechando seu navegador" %}
-              <label class="ponteiro" for="{{ form.remember.id_for_label }}" title="Clique para permanecer logado mesmo fechando seu navegador">Lembrar</label>
-            </div>
-          </div>
-
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value | default:'/' }}" />
         </div>
-        <hr>
-
-        <div class="is-clearfix">
-          <button class="button is-primary is-pulled-right" type="submit" onclick="this.classList.toggle('is-loading');submit()">
-            <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span> <span>Entrar</span>
-          </button>
-        </div>
-      </div>
+      </form>
     </div>
-  </form>
+  </div>
 </div>
 {% endblock body %}
 
