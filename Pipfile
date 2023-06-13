@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 Django = "*"
 Pillow = "*"
-WeasyPrint = "*"
 celery = "*"
 coreapi = "*"
 django-allauth = "*"
@@ -23,6 +22,7 @@ django-hijack = "*"
 django-model-utils = "*"
 django-post_office = "*"
 django-rest-auth = "*"
+django-view-breadcrumbs = "*"
 django-weasyprint = "*"
 django-widget-tweaks = "*"
 djangorestframework = "*"
@@ -33,6 +33,7 @@ psycopg2-binary = "*"
 pyinvoke = "*"
 pygraphviz = "*"
 redis = "*"
+weasyprint = "==58.0" # https://github.com/fdemmer/django-weasyprint/issues/71
 whitenoise = "*"
 
 [dev-packages]
