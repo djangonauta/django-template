@@ -31,7 +31,7 @@ Utilizado em conjunto com whitenoise para servir arquivos estáticos.
 
 
 ```bash
-./manage.py runserver_plus --cert-file cert.crt --settings projeto.settings.whitenoite
+./manage.py runserver_plus --cert-file cert.crt --settings projeto.settings.whitenoise 0.0.0.0:8000
 ```
 
 RabbitMQ
