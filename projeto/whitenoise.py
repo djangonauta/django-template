@@ -1,5 +1,3 @@
-"""Whitenoise wsgi.py"""
-
 import os
 
 from django.core import wsgi
