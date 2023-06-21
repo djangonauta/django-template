@@ -49,10 +49,11 @@
                 </div>
               </div>
 
-              <div class="field is-clearfix">
-                <div class="is-pulled-right">
-                  {% render_field form.remember class="form-check-input ponteiro" title="Clique para permanecer logado mesmo fechando seu navegador" %}
-                  <label class="ponteiro" for="{{ form.remember.id_for_label }}" title="Clique para permanecer logado mesmo fechando seu navegador">Lembrar</label>
+              <div class="field is-grouped is-grouped-right">
+                <div class="control">
+                  <label class="checkbox ponteiro" for="{{ form.remember.id_for_label }}" title="Clique para permanecer logado mesmo fechando seu navegador">
+                    {% render_field form.remember %} Lembrar
+                  </label>
                 </div>
               </div>
 
@@ -60,10 +61,12 @@
             </div>
             <hr>
 
-            <div class="is-clearfix">
-              <button class="button is-primary is-pulled-right" type="submit" onclick="this.classList.toggle('is-loading');submit()">
-                <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span> <span>Entrar</span>
-              </button>
+            <div class="field is-grouped is-grouped-right">
+              <div class="control">
+                <button class="button is-primary" type="submit" onclick="this.classList.toggle('is-loading');submit()">
+                  <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span> <span>Entrar</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
