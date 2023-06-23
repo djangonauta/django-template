@@ -3,7 +3,7 @@
   <ul class="pagination-list">
     {% if page_obj.has_previous %}
       <li>
-        <a class="pagination-link" href="?{{ view.page_kwarg }}=1">
+        <a class="pagination-link" href="?{{ view.page_kwarg }}=1{% if filter.query_params %}&{{ filter.query_params }}{% endif %}">
           <span class="icon-text">
             <span class="icon">
               <i class="fa-solid fa-circle-chevron-left"></i>
@@ -63,7 +63,7 @@
         </a>
       </li>
       <li>
-        <a class="pagination-link" href="?{{ view.page_kwarg }}={{ page_obj.paginator.num_pages }}">
+        <a class="pagination-link" href="?{{ view.page_kwarg }}={{ page_obj.paginator.num_pages }}{% if filter.query_params %}&{{ filter.query_params }}{% endif %}">
           <span class="icon-text">
             <span class="icon">
               <i class="fa-solid fa-circle-chevron-right"></i>
