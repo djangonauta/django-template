@@ -134,11 +134,12 @@ LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+LOCALE_PATHS = [BASE_DIR / 'projeto' / 'locales']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
-STATIC_URL = '/public/'
-STATIC_ROOT = BASE_DIR / 'public'
+STATIC_URL = 'assets/'
+STATIC_ROOT = BASE_DIR / 'assets'
 STATICFILES_DIRS = [BASE_DIR / 'projeto' / 'assets']
 
 MEDIA_URL = '/downloads/'
@@ -148,6 +149,7 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 LOGIN_URL = urls.reverse_lazy('account_login')
 LOGIN_REDIRECT_URL = urls.reverse_lazy('app')
 
+# Authorization/Authentication
 # https://django-allauth.readthedocs.io/en/latest/
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
@@ -170,9 +172,7 @@ AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
 AUTH_LDAP_SERVER_URI = env('AUTH_LDAP_SERVER_URI', default='')
 AUTH_LDAP_USER_DN_TEMPLATE = env('AUTH_LDAP_SERVER_URI', default='')
 
-# https://docs.djangoproject.com/en/dev/topics/i18n/
-LOCALE_PATHS = [BASE_DIR / 'projeto' / 'locale']
-
+# Task queues
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html
 CELERY_BROKER_URL = env('BROKER_URL')
 CELERY_RESULT_BACKEND = 'django-db'
@@ -186,11 +186,13 @@ GRAPH_MODELS = {
   'group_models': True,
 }
 
+# Cache
 # https://docs.djangoproject.com/en/dev/topics/cache/
 env.CACHE_SCHEMES.update(redis='django.core.cache.backends.redis.RedisCache')
 CACHES = {'default': env.cache_url()}
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
+# Serialization
 # https://www.django-rest-framework.org/
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -210,6 +212,8 @@ REST_FRAMEWORK = {
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
+# Default primary key field type
+# https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 BREADCRUMBS_TEMPLATE = '_includes/breadcrumbs.html'
