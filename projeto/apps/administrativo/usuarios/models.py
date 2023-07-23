@@ -1,15 +1,10 @@
-import hashlib
-import os.path
-
 from auditlog.models import AuditlogHistoryField
 from auditlog.registry import auditlog
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from model_utils.models import TimeStampedModel
 
-
-def diretorio_imagem_perfil(instance, filename):
-    return os.path.join(instance.username, 'imagem-perfil', filename)
+from . import managers
 
 
 class Usuario(TimeStampedModel, AbstractUser):
@@ -21,10 +16,9 @@ class Usuario(TimeStampedModel, AbstractUser):
     tipo = models.IntegerField(choices=Tipo.choices, default=Tipo.DEFAULT)
     tipo_usuario = Tipo.DEFAULT
 
-    imagem_perfil = models.ImageField(upload_to=diretorio_imagem_perfil, blank=True)
-    endereco = models.CharField(max_length=255)
-
     history = AuditlogHistoryField()
+
+    objects = managers.UsuarioManager()
 
     class Meta:
         verbose_name = 'Usuário'
@@ -39,15 +33,6 @@ class Usuario(TimeStampedModel, AbstractUser):
     # Métodos assim poderiam ser definidos na subclasse para verificar o tipo
     def is_default(self):
         return self.tipo == self.Tipo.DEFAULT
-
-    @property
-    def gravatar_url(self):
-        email_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
-        return f'//www.gravatar.com/avatar/{email_hash}'
-
-    @property
-    def perfil_imagem(self):
-        return self.imagem_perfil.url if self.imagem_perfil.name else self.gravatar_url
 
     @property
     def nome_completo(self):

@@ -142,15 +142,14 @@ STATIC_URL = 'assets/'
 STATIC_ROOT = BASE_DIR / 'assets'
 STATICFILES_DIRS = [BASE_DIR / 'projeto' / 'assets']
 
-MEDIA_URL = '/downloads/'
+MEDIA_URL = 'downloads/'
 MEDIA_ROOT = BASE_DIR / 'downloads'
-
-AUTH_USER_MODEL = 'usuarios.Usuario'
-LOGIN_URL = urls.reverse_lazy('account_login')
-LOGIN_REDIRECT_URL = urls.reverse_lazy('app')
 
 # Authorization/Authentication
 # https://django-allauth.readthedocs.io/en/latest/
+AUTH_USER_MODEL = 'usuarios.Usuario'
+LOGIN_URL = urls.reverse_lazy('account_login')
+LOGIN_REDIRECT_URL = urls.reverse_lazy('app')
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = env('ACCOUNT_EMAIL_VERIFICATION', default='none')
@@ -216,6 +215,8 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Django breadcrumbs
+# https://github.com/tj-django/django-view-breadcrumbs
 BREADCRUMBS_TEMPLATE = '_includes/breadcrumbs.html'
 
 # A sample logging configuration. The only tangible logging

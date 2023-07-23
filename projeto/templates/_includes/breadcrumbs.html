@@ -1,13 +1,14 @@
-<nav class="breadcrumb px-1" aria-label="breadcrumbs">
-  <ul>
+<nav aria-label="breadcrumb"class="mt-3">
+  <ol class="breadcrumb">
     {% for url, label in breadcrumbs %}
       {% if not url or forloop.counter == breadcrumbs_total %}
-        <li class="{% if forloop.counter == breadcrumbs_total %}is-active{% endif %}">
-          <a{% if forloop.counter == breadcrumbs_total %} aria-current="page"{% endif %}>{{ label|safe }}</a>
+        <li class="breadcrumb-item {% if forloop.counter == breadcrumbs_total %}active{% endif %}"
+            {% if forloop.counter == breadcrumbs_total %} aria-current="page"{% endif %}>
+          {{ label|safe }}
         </li>
       {% else %}
-        <li><a href="{{ url }}">{{ label|safe }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ url }}">{{ label|safe }}</a></li>
       {% endif %}
     {% endfor %}
-  </ul>
+  </ol>
 </nav>

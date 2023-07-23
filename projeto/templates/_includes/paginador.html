@@ -1,96 +1,39 @@
 {% if is_paginated %}
-<nav class="pagination is-rounded is-centered">
-  <ul class="pagination-list">
-    {% if page_obj.has_previous %}
-      <li>
-        <a class="pagination-link" href="?{{ view.page_kwarg }}=1{% if filter.query_params %}&{{ filter.query_params }}{% endif %}">
-          <span class="icon-text">
-            <span class="icon">
-              <i class="fa-solid fa-circle-chevron-left"></i>
-            </span>
-          </span>
-        </a>
-      </li>
-      <li>
-        <a class="pagination-link" href="?{{ view.page_kwarg }}={{ page_obj.previous_page_number }}{% if filter.query_params %}&{{ filter.query_params }}{% endif %}">
-          <span class="icon-text">
-            <span class="icon">
-              <i class="fa-solid fa-chevron-left"></i>
-            </span>
-          </span>
-        </a>
-      </li>
-    {% else %}
-      <li>
-        <a class="pagination-link" disabled>
-          <span class="icon-text">
-            <span class="icon">
-              <i class="fa-solid fa-circle-chevron-left"></i>
-            </span>
-          </span>
-        </a>
-      </li>
-      <li>
-        <a class="pagination-link" disabled>
-          <span class="icon-text">
-            <span class="icon">
-              <i class="fa-solid fa-chevron-left"></i>
-            </span>
-          </span>
-        </a>
-      </li>
-    {% endif %}
+<nav>
+  <ul class="pagination justify-content-center">
+    <li class="page-item{% if not page_obj.has_previous %} disabled{% endif %}">
+      <a class="page-link" {% if page_obj.has_previous %}href="?{{ view.page_kwarg }}=1{% if filter.query_params %}&{{ filter.query_params }}{% endif %}{% endif %}">
+        <i class="bi bi-chevron-double-left"></i>
+      </a>
+    </li>
+    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+      <a class="page-link" {% if page_obj.has_previous %}href="?{{ view.page_kwarg }}={{ page_obj.previous_page_number }}{% if filter.query_params %}&{{ filter.query_params }}{% endif %}{% endif %}">
+        <i class="bi bi-chevron-left"></i>
+      </a>
+    </li>
 
     {% for i in page_obj.adjusted_elided_pages %}
       {% if page_obj.number == i %}
-        <li><a class="pagination-link is-current"><span>{{ i }}</span></a></li>
+        <li class="page-item active"><span class="page-link">{{ i }}</span></li>
       {% else %}
         {% if i == page_obj.paginator.ELLIPSIS %}
-          <li><span class="pagination-ellipsis">&hellip;</span></li>
+          <li class="page-item"><span class="page-link">&hellip;</span></li>
         {% else %}
-          <li><a class="pagination-link" href="?{{ view.page_kwarg }}={{ i }}{% if filter.query_params %}&{{ filter.query_params }}{% endif %}">{{ i }}</a></li>
+          <li class="page-item"><a class="page-link" href="?{{ view.page_kwarg }}={{ i }}{% if filter.query_params %}&{{ filter.query_params }}{% endif %}">{{ i }}</a></li>
         {% endif %}
       {% endif %}
     {% endfor %}
-    {% if page_obj.has_next %}
-      <li>
-        <a class="pagination-link" href="?{{ view.page_kwarg }}={{ page_obj.next_page_number }}{% if filter.query_params %}&{{ filter.query_params }}{% endif %}">
-          <span class="icon-text">
-            <span class="icon">
-              <i class="fa-solid fa-chevron-right"></i>
-            </span>
-          </span>
-        </a>
-      </li>
-      <li>
-        <a class="pagination-link" href="?{{ view.page_kwarg }}={{ page_obj.paginator.num_pages }}{% if filter.query_params %}&{{ filter.query_params }}{% endif %}">
-          <span class="icon-text">
-            <span class="icon">
-              <i class="fa-solid fa-circle-chevron-right"></i>
-            </span>
-          </span>
-        </a>
-      </li>
-    {% else %}
-      <li>
-        <a class="pagination-link" disabled>
-          <span class="icon-text">
-            <span class="icon">
-              <i class="fa-solid fa-chevron-right"></i>
-            </span>
-          </span>
-        </a>
-      </li>
-      <li>
-        <a class="pagination-link" disabled>
-          <span class="icon-text">
-            <span class="icon">
-              <i class="fa-solid fa-circle-chevron-right"></i>
-            </span>
-          </span>
-        </a>
-      </li>
-    {% endif %}
+
+    <li class="page-item{% if not page_obj.has_next %} disabled{% endif %}">
+      <a class="page-link" {% if page_obj.has_next %}href="?{{ view.page_kwarg }}={{ page_obj.next_page_number }}{% if filter.query_params %}&{{ filter.query_params }}{% endif %}{% endif %}">
+        <i class="bi bi-chevron-right"></i>
+      </a>
+    </li>
+    <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+      <a class="page-link" {% if page_obj.has_next %}href="?{{ view.page_kwarg }}={{ page_obj.paginator.num_pages }}{% if filter.query_params %}&{{ filter.query_params }}{% endif %}{% endif %}">
+        <i class="bi bi-chevron-double-right"></i>
+      </a>
+    </li>
   </ul>
 </nav>
 {% endif %}

@@ -2,85 +2,69 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
-<div class="section">
-  <div class="columns is-centered">
-    <div class="column is-one-third">
-      <form action="" method="post" novalidate>{% csrf_token %}
-        {% if form.non_field_errors %}
-        <article class="message is-warning">
-          <div class="message-header">
-            <p>Erro</p>
+<div class="row mt-3">
+  <div class="col"></div>
+  <div class="col-lg-4 col-sm-8">
+    {% if form.non_field_errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <div class="message-header">
+        {{ form.non_field_errors.0 }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </div>
+    {% endif %}
 
-            <button type="button" class="delete" title="Clique para fechar essa mensagem"
-              onclick="this.parentElement.parentElement.style.display='none'"></button>
+    <div class="card">
+      <div class="card-header text-center">Entre com suas credenciais a seguir para acessar o sistema</div>
+
+      <div class="card-body">
+        <form action="" method="post" novalidate>{% csrf_token %}
+          <div class="mb-3">
+            <label for="{{ form.login.id_for_label }}" class="form-label">Usuário</label>
+            {% render_field form.login class="form-control" placeholder="Nome de usuário ou e-mail" autofocus="autofocus" %}
+            {% if form.login.errors %}<div class="text-danger mt-1">{{ form.login.errors.0 }}</div>{% endif %}
           </div>
 
-          <div class="message-body">{{ form.non_field_errors.0 }}</div>
-        </article>
-        {% endif %}
-
-        <div class="card">
-          <header class="card-header has-background-grey-dark">
-            <p class="card-header-title has-text-light">Login</p>
-          </header>
-
-          <div class="card-content">
-            <div class="content">
-              <div class="field">
-                <label for="{{ form.login.id_for_label }}" class="label">Login <span class="has-text-danger">*</span></label>
-
-                <div class="control">
-                  {% render_field form.login class="input" placeholder="Nome de usuário ou e-mail" autofocus="autofocus" %}
-                  {% if form.login.errors %}<p class="help is-danger">{{ form.login.errors.0 }}</p>{% endif %}
-                </div>
-              </div>
-
-              <label for="{{ form.password.id_for_label }}" class="label">Senha <span class="has-text-danger">*</span></label>
-              <div class="field has-addons">
-                <div class="control is-expanded">
-                  {% render_field form.password class="input" placeholder="Senha" %}
-                  {% if form.password.errors %}<p class="help is-danger">{{ form.password.errors.0 }}</p>{% endif %}
-                </div>
-
-                <div class="control">
-                  <button id="password-eye" type="button" class="button" title="Clique para visualizar a senha">
-                    <span class="icon"><i class="fa-solid fa-eye"></i></span>
-                  </button>
-                </div>
-              </div>
-
-              <div class="field is-grouped is-grouped-right">
-                <div class="control">
-                  <label class="checkbox ponteiro" for="{{ form.remember.id_for_label }}" title="Clique para permanecer logado mesmo fechando seu navegador">
-                    {% render_field form.remember %} Lembrar
-                  </label>
-                </div>
-              </div>
-
-              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value | default:'/' }}" />
+          <div class="mb-3">
+            <label for="{{ form.password.id_for_label }}" class="form-label">Senha</label>
+            <div class="input-group">
+              {% render_field form.password class="form-control" placeholder="Senha" %}
+              <button id="password-eye" type="button" class="btn btn-outline-secondary" title="Clique para visualizar a senha">
+                <i class="bi bi-eye"></i>
+              </button>
             </div>
-            <hr>
+            {% if form.password.errors %}<div class="text-danger mt-1">{{ form.password.errors.0 }}</div>{% endif %}
+          </div>
 
-            <div class="field is-grouped is-grouped-right">
-              <div class="control">
-                <button class="button is-primary" type="submit" onclick="this.classList.toggle('is-loading');submit()">
-                  <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span> <span>Entrar</span>
-                </button>
-              </div>
+          <div class="clearfix">
+            <div class="form-check float-end">
+              {% render_field form.remember class="form-check-input ponteiro" %}
+              <label class="form-check-label ponteiro" for="{{ form.remember.id_for_label }}" title="Clique para permanecer logado mesmo fechando seu navegador">
+                Lembrar
+              </label>
             </div>
           </div>
-        </div>
-      </form>
+          <hr>
+
+          <button id="loginBtn" class="btn btn-primary float-end" type="submit">
+            <i class="bi bi-box-arrow-right"></i> Entrar
+          </button>
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value | default:'/' }}" />
+        </form>
+      </div>
     </div>
   </div>
+  <div class="col"></div>
 </div>
 {% endblock body %}
 
 {% block scripts %}
   {{ block.super }}
+
   <script>
-    addEventListener('load', function () {
+    addEventListener('DOMContentLoaded', function () {
       App.configurarPasswordEye('#password-eye');
+      App.configurarSpinner('#loginBtn');
     });
   </script>
 {% endblock scripts %}
