@@ -30,7 +30,7 @@ class AppView(mixins.LoginRequiredMixin, view_breadcrumbs.BaseBreadcrumbMixin, E
     template_name = 'app.html'
     queryset = LogEntry.objects.all()
     context_object_name = 'entries'
-    paginate_by = 2
+    paginate_by = 3
     page_kwarg = 'pagina'
     filter_class = LogEntryFilter
 
