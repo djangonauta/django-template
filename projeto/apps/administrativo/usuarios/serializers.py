@@ -10,7 +10,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = auth.get_user_model()
-        fields = ['id', 'username', 'perfil_imagem', 'nome_completo']
+        fields = ['id', 'username', 'nome_completo']
 
 
 class DisableSignupSerializer(serializers.Serializer):
