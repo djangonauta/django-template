@@ -61,6 +61,7 @@ THIRD_PARTY_APPS = [
     'formtools',
     'hijack',
     'hijack.contrib.admin',
+    'pipeline',
     'post_office',
     'rest_framework',
     'rest_framework.authtoken',
@@ -141,9 +142,31 @@ LOCALE_PATHS = [BASE_DIR / 'projeto' / 'locales']
 STATIC_URL = 'assets/'
 STATIC_ROOT = BASE_DIR / 'assets'
 STATICFILES_DIRS = [BASE_DIR / 'projeto' / 'assets']
+STATICFILES_STORAGE = 'pipeline.storage.PipelineManifestStorage'
+STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['pipeline.finders.PipelineFinder']
 
 MEDIA_URL = 'downloads/'
 MEDIA_ROOT = BASE_DIR / 'downloads'
+
+PIPELINE = {
+    'PIPELINE_ENABLED': True,
+    'JAVASCRIPT': {
+        'app': {
+            'source_filenames': (
+              'js/app.js',
+            ),
+            'output_filename': 'js/app.js',
+        }
+    },
+    'STYLESHEETS': {
+        'app': {
+            'source_filenames': (
+              'css/app.css',
+            ),
+            'output_filename': 'css/app.css',
+        }
+    }
+}
 
 # Authorization/Authentication
 # https://django-allauth.readthedocs.io/en/latest/

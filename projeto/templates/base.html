@@ -1,4 +1,4 @@
-<!doctype html>{% load static hijack %}
+<!doctype html>{% load static hijack pipeline %}
 <html lang="pt-br">
 <head>
   {% block meta %}
@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="{% static 'libs/bootstrap-5.3.0/css/bootstrap.min.css' %}"/>
   <link rel="stylesheet" href="{% static 'libs/select2-4.1.0.rc.0/css/select2.min.css' %}"/>
   <link rel="stylesheet" href="{% static 'libs/bootstrap-icons-1.10.5/font/bootstrap-icons.min.css' %}"/>
-  <link rel="stylesheet" href="{% static 'css/app.css' %}"/>
+
+  {% stylesheet 'app' %}
 
   {% block styles %}{% endblock styles %}
 </head>
@@ -24,7 +25,9 @@
   <script src="{% static 'libs/bootstrap-5.3.0/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'libs/select2-4.1.0.rc.0/js/select2.full.min.js' %}"></script>
   <script src="{% static 'libs/select2-4.1.0.rc.0/js/i18n/pt-BR.js' %}"></script>
-  <script src="{% static 'js/app.js' %}"></script>
+
+  {% javascript 'app' %}
+
   {% block scripts %}{% endblock scripts %}
 </body>
 </html>

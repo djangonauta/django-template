@@ -35,6 +35,7 @@ pygraphviz = "*"
 redis = "*"
 weasyprint = "==58.0" # https://github.com/fdemmer/django-weasyprint/issues/71
 whitenoise = "*"
+django-pipeline = "*"
 
 [dev-packages]
 autopep8 = "*"
