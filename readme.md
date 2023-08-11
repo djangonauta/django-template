@@ -14,8 +14,42 @@ As seguintes váriaveis devem ser definidas no arquivo projeto/settings/.env (ex
     ACCOUNT_EMAIL_VERIFICATION='none' # mandatory, optional
     CSRF_TRUSTED_ORIGINS='https://localhost'
 
-Essas variáveis devem ser definidas em {{ project_name }}/settings/.env
+Essas variáveis devem ser definidas em projeto/settings/.env
 
+
+Poetry
+======
+
+[Poetry](https://python-poetry.org/) é utilizado para gerenciar as dependências do projeto. As instruções de
+instalação podem ser obtidas no [site oficial](https://python-poetry.org/docs/#installing-with-pipx), ou
+simplesmente utilizando [pip](https://pip.pypa.io/en/stable/):
+
+```bash
+pip3 install -U poetry
+```
+
+Os seguintes comandos são utilizados para instalar as dependências do projeto.
+
+```bash
+cd django-template  # move para o diretório do projeto
+poetry shell  # inicializa o ambiente virtual
+```
+
+Ambiente de Desenvolvimento
+---------------------------
+
+As dependências de desenvolvimento foram configuradas como opcionais.
+
+```bash
+poetry install --with dev  # instala as dependências do projeto incluindo as de desenvolvimento
+```
+
+Ambiente de Produção
+--------------------
+
+```bash
+poetry install  # instala as dependências do projeto excluindo as de desenvolvimento
+```
 
 Certificado teste
 =================

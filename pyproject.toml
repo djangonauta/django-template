@@ -42,6 +42,9 @@ weasyprint = "^59.0"
 whitenoise = "^6.5.0"
 django-pipeline = "^2.1.0"
 
+[tool.poetry.group.dev]
+optional = true
+
 [tool.poetry.group.dev.dependencies]
 autopep8 = "^2.0.2"
 bpython = "^0.24"
