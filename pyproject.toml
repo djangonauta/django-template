@@ -39,6 +39,7 @@ psycopg2-binary = "*"
 pygraphviz = "*"
 pyinvoke = "*"
 redis = "*"
+setuptools = "*"
 weasyprint = "*"
 whitenoise = "*"
 
