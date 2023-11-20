@@ -74,6 +74,7 @@ PROJECT_APPS = [
     'projeto.apps.administrativo',
     'projeto.apps.administrativo.usuarios',
     'projeto.apps.arquitetura',
+    'projeto.apps.northwind',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
@@ -154,7 +155,7 @@ PIPELINE = {
     'JAVASCRIPT': {
         'app': {
             'source_filenames': (
-              'js/app.js',
+                'js/app.js',
             ),
             'output_filename': 'js/app.js',
         }
@@ -162,7 +163,7 @@ PIPELINE = {
     'STYLESHEETS': {
         'app': {
             'source_filenames': (
-              'css/app.css',
+                'css/app.css',
             ),
             'output_filename': 'css/app.css',
         }
@@ -205,8 +206,8 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 # https://django-extensions.readthedocs.io/en/latest/graph_models.html
 GRAPH_MODELS = {
-  'all_applications': True,
-  'group_models': True,
+    'all_applications': True,
+    'group_models': True,
 }
 
 # Cache
