@@ -1,32 +1,40 @@
-<nav class="navbar navbar-expand" style="border-bottom: thin solid silver; background-color: ccc">{% load static %}
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'app' %}"><img src="{% static 'images/python-logo.png' %}" style="max-height: 50px"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbar">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="{% url 'app' %}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'report' %}" target="_blank">Relatório teste</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">{{ user.nome_completo }}</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'projeto:api-root' %}"><i class="bi bi-diagram-3"></i> API</a></li>
-            <li><a class="dropdown-item" href="{% url 'admin:index' %}"><i class="bi bi-gear"></i> Admin</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-              <a class="dropdown-item" href="{% url 'account_logout' %}" onclick="return confirm('Logout?')">
-                <i class="bi bi-box-arrow-left"></i> Logout
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-8">
+      <nav class="navbar navbar-expand" style="border-bottom: thin solid silver; background-color: ccc">{% load static %}
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'app' %}"><img src="{% static 'images/python-logo.png' %}" style="max-height: 50px"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+      
+          <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'app' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'report' %}" target="_blank">Relatório teste</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">{{ user.nome_completo }}</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'projeto:api-root' %}"><i class="bi bi-diagram-3"></i> API</a></li>
+                  <li><a class="dropdown-item" href="{% url 'admin:index' %}"><i class="bi bi-gear"></i> Admin</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'account_logout' %}" onclick="return confirm('Logout?')">
+                      <i class="bi bi-box-arrow-left"></i> Logout
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </div>
+    <div class="col"></div>
   </div>
-</nav>
+</div>

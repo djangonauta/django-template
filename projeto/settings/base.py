@@ -74,7 +74,6 @@ PROJECT_APPS = [
     'projeto.apps.administrativo',
     'projeto.apps.administrativo.usuarios',
     'projeto.apps.arquitetura',
-    'projeto.apps.northwind',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
