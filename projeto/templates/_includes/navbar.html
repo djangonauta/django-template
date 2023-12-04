@@ -21,6 +21,7 @@
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">{{ user.nome_completo }}</a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'projeto:api-root' %}"><i class="bi bi-diagram-3"></i> API</a></li>
+                  <li><a class="dropdown-item" href="{% url 'usuarios:vinculo-create' %}"><i class="bi bi-diagram-3"></i> Vinculos</a></li>
                   <li><a class="dropdown-item" href="{% url 'admin:index' %}"><i class="bi bi-gear"></i> Admin</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li>

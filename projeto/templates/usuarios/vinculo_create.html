@@ -1,0 +1,67 @@
+{% extends "app.html" %}{% load widget_tweaks %}
+
+{% block conteudo %}
+  {% include "_includes/form_non_field_errors.html" %}
+
+  <div class="card mt-3">
+    <div class="card-header">{% if object.pk %}Atualizar{% else %}Criar{% endif %} Vínculo</div>
+    <div class="card-body">
+      <form action="" method="post" novalidate>{% csrf_token %}
+        <div class="mb-3">
+          <label for="{{ form.responsabilidade.id_for_label}}" class="form-label">{{ form.responsabilidade.label }}</label>
+          {% render_field form.responsabilidade class="form-select" %}
+        </div>
+        <div class="mb-3">
+          <label for="{{ form.unidade.id_for_label}}" class="form-label">{{ form.unidade.label }}</label>
+          {% render_field form.unidade class="form-control" %}
+          {% if form.unidade.errors %}
+            <div class="text-danger mt-1">{{ form.unidade.errors.0 }}</div>
+          {% endif %}
+        </div>
+        <hr/>
+        <button type="submit" class="btn btn-primary btn-sm">
+          {% if object.pk %}
+            <i class="bi bi-arrow-repeat"></i>  Atualizar
+          {% else %}
+            <i class="bi bi-floppy"></i> Criar
+          {% endif %} Vinculo
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header">Meus Vínculos</div>
+    {% if vinculos %}
+    <table class="card-body table table-bordered table-hover mb-0">
+      <legend class="text-center small my-2">
+        <i class="bi bi-pencil-square"></i> Editar &#x25CF; <i class="bi bi-trash"></i> Remover
+      </legend>
+      <thead>
+        <th>Unidade</th>
+        <th>Responsabilidade</th>
+        <th>Ações</th>
+      </thead>
+      <tbody>
+        {% for vinculo in vinculos %}
+          <tr>
+            <td>{{ vinculo.unidade }}</td>
+            <td>{{ vinculo.get_responsabilidade_display }}</td>
+            <td class="text-center">
+              <a href="{% url "usuarios:vinculo-update" vinculo.pk %}" class="btn btn-primary btn-sm rounded-circle"
+                  title="Clique para editar esse vínculo">
+                <i class="bi bi-pencil-square"></i>
+              </a> &#x25CF;
+              <a href="{% url "usuarios:vinculo-delete" vinculo.pk %}" class="btn btn-danger btn-sm rounded-circle"
+                  title="Clique para remover esse vínculo">
+                <i class="bi bi-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <h5>Utilize o formulário acima para criar seus vínculos</h5>
+    {% endif %}
+  </div>
+{% endblock conteudo %}

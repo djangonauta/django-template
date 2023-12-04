@@ -1,4 +1,4 @@
-import view_breadcrumbs
+from view_breadcrumbs import BaseBreadcrumbMixin
 from auditlog.models import LogEntry
 from django import urls
 from django.contrib.auth import mixins
@@ -25,7 +25,7 @@ class LogEntryFilter(QueryParamFilterSet):
         fields = ['object_repr', 'action']
 
 
-class AppView(mixins.LoginRequiredMixin, view_breadcrumbs.BaseBreadcrumbMixin, ElidedListView):
+class AppView(mixins.LoginRequiredMixin, BaseBreadcrumbMixin, ElidedListView):
 
     template_name = 'app.html'
     queryset = LogEntry.objects.all()

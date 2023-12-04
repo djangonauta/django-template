@@ -1,5 +1,6 @@
 from auditlog.models import AuditlogHistoryField
 from auditlog.registry import auditlog
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from model_utils.models import TimeStampedModel
@@ -40,3 +41,40 @@ class Usuario(TimeStampedModel, AbstractUser):
 
 
 auditlog.register(Usuario)
+
+
+class Unidade(TimeStampedModel):
+
+    nome = models.CharField(max_length=255)
+    codigo = models.CharField(max_length=255)
+    hierarquia = models.CharField(max_length=255)
+
+    history = AuditlogHistoryField()
+
+    def __str__(self):
+        return f'{self.nome} ({self.codigo})'
+
+
+auditlog.register(Unidade)
+
+
+class Vinculo(TimeStampedModel):
+
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='vinculos')
+    unidade = models.ForeignKey(Unidade, on_delete=models.CASCADE, related_name='vinculos')
+
+    class Responsabilidade(models.TextChoices):
+        CH = 'CH', 'Chefe'
+        VC = 'VC', 'Vice Chefe'
+        SC = 'SC', 'Secretaria'
+        SE = 'SE', 'Servidor'
+
+    responsabilidade = models.CharField(max_length=2, choices=Responsabilidade.choices, default='SE')
+
+    history = AuditlogHistoryField()
+
+    def __str__(self):
+        return f'{self.usuario.nome_completo} - {self.unidade}'
+
+
+auditlog.register(Vinculo)

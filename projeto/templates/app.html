@@ -5,80 +5,79 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col">
-      <div class="row">
-        <div class="col"></div>
-        <div class="col-8">
-          {% block breadcrumbs %}{% render_breadcrumbs %}{% endblock %}
-  
-          {% block conteudo %}
-          <div class="card mb-3">
-            <div class="card-header">Conteúdo</div>
+    <div class="col"></div>
+    <div class="col-8">
+      {% block breadcrumbs %}{% render_breadcrumbs %}{% endblock %}
 
-            <div class="card-body">
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem voluptas quaerat dolor
-                vitae quo cum tempore? Laboriosam harum hic sit. Modi quod eveniet illo porro corrupti.
-                Corrupti porro quaerat impedit.</p>
-            </div>
-          </div>
+      {% include '_includes/messages.html' %}
 
-          <div class="card mb-3">
-            <div class="card-header">Formulário de busca</div>
+      {% block conteudo %}
+      <div class="card mb-3">
+        <div class="card-header">Conteúdo</div>
 
-            <div class="card-body">
-              <form action="">
-                <div class="mb-3">
-                  <label for="{{ filter.form.object_repr.id_for_label }}" class="form-label">{{ filter.form.object_repr.label }}</label>
-                  {% render_field filter.form.object_repr class="form-control" %}
-                </div>
-    
-                <div class="mb-3">
-                  <label for="{{ filter.form.action.id_for_label }}" class="label">{{ filter.form.action.label }}</label>
-                  {% render_field filter.form.action class="form-select" %}
-                </div>
-    
-                <button class="btn btn-primary float-end">
-                  <i class="bi bi-search"></i> Buscar</button>
-              </form>
-            </div>
-          </div>
-
-          {% if entries %}
-          <div class="card mb-3">
-            <div class="card-header">Total de resultados: {{ paginator.count }}</div>
-
-            <div class="card-body">
-              <table class="table table-bordered table-striped table-hover">
-                <thead>
-                  <th>Object Repr</th>
-                  <th>Action</th>
-                  <th>Changes</th>
-                </thead>
-    
-                <tbody>
-                  {% for entry in entries %}
-                    <tr>
-                      <td>{{ entry.object_repr }}</td>
-                      <td>{{ entry.action }}</td>
-                      <td>{{ entry.changes }}</td>
-                    </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-              {% include '_includes/paginador.html' %}
-            </div>
-          </div>
-          {% else %}
-            <div class="card">
-              <div class="card-header">Sem resultados</div>
-              <div class="card-body"><h5>Tente refinar sua busca</h5></div>
-            </div>
-          {% endif %}
-          {% endblock conteudo %}
+        <div class="card-body">
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem voluptas quaerat dolor
+            vitae quo cum tempore? Laboriosam harum hic sit. Modi quod eveniet illo porro corrupti.
+            Corrupti porro quaerat impedit.</p>
         </div>
-        <div class="col"></div>
       </div>
+
+      <div class="card mb-3">
+        <div class="card-header">Formulário de busca</div>
+
+        <div class="card-body">
+          <form action="">
+            <div class="mb-3">
+              <label for="{{ filter.form.object_repr.id_for_label }}" class="form-label">{{ filter.form.object_repr.label }}</label>
+              {% render_field filter.form.object_repr class="form-control" %}
+            </div>
+
+            <div class="mb-3">
+              <label for="{{ filter.form.action.id_for_label }}" class="label">{{ filter.form.action.label }}</label>
+              {% render_field filter.form.action class="form-select" %}
+            </div>
+
+            <button class="btn btn-primary float-end">
+              <i class="bi bi-search"></i> Buscar
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {% if entries %}
+      <div class="card mb-3">
+        <div class="card-header">Total de resultados: {{ paginator.count }}</div>
+
+        <div class="card-body">
+          <table class="table table-bordered table-striped table-hover">
+            <thead>
+              <th>Object Repr</th>
+              <th>Action</th>
+              <th>Changes</th>
+            </thead>
+
+            <tbody>
+              {% for entry in entries %}
+                <tr>
+                  <td>{{ entry.object_repr }}</td>
+                  <td>{{ entry.action }}</td>
+                  <td>{{ entry.changes }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% include '_includes/paginador.html' %}
+        </div>
+      </div>
+      {% else %}
+        <div class="card">
+          <div class="card-header">Sem resultados</div>
+          <div class="card-body"><h5>Tente refinar sua busca</h5></div>
+        </div>
+      {% endif %}
+      {% endblock conteudo %}
     </div>
+    <div class="col"></div>
   </div>
 </div>
 {% endblock body %}

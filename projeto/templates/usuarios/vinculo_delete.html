@@ -1,0 +1,11 @@
+{% extends "app.html" %}
+
+{% block conteudo %}
+  <div class="alert alert-info">
+    Remoção de vínculo
+  </div>
+  <form action="" method="post">{% csrf_token %}
+    <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Confirma remoção de vínculo?')">Remover</button>
+    <a class="btn btn-secondary btn-sm" href="{% url "usuarios:vinculo-create" %}">Voltar</a>
+  </form>
+{% endblock conteudo %}

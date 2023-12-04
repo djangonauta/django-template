@@ -5,14 +5,7 @@
 <div class="row mt-3">
   <div class="col"></div>
   <div class="col-lg-4 col-sm-8">
-    {% if form.non_field_errors %}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <div class="message-header">
-        {{ form.non_field_errors.0 }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    </div>
-    {% endif %}
+    {% include "_includes/form_non_field_errors.html" %}
 
     <div class="card">
       <div class="card-header">Digite suas credenciais para acessar o sistema</div>
