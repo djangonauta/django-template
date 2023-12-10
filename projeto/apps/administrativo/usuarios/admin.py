@@ -12,3 +12,8 @@ class UsuarioModelAdmin(UserAdmin):
 @admin.register(models.Unidade)
 class UnidadeAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(models.Vinculo)
+class VinculoAdmin(admin.ModelAdmin):
+    pass

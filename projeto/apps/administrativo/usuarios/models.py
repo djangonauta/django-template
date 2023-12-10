@@ -52,7 +52,7 @@ class Unidade(TimeStampedModel):
     history = AuditlogHistoryField()
 
     def __str__(self):
-        return f'{self.nome} ({self.codigo})'
+        return f'{self.nome} - {self.codigo}'
 
 
 auditlog.register(Unidade)
@@ -71,10 +71,15 @@ class Vinculo(TimeStampedModel):
 
     responsabilidade = models.CharField(max_length=2, choices=Responsabilidade.choices, default='SE')
 
+    ativo = models.BooleanField(default=True)
+
     history = AuditlogHistoryField()
 
+    def ativo_texto(self):
+        return f'{"Sim" if self.ativo  else "Não"}'
+
     def __str__(self):
-        return f'{self.usuario.nome_completo} - {self.unidade}'
+        return f'{self.unidade} ({self.get_responsabilidade_display()})'
 
 
 auditlog.register(Vinculo)

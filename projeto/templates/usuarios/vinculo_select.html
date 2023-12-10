@@ -1,0 +1,23 @@
+{% extends "app.html" %}{% load widget_tweaks %}
+
+{% block conteudo %}
+  <form action="" method="post">{% csrf_token %}
+    <div class="card">
+      <div class="card-header">Vínculos disponíveis</div>
+      <div class="card-body">
+        <div class="mb-3">
+          {% for radio in form.vinculos  %}
+            <div class="form-check">
+              {{ radio.tag }}
+              <label class="form-check-label" for="{{ radio.id_for_label }}">
+                {{ radio.choice_label }}
+              </label>
+            </div>
+          {% endfor %}
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary btn-sm">Selecionar</button>
+      </div>
+    </div>
+  </form>
+{% endblock conteudo %}

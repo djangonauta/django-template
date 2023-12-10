@@ -89,6 +89,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'hijack.middleware.HijackUserMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'projeto.apps.administrativo.usuarios.middleware.VinculoSelectMiddleware',
 ]
 
 SITE_ID = 1
