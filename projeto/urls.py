@@ -4,12 +4,14 @@ from django.conf.urls import static
 from django.contrib import admin
 from rest_framework import documentation
 
+from projeto.apps.administrativo.usuarios.views import vinculo_select
+
 from . import api, views
 
 urlpatterns = [
     urls.path('', views.index, {'mensagem': 'kwargs'}, name='index'),
-    urls.path('app/', views.app, name='app'),
-    urls.path('usuarios/', urls.include('projeto.apps.administrativo.usuarios.urls')),
+    urls.path(f'{settings.APP_CONTEXT}', views.app, name='app'),
+    urls.path('vinculos/', vinculo_select, name='vinculo-select'),
     urls.path('report/', views.relatorio, name='report'),  # remover
     urls.path('contas/', urls.include('allauth.urls')),
     urls.path('hijack/', urls.include('hijack.urls', namespace='hijack')),

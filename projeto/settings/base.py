@@ -296,3 +296,5 @@ LOGGING = {
         },
     }
 }
+
+APP_CONTEXT = 'app/'

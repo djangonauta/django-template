@@ -1,7 +1,7 @@
 {% extends "app.html" %}{% load widget_tweaks %}
 
 {% block conteudo %}
-  <form action="" method="post">{% csrf_token %}
+  <form action="" method="post" novalidate>{% csrf_token %}
     <div class="card">
       <div class="card-header">Vínculos disponíveis</div>
       <div class="card-body">
@@ -14,9 +14,12 @@
               </label>
             </div>
           {% endfor %}
+          {% if form.vinculos.errors %}<div class="text-danger mt-1 form-check">{{ form.vinculos.errors.0 }}</div>{% endif %}
         </div>
         <hr>
-        <button type="submit" class="btn btn-primary btn-sm">Selecionar</button>
+        <button id="vinculoBtnSpinner" type="submit" class="btn btn-primary btn-sm">
+          <i class="bi bi-box-arrow-right"></i> Selecionar
+        </button>
       </div>
     </div>
   </form>

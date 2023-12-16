@@ -1,11 +1,11 @@
-from django import urls, shortcuts
+from django import shortcuts, urls
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils import functional
 from django.views import generic
 from view_breadcrumbs import BaseBreadcrumbMixin
 
-from . import models, forms
+from . import forms, models
 
 
 class VinculoMixin(LoginRequiredMixin, SuccessMessageMixin, BaseBreadcrumbMixin):
@@ -37,19 +37,14 @@ class VinculoSelectView(VinculoMixin, generic.FormView):
         ctx['request'] = self.request
         return ctx
 
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx['vinculos'] = self.get_queryset()
-        return ctx
-
-    def form_valid(self, form):
+    def form_valid(self, form: forms.VinculoSelectForm):
         form.save()
         return super().form_valid(form)
 
     @functional.cached_property
     def crumbs(self):
         lista = super().crumbs
-        lista += [('Vínculos', urls.reverse('usuarios:vinculo-select'))]
+        lista += [('Vínculos', urls.reverse('vinculo-select'))]
         return lista
 
 

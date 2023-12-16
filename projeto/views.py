@@ -1,9 +1,9 @@
-from view_breadcrumbs import BaseBreadcrumbMixin
 from auditlog.models import LogEntry
 from django import urls
 from django.contrib.auth import mixins
 from django.utils import functional
 from django.views import generic
+from view_breadcrumbs import BaseBreadcrumbMixin
 
 from projeto.apps.arquitetura.filters import QueryParamFilterSet
 from projeto.apps.arquitetura.mixins import BaseReportResponseMixin

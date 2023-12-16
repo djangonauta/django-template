@@ -1,6 +1,6 @@
 {% with vinculo=request.session.vinculo_selecionado %}
   {% if vinculo %}
-    <a href="{% url "usuarios:vinculo-select" %}" title="Clique para alterar seu vínculo">
+    <a href="{% url "vinculo-select" %}" title="Clique para alterar seu vínculo">
       {{ vinculo.unidade.nome }} - {{ vinculo.unidade.codigo }} ({{ vinculo.responsabilidade }})
     </a>
   {% else %}

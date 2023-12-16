@@ -11,9 +11,7 @@ class VinculoSelectForm(forms.Form):
 
         vinculos_usuario = models.Vinculo.objects.filter(usuario=self.request.user)
         self.fields['vinculos'] = forms.ModelChoiceField(vinculos_usuario, widget=forms.RadioSelect(
-            attrs={
-                'class': 'form-check-input',
-            }
+            attrs={'class': 'form-check-input'}
         ))
 
     def save(self, *args, **kwargs):

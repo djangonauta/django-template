@@ -1,10 +1,10 @@
 App = function () {
   function configurarPasswordEye(seletor) {
     var eyeButton = document.querySelector(seletor);
-    var icon = eyeButton.firstElementChild;
+    var icon = eyeButton?.firstElementChild;
 
-    eyeButton.addEventListener('click', function () {
-      var input = eyeButton.parentElement.firstElementChild;
+    eyeButton?.addEventListener('click', function () {
+      var input = eyeButton?.parentElement.firstElementChild;
 
       if (input.getAttribute('type') === 'text') {
         eyeButton.setAttribute('title', 'Clique para visualizar a senha');
@@ -19,12 +19,13 @@ App = function () {
   }
 
   function configurarSpinner(seletor) {
-    document.querySelector(seletor).addEventListener('click', function () {
+    var button = document.querySelector(seletor);
+    button?.addEventListener('click', function () {
       this.setAttribute('disabled', 'disabled');
       var spinner = document.createElement('span');
       spinner.classList.add('spinner-border', 'spinner-border-sm');
       this.replaceChild(spinner, this.firstElementChild);
-      this.parentElement.submit();
+      this.parentElement.submit?.();
     })
   }
 
@@ -33,3 +34,8 @@ App = function () {
     configurarSpinner: configurarSpinner
   };
 }();
+
+addEventListener('DOMContentLoaded', function () {
+  App.configurarPasswordEye('[id$="ToggleEye"]'); // <button id="idNameToggleEye">
+  App.configurarSpinner('[id$="Spinner"]'); // <button id="idNameSpinner">
+});
