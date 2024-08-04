@@ -3,10 +3,11 @@ from types import MethodType
 from django.db import connections
 from django.test.runner import DiscoverRunner
 
+SCHEMAS = ['administrativo', 'arquitetura']
+
 
 def prepare_database(self):
-    schemas = ['administrativo', 'arquitetura']
-    comandos = map(lambda s: f'create schema {s}', schemas)
+    comandos = map(lambda s: f'create schema {s}', SCHEMAS)
     self.connect()
     self.connection.cursor().execute(';'.join(comandos))
 

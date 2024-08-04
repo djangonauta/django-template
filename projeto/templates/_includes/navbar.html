@@ -1,8 +1,8 @@
 <div class="container-fluid">
-  <div class="row">
+  <div class="row mt-1">
     <div class="col"></div>
     <div class="col-8">
-      <nav class="navbar navbar-expand" style="border-bottom: thin solid silver; background-color: ccc">{% load static %}
+      <nav class="navbar navbar-expand bg-light" data-bs-theme="light" style="border-radius: 5px">{% load static %}
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'app' %}"><img src="{% static 'images/python-logo.png' %}" style="max-height: 50px"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,7 +21,7 @@
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">{{ user.nome_completo }}</a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'projeto:api-root' %}"><i class="bi bi-diagram-3"></i> API</a></li>
-                  <li><a class="dropdown-item" href="{% url 'usuarios:vinculo-create' %}"><i class="bi bi-diagram-3"></i> Vinculos</a></li>
+                  <li><a class="dropdown-item" href="{% url 'vinculo-select' %}"><i class="bi bi-diagram-3"></i> Vinculos</a></li>
                   <li><a class="dropdown-item" href="{% url 'admin:index' %}"><i class="bi bi-gear"></i> Admin</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li>

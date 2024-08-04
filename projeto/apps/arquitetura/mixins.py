@@ -1,6 +1,8 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.staticfiles.storage import StaticFilesStorage
 from django_weasyprint import WeasyTemplateResponseMixin
 from rest_framework import response, status
+from view_breadcrumbs import BaseBreadcrumbMixin
 
 
 class SelectSerializerFieldsMixin:
@@ -37,3 +39,25 @@ class BaseReportResponseMixin(WeasyTemplateResponseMixin):
         static_files_storage.path('css/normalize.min.css'),
         static_files_storage.path('css/paper.min.css'),
     ]
+
+
+class RequestFormMixin:
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs)
+
+
+class RequestViewFormMixin:
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+
+class BaseViewMixin(SuccessMessageMixin, BaseBreadcrumbMixin):
+
+    @property
+    def is_atualizacao(self):
+        return 'pk' in self.kwargs

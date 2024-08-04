@@ -1,14 +1,20 @@
 <nav aria-label="breadcrumb" class="mt-3">
-  <ol class="breadcrumb">
-    {% for url, label in breadcrumbs %}
-      {% if not url or forloop.counter == breadcrumbs_total %}
-        <li class="breadcrumb-item {% if forloop.counter == breadcrumbs_total %}active{% endif %}"
-            {% if forloop.counter == breadcrumbs_total %} aria-current="page"{% endif %}>
-          {{ label|safe }}
-        </li>
-      {% else %}
-        <li class="breadcrumb-item"><a href="{{ url }}">{{ label|safe }}</a></li>
-      {% endif %}
-    {% endfor %}
-  </ol>
+  <div class="d-flex">
+    <ol class="breadcrumb flex-grow-1">
+      {% for url, label in breadcrumbs %}
+        {% if not url or forloop.counter == breadcrumbs_total %}
+          <li class="breadcrumb-item {% if forloop.counter == breadcrumbs_total %}active{% endif %}"
+              {% if forloop.counter == breadcrumbs_total %} aria-current="page"{% endif %}>
+            {{ label|safe }}
+          </li>
+        {% else %}
+          <li class="breadcrumb-item"><a href="{{ url }}">{{ label|safe }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ol>
+
+    <div>
+      {% include "usuarios/_includes/vinculo_selecionado.html" %}
+    </div>
+  </div>
 </nav>

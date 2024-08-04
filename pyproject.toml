@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "django-template"
 version = "0.1.0"
-description = "Template de projeto django"
+description = "Projeto repositório de funcionalidades."
 authors = ["djangonauta <igbrch@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "django_template"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
+arrow = "*"
 celery = "*"
 coreapi = "*"
 django = "*"

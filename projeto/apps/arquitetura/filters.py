@@ -5,6 +5,12 @@ from django import http
 class QueryParamFilterSet(django_filters.FilterSet):
 
     @property
+    def form(self):
+        form = super().form
+        form.label_suffix = ''
+        return form
+
+    @property
     def query_params(self):
         q = http.QueryDict(mutable=True)
         if self.form.is_valid():

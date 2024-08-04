@@ -1,33 +1,23 @@
 from django import forms
-from django.core import exceptions
 
-from . import models
+from projeto.apps.arquitetura import fields, mixins
+
+from . import models, serializers
 
 
-class VinculoForm(forms.ModelForm):
+class VinculoSelectForm(mixins.RequestFormMixin, forms.Form):
+
+    redirect_url = forms.CharField(widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request')
-        return super().__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
-    class Meta:
-        model = models.Vinculo
-        fields = ['unidade', 'responsabilidade']
-
-    def vinculo_existe(self):
-        data = self.cleaned_data
-        kwargs = dict(
-            usuario=self.request.user,
-            unidade=data.get('unidade'),
-            responsabilidade=data.get('responsabilidade')
+        vinculos_usuario = models.Vinculo.objects.filter(usuario=self.request.user)
+        self.fields['vinculos'] = fields.ModelChoiceFieldRadio(
+            vinculos_usuario,
+            error_messages=dict(required='É necessário escolher algum dos vínculos disponíveis'),
         )
-        if all(kwargs.values()):
-            return models.Vinculo.objects.filter(**kwargs).exists()
 
-        return False
-
-    def clean(self):
-        if self.vinculo_existe():
-            raise exceptions.ValidationError('Vínculo com os dados informados já existe')
-
-        return super().clean()
+    def save(self, *args, **kwargs):
+        vinculo_data = serializers.VinculoSerializer(self.cleaned_data['vinculos']).data
+        self.request.session['vinculo_selecionado'] = vinculo_data

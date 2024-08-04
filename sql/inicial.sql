@@ -1,5 +1,5 @@
 -- Este script cria os schemas necessários para o projeto. Favor atualizar esse script para incluir novos
--- schemas que foram adicionados ao projeto.
+-- schemas adicionados.
 
 -- Para executar o script rode o seguinte comando a partir do diretório do projeto:
 -- sudo -u postgres psql < sql/inicial.sql

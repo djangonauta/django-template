@@ -45,7 +45,7 @@ def testfunctional(c, noinput=True, clear=False, verbosity=0, flags='-Wa',
 
 
 @invoke.task
-def collectstatic(c, noinput=True, clear=False, verbosity=0, settings='development'):
+def collectstatic(c, noinput=True, clear=False, verbosity=0, settings='production'):
     args = []
     args.append('--noinput' if noinput else '')
     args.append('--clear' if clear else '')

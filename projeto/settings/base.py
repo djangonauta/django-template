@@ -133,7 +133,7 @@ WSGI_APPLICATION = 'projeto.wsgi.application'
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 LANGUAGE_CODE = 'pt-br'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Belem'
 USE_I18N = True
 USE_TZ = True
 LOCALE_PATHS = [BASE_DIR / 'projeto' / 'locales']
@@ -172,7 +172,7 @@ PIPELINE = {
 # Authorization/Authentication
 # https://django-allauth.readthedocs.io/en/latest/
 AUTH_USER_MODEL = 'usuarios.Usuario'
-LOGIN_URL = urls.reverse_lazy('account_login')
+LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = urls.reverse_lazy('app')
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
