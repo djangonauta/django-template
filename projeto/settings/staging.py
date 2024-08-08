@@ -5,7 +5,7 @@ DEBUG = False
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG   # noqa: F405
 
 # cache
-MIDDLEWARE += ['pipeline.middleware.MinifyHTMLMiddleware']  # noqa: F405
+MIDDLEWARE = MIDDLEWARE + ['pipeline.middleware.MinifyHTMLMiddleware']  # noqa: F405
 
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[])  # noqa: F405
 

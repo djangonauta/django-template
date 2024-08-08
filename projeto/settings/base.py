@@ -50,11 +50,18 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
+PROJECT_APPS = [
+    'projeto.apps.administrativo',
+    'projeto.apps.administrativo.usuarios',
+    'projeto.apps.arquitetura',
+]
+
 THIRD_PARTY_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'auditlog',
+    'csp',
     'django_celery_beat',
     'django_celery_results',
     'django_extensions',
@@ -69,16 +76,10 @@ THIRD_PARTY_APPS = [
     'view_breadcrumbs',
     'widget_tweaks',
 ]
-
-PROJECT_APPS = [
-    'projeto.apps.administrativo',
-    'projeto.apps.administrativo.usuarios',
-    'projeto.apps.arquitetura',
-]
-
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
+INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
+    # 'csp.middleware.CSPMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -160,6 +161,12 @@ PIPELINE = {
         }
     },
     'STYLESHEETS': {
+        'fonts': {
+            'source_filenames': (
+                'css/fonts.css',
+            ),
+            'output_filename': 'css/fonts.css',
+        },
         'app': {
             'source_filenames': (
                 'css/app.css',
@@ -234,6 +241,10 @@ REST_FRAMEWORK = {
 }
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_IMG_SRC = ("'self'", "data:")
+CSP_EXCLUDE_URL_PREFIXES = ("/admin",)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
