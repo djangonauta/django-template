@@ -1,6 +1,7 @@
 import view_breadcrumbs
 from django import urls
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import functional
 from django.views import generic
 
@@ -20,7 +21,7 @@ class BaseBreadcrumbMixin(view_breadcrumbs.BaseBreadcrumbMixin):
         ]
 
 
-class IndexView(BaseBreadcrumbMixin, generic.TemplateView):
+class IndexView(BaseBreadcrumbMixin, LoginRequiredMixin, generic.TemplateView):
 
     template_name = 'index.html'
     titulo_pagina = 'Home'

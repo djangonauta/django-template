@@ -1,3 +1,5 @@
+import hashlib
+
 from auditlog.models import AuditlogHistoryField
 from auditlog.registry import auditlog
 from django.contrib.auth.models import AbstractUser
@@ -37,6 +39,11 @@ class Usuario(TimeStampedModel, AbstractUser):
     @property
     def nome_completo(self):
         return self.get_full_name() or self.username
+
+    @property
+    def gravatar_url(self):
+        email_hash = hashlib.md5(bytes(self.email, 'utf-8')).hexdigest()
+        return f'https://gravatar.com/avatar/{email_hash}'
 
 
 auditlog.register(Usuario)

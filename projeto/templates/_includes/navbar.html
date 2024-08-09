@@ -3,15 +3,15 @@
     <li class="nav-item">
       <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
     </li>
+  </ul>
+
+  <ul class="navbar-nav ml-auto">
     <li class="nav-item d-none d-sm-inline-block">
       <a href="/" class="nav-link">Home</a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="#" class="nav-link">Contact</a>
+      <a href="{% url "account_logout" %}" class="nav-link" onclick="return confirm('Deseja sair do sistema?')">Logout</a>
     </li>
-  </ul>
-
-  <ul class="navbar-nav ml-auto">
     <li class="nav-item">
       <a class="nav-link" data-widget="navbar-search" href="#" role="button">
         <i class="fas fa-search"></i>
