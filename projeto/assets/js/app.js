@@ -45,7 +45,7 @@ var App = function () {
   };
 }();
 
-document.addEventListener('DOMContentLoaded', function () {
+$(function () {
   $('[data-toggle="passwordEye"').each(function (index, element) {
     App.passwordEye(element);
   });
@@ -58,5 +58,10 @@ document.addEventListener('DOMContentLoaded', function () {
     $(element).click(function () {
       App.addForm($(this).data('totalForms'), $(this).data('formVazio'), $(this).data('destino'));
     })
+  });
+
+  window.setTimeout(function () {
+    $('[data-primeiro-campo]').focus(),
+    500
   });
 });

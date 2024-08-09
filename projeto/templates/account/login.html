@@ -13,7 +13,7 @@
       <form action="" method="post" novalidate>{% csrf_token %}
         <div class="form-group">
           <div class="input-group">
-            {% render_field form.login class="form-control form-control-sm" placeholder="Email ou usuário" %}
+            {% render_field form.login class="form-control form-control-sm" data-primeiro-campo="" placeholder="Email ou usuário" %}
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
