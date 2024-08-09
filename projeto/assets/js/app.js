@@ -61,7 +61,7 @@ $(function () {
   });
 
   window.setTimeout(function () {
-    $('[data-primeiro-campo]').focus(),
+    $('[primeiro_campo]').focus(),
     500
   });
 });
