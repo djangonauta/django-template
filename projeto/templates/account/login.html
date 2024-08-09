@@ -1,56 +1,60 @@
-{% extends 'base.html' %}{% load widget_tweaks static %}
-{% block title %}Login{% endblock %}
-{% block body_class %}hold-transition login-page{% endblock body_class %}
+{% extends 'base.html' %}
+{% load widget_tweaks static %}
+{% block title %}
+  Login
+{% endblock %}
+{% block body_class %}
+  hold-transition login-page
+{% endblock %}
 
 {% block body %}
-<div class="login-box" style="width: 20%">
-  <div class="card">
-    <div class="card-body login-card-body">
-      {% include "_includes/form_non_field_errors.html" %}
+  <div class="login-box" style="width: 20%">
+    <div class="card">
+      <div class="card-body login-card-body">
+        {% include '_includes/form_non_field_errors.html' %}
 
-      <p class="login-box-msg">É necessário fazer login para acessar o sistema</p>
+        <p class="login-box-msg">É necessário fazer login para acessar o sistema</p>
 
-      <form action="" method="post" novalidate>{% csrf_token %}
-        <div class="form-group">
-          <div class="input-group">
-            {% render_field form.login class="form-control form-control-sm" data-primeiro-campo="" placeholder="Email ou usuário" %}
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
+        <form action="" method="post" novalidate>
+          {% csrf_token %}
+          <div class="form-group">
+            <div class="input-group">
+              {% render_field form.login class='form-control form-control-sm' primeiro_campo='' placeholder='Email ou usuário' %}
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
               </div>
             </div>
+            <div class="text-danger mt-1">{{ form.login.errors.0 }}</div>
           </div>
-          <div class="text-danger mt-1">{{ form.login.errors.0 }}</div>
-        </div>
 
-        <div class="form-group">
-          <div class="input-group">
-            {% render_field form.password class="form-control form-control-sm" placeholder="Digite sua senha" %}
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
+          <div class="form-group">
+            <div class="input-group">
+              {% render_field form.password class='form-control form-control-sm' placeholder='Digite sua senha' %}
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
               </div>
             </div>
+            <div class="text-danger mt-1">{{ form.password.errors.0 }}</div>
           </div>
-          <div class="text-danger mt-1">{{ form.password.errors.0 }}</div>
-        </div>
 
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              {% render_field form.remember class="ponteiro" %}
-              <label for="{{ form.remember.id_for_label }}" class="ponteiro"> Continuar logado</label>
+          <div class="row">
+            <div class="col-8">
+              <div class="icheck-primary">
+                {% render_field form.remember class='ponteiro' %}
+                <label for="{{ form.remember.id_for_label }}" class="ponteiro">Continuar logado</label>
+              </div>
+            </div>
+            <div class="col-4">
+              <button type="submit" data-toggle="spinner" class="btn btn-primary btn-sm btn-block"><i class="fas fa-sign-in-alt mr-auto"></i>&nbsp;&nbsp;Login</button>
             </div>
           </div>
-          <div class="col-4">
-            <button type="submit" data-toggle="spinner" class="btn btn-primary btn-sm btn-block">
-              <i class="fas fa-sign-in-alt mr-auto"></i>&nbsp;&nbsp;Login
-            </button>
-          </div>
-        </div>
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value | default:'/' }}" />
-      </form>
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value|default:'/' }}" />
+        </form>
+      </div>
     </div>
   </div>
-</div>
-{% endblock body %}
+{% endblock %}

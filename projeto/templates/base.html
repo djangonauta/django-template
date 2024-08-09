@@ -1,84 +1,94 @@
-<!doctype html>{% load static pipeline view_breadcrumbs %}
+<!DOCTYPE html>
+{% load static pipeline view_breadcrumbs %}
 <html lang="pt-br">
-<head>
-  {% block meta %}
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  {% endblock meta %}
+  <head>
+    {% block meta %}
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% endblock %}
 
-  <title>{% block title %}Bem vindo{% endblock title %}</title>
+    <title>
+      {% block title %}
+        Bem vindo
+      {% endblock %}
+    </title>
 
-  <link rel="shortcut icon" href="{% static 'images/python-logo.png' %}" />
+    <link rel="shortcut icon" href="{% static 'images/python-logo.png' %}" />
 
-  {% stylesheet 'fonts' %}
-  <link rel="stylesheet" href="{% static 'libs/fontawesome-free-5.15.4/css/all.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'libs/adminlte-3.2.0/css/adminlte.min.css' %}" />
+    {% stylesheet 'fonts' %}
+    <link rel="stylesheet" href="{% static 'libs/fontawesome-free-5.15.4/css/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'libs/adminlte-3.2.0/css/adminlte.min.css' %}" />
 
-  {% stylesheet 'app' %}
+    {% stylesheet 'app' %}
 
-  {% block styles %}{% endblock styles %}
-</head>
+    {% block styles %}
+    {% endblock %}
+  </head>
 
-<body class="{% block body_class %}hold-transition sidebar-mini layout-boxed {% endblock body_class %}">
-  {% block body %}
-  <div class="wrapper" style="border-right: thin solid #ececec;">
-    {% include "_includes/navbar.html" %}
+  <body class="{% block body_class %}
+      hold-transition sidebar-mini layout-boxed
+    {% endblock %}">
+    {% block body %}
+      <div class="wrapper" style="border-right: thin solid #ececec;">
+        {% include '_includes/navbar.html' %}
 
-    {% include "_includes/sidemenu.html" %}
+        {% include '_includes/sidemenu.html' %}
 
-    <div class="content-wrapper">
-      <div class="content-header">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-12">
-              {% include "_includes/messages.html" %}
+        <div class="content-wrapper">
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-12">
+                  {% include '_includes/messages.html' %}
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0">{{ titulo_pagina }}</h1>
+                </div>
+                {% block breadcrumbs %}
+                  {% render_breadcrumbs %}
+                {% endblock %}
+              </div>
             </div>
           </div>
-  
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">{{ titulo_pagina }}</h1>
+
+          <div class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-12">
+                  {% block conteudo %}
+                  {% endblock %}
+                </div>
+              </div>
             </div>
-            {% block breadcrumbs %}{% render_breadcrumbs %}{% endblock %}
           </div>
         </div>
-      </div>
 
-      <div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-12">
-              {% block conteudo %}{% endblock conteudo %}
-            </div>
+        <aside class="control-sidebar control-sidebar-dark">
+          <div class="p-3">
+            <h5>Title</h5>
+            <p>Sidebar content</p>
           </div>
-        </div>
+        </aside>
+
+        <footer class="main-footer">
+          <div class="float-right d-none d-sm-inline">
+            <strong>Copyright &copy; 2024</strong>
+          </div>Todos os direitos reservados.
+        </footer>
       </div>
-    </div>
+    {% endblock %}
 
-    <aside class="control-sidebar control-sidebar-dark">
-      <div class="p-3">
-        <h5>Title</h5>
-        <p>Sidebar content</p>
-      </div>
-    </aside>
+    <script src="{% static 'libs/jquery-3.6.0/js/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap-4.6.1/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'libs/adminlte-3.2.0/js/adminlte.min.js' %}"></script>
 
-    <footer class="main-footer">
-      <div class="float-right d-none d-sm-inline">
-        <strong>Copyright &copy; 2024</strong>
-      </div>
-      Todos os direitos reservados.
-    </footer>
-  </div>
-  {% endblock body %}
+    {% javascript 'app' %}
 
-  <script src="{% static 'libs/jquery-3.6.0/js/jquery.min.js' %}"></script>
-  <script src="{% static 'libs/bootstrap-4.6.1/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'libs/adminlte-3.2.0/js/adminlte.min.js' %}"></script>
-
-  {% javascript 'app' %}
-
-  {% block scripts %}{% endblock scripts %}
-</body>
-
+    {% block scripts %}
+    {% endblock %}
+  </body>
 </html>
