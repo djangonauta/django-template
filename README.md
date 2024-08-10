@@ -48,6 +48,7 @@ Ambiente de Produção
 --------------------
 
 ```bash
+poetry lock --no-update # não atualiza as versões fixadas, apenas recarrega o lock file
 poetry install --no-root # instala as dependências do projeto excluindo as de desenvolvimento
 ```
 
