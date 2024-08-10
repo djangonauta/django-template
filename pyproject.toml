@@ -50,6 +50,7 @@ optional = true
 [tool.poetry.group.dev.dependencies]
 autopep8 = "*"
 bpython = "*"
+colorama = "*"
 coverage = "*"
 django-debug-toolbar = "*"
 fabric = "*"

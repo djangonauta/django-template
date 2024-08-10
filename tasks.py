@@ -3,15 +3,15 @@ import invoke
 
 
 @invoke.task(default=True)
-def runserver(c, input=False, clear=False, verbosity=0, settings='development', port=8000):
-    collectstatic(c, input, clear, verbosity, settings)
+def runserver(c, interactive=False, clear=False, verbosity=0, settings='development', port=8000):
+    collectstatic(c, interactive, clear, verbosity, settings)
     cmd = f'./manage.py runserver 0.0.0.0:{port} --settings=projeto.settings.{settings}'
     c.run(cmd, echo=True, pty=True)
 
 
 @invoke.task
-def runserverplus(c, input=False, clear=False, verbosity=0, settings='whitenoise', port=8000):
-    collectstatic(c, input, clear, verbosity, settings)
+def runserverplus(c, interactive=False, clear=False, verbosity=0, settings='whitenoise', port=8000):
+    collectstatic(c, interactive, clear, verbosity, settings)
     cmd = (f'./manage.py runserver_plus --cert-file cert.crt --settings=projeto.settings.{settings} '
            f'0.0.0.0:{port}')
     c.run(cmd, echo=True, pty=True)
@@ -46,16 +46,16 @@ def testapps(c, flags='-Wa', package='projeto.apps', settings='test', parallel=F
 
 
 @invoke.task
-def testfunctional(c, input=False, clear=False, verbosity=0, flags='-Wa',
+def testfunctional(c, interactive=False, clear=False, verbosity=0, flags='-Wa',
                    package='projeto.functional_tests', settings='test', parallel=False, keepdb=False):
-    collectstatic(c, input, clear, verbosity, settings)
+    collectstatic(c, interactive, clear, verbosity, settings)
     test(c, flags, package, settings, parallel, keepdb)
 
 
 @invoke.task
-def collectstatic(c, input=False, clear=False, verbosity=0, settings='production'):
+def collectstatic(c, interactive=False, clear=False, verbosity=0, settings='production'):
     args = []
-    args.append('' if input else '--noinput')
+    args.append('' if interactive else '--noinput')
     args.append('--clear' if clear else '')
     args = ' '.join(args)
 
