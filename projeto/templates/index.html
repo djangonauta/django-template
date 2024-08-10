@@ -2,6 +2,23 @@
 
 {% block conteudo %}
   <div class="card">
-    <div class="card-body">formulário aqui</div>
+    <div class="card-body">
+      <form class="d-inline" action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="">Mensagem</label>
+          <input id="id_mensagem" type="text" class="form-control form-control-sm" name="mensagem" />
+          <p class="text-muted">{{ form.mensagem.errors.0 }}</p>
+        </div>
+        <button class="btn btn-primary btn-sm" type="submit">Enviar</button>
+      </form>
+      <form class="d-inline" action="{% url 'limpar-resultado' %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-default btn-sm" type="submit" onclick="return confirm('Deseja limpar o resultado atual?')">Limpar resultado</button>
+      </form>
+      <hr />
+      <h4>Status: {{ resultado.status }}</h4>
+      <h4>Result: {{ resultado.result }}</h4>
+    </div>
   </div>
 {% endblock %}

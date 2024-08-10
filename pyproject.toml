@@ -58,6 +58,7 @@ flake8 = "*"
 halo = "*"
 isort = "*"
 pyopenssl = "*"
+pywatchman = "*"
 selenium = "*"
 werkzeug = "*"
 
