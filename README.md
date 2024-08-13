@@ -41,7 +41,7 @@ Ambiente de Desenvolvimento
 As dependências de desenvolvimento foram configuradas como opcionais.
 
 ```bash
-poetry install --with dev  # instala as dependências do projeto incluindo as de desenvolvimento
+poetry install --no-root --with dev  # instala as dependências do projeto incluindo as de desenvolvimento
 ```
 
 Ambiente de Produção
