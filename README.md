@@ -13,6 +13,8 @@ As seguintes váriaveis devem ser definidas no arquivo projeto/settings/.env (ex
     DISABLE_ACCOUNT_REGISTRATION='False'
     ACCOUNT_EMAIL_VERIFICATION='none' # mandatory, optional
     CSRF_TRUSTED_ORIGINS='https://localhost'
+    AUTH_LDAP_SERVER_URI='ldap://localhost'
+    AUTH_LDAP_USER_DN_TEMPLATE='uid=%(user)s,ou=Usuarios,dc=jus,dc=br'
 
 Essas variáveis devem ser definidas em projeto/settings/.env
 

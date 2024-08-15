@@ -201,7 +201,7 @@ AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
 
 # https://django-auth-ldap.readthedocs.io/en/latest/
 AUTH_LDAP_SERVER_URI = env('AUTH_LDAP_SERVER_URI', default='')
-AUTH_LDAP_USER_DN_TEMPLATE = env('AUTH_LDAP_SERVER_URI', default='')
+AUTH_LDAP_USER_DN_TEMPLATE = env('AUTH_LDAP_USER_DN_TEMPLATE', default='')
 
 # Task queues
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html
