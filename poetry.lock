@@ -2175,16 +2175,6 @@ files = [
 ]
 
 [[package]]
-name = "pyinvoke"
-version = "1.0.4"
-description = ""
-optional = false
-python-versions = "*"
-files = [
-    {file = "pyinvoke-1.0.4.tar.gz", hash = "sha256:0b96de9e8ed5b6d681bc761ed6758087998b1a84f84b09811f7d5401d64dea7e"},
-]
-
-[[package]]
 name = "pynacl"
 version = "1.5.0"
 description = "Python binding to the Networking and Cryptography (NaCl) library"
@@ -2895,4 +2885,4 @@ test = ["pytest"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "628684d60f83111097ace7428bfab7783047a17951ae46d15a8de73d520c00d1"
+content-hash = "0aeb95a47797d4395c32e1e62134913b7e2df3b58283390ce4bddc12d68778bf"

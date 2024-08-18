@@ -26,6 +26,12 @@ def celery(c, settings='development', log_level='INFO', events=True):
 
 
 @invoke.task
+def docker(c):
+    cmd = 'docker compose -f docker-compose-dev.yml up --build'
+    c.run(cmd, echo=True, pty=True)
+
+
+@invoke.task
 def test(c, flags='-Wa', package='', settings='test', parallel=False, keepdb=False):
     args = []
     args.append('--parallel' if parallel else '')
