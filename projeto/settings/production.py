@@ -1,6 +1,10 @@
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 from .staging import *  # noqa: F401, F403
 
+
+STATIC_ROOT = BASE_DIR / '..' / 'assets'  # noqa: F405
+MEDIA_ROOT = BASE_DIR / '..' / 'downloads'  # noqa: F405
+
 # Security
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True

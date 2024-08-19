@@ -31,21 +31,22 @@ services:
       retries: 19
 
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
+    image: docker.io/djangonauta/django-template
     container_name: app
     env_file:
       - ./config/docker.env
     environment:
       - POETRY_VIRTUALENVS_PATH=/usr/envs
     ports:
-      - '8000:8000'
+      - 80:80
+      - 443:443
     volumes:
-      - '.:/usr/app'
-      - '/usr/envs'
+      - .:/usr/app
+      - /usr/envs
+      - /usr/assets
+      - /usr/downloads
     depends_on:
       rabbitmq:
         condition: service_healthy
 
-    entrypoint: ./config/dev.py
+    entrypoint: /usr/app/config/prod.py
