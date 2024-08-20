@@ -145,7 +145,7 @@ LOCALE_PATHS = [BASE_DIR / 'projeto' / 'locales']
 STATIC_URL = 'assets/'
 STATIC_ROOT = BASE_DIR / 'assets'
 STATICFILES_DIRS = [BASE_DIR / 'projeto' / 'assets']
-STATICFILES_STORAGE = 'pipeline.storage.PipelineManifestStorage'
+global_settings.STORAGES['staticfiles']['BACKEND'] = 'pipeline.storage.PipelineManifestStorage'
 STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['pipeline.finders.PipelineFinder']
 
 MEDIA_URL = 'downloads/'

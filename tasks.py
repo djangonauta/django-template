@@ -59,7 +59,7 @@ def tests(c, flags='-Wa', package='', settings='test', parallel=False, keepdb=Fa
     args.append('--keepdb' if keepdb else '')
     args = ' '.join(args)
 
-    cmd = (f'python {flags} -m coverage run manage.py test {package} --settings=projeto.settings.{settings} '
+    cmd = (f'python3 {flags} -m coverage run manage.py test {package} --settings=projeto.settings.{settings} '
            f'{args}')
     c.run(cmd, echo=True, pty=True)
 
@@ -77,3 +77,11 @@ def testfunctional(c, interactive=False, clear=False, verbosity=0, flags='-Wa',
                    package='projeto.functional_tests', settings='test', parallel=False, keepdb=False):
     collectstatic(c, interactive, clear, verbosity, settings)
     tests(c, flags, package, settings, parallel, keepdb)
+
+
+@invoke.task
+def gunicorn(c):
+    cmd = ('gunicorn --pid /run/gunicorn/pid --access-logfile /var/log/gunicorn/acesso.log --log-file '
+           '/var/log/gunicorn/app.log --capture-output --enable-stdio-inheritance --workers 4 '
+           '--bind 0.0.0.0:8000 projeto.wsgi')
+    c.run(cmd, echo=True, pty=True)

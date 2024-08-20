@@ -9,16 +9,16 @@ services:
     image: postgres:16.4
     container_name: postgres
     env_file:
-      - ./config/docker.env
+      - ./docker.cfg/docker.env
     volumes:
-      - ./config/init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
+      - ./docker.cfg/init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
       - /var/lib/docker/volumes/postgresql:/var/lib/postgresql/data
 
   rabbitmq:
     image: rabbitmq:3.13.6
     container_name: rabbitmq
     env_file:
-      - ./config/docker.env
+      - ./docker.cfg/docker.env
     volumes:
       - /var/lib/docker/volumes/rabbitmq:/var/lib/rabbitmq
     ports:
@@ -34,7 +34,7 @@ services:
     image: docker.io/djangonauta/django-template
     container_name: app
     env_file:
-      - ./config/docker.env
+      - ./docker.cfg/docker.env
     environment:
       - POETRY_VIRTUALENVS_PATH=/usr/envs
     ports:
@@ -42,11 +42,10 @@ services:
       - 443:443
     volumes:
       - .:/usr/app
+      - /usr/app/assets
       - /usr/envs
-      - /usr/assets
-      - /usr/downloads
     depends_on:
       rabbitmq:
         condition: service_healthy
 
-    entrypoint: /usr/app/config/prod.py
+    entrypoint: /usr/app/docker.cfg/prod.py

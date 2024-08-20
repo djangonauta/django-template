@@ -15,8 +15,8 @@ RUN apt install build-essential libbz2-dev libffi-dev libfreetype6-dev \
 RUN pip3 install -U pip wheel setuptools poetry
 
 COPY . .
-COPY ./config/nginx.conf /etc/nginx/nginx.conf
-COPY ./config/cert.pem /etc/nginx/ssl/
-COPY ./config/key.pem /etc/nginx/ssl/
-COPY ./config/pass /etc/nginx/ssl/
+COPY ./docker.cfg/nginx.conf /etc/nginx/nginx.conf
+COPY ./docker.cfg/cert.pem /etc/nginx/ssl/
+COPY ./docker.cfg/key.pem /etc/nginx/ssl/
+COPY ./docker.cfg/pass /etc/nginx/ssl/
 RUN chmod 400 -R /etc/nginx/ssl/
