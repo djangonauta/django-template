@@ -38,7 +38,7 @@ class IndexView(BaseBreadcrumbMixin, LoginRequiredMixin, generic.FormView):
     form_class = MensagemForm
     success_url = '/'
 
-    def form_valid(self, form):
+    def form_valid(self, form: MensagemForm):
         self.request.session['task_id'] = form.save().id
         return super().form_valid(form)
 
