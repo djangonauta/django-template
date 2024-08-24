@@ -37,21 +37,27 @@ cd django-template  # move para o diretório do projeto
 poetry shell  # inicializa o ambiente virtual
 ```
 
+Alterações no arquivo ``pyproject.toml``
+----------------------------------------
+
+Será necessário atualizar o arquivo ``poetry.lock`` caso o arquivo ``pyproject.toml`` tenha sido  alterado. 
+
+```bash
+poetry lock --no-update
+```
+
 Ambiente de Desenvolvimento
 ---------------------------
 
-As dependências de desenvolvimento foram configuradas como opcionais.
-
 ```bash
-poetry install --no-root --with dev  # instala as dependências do projeto incluindo as de desenvolvimento
+poetry install --with dev --sync  # instala as dependências do projeto incluindo as de desenvolvimento
 ```
 
 Ambiente de Produção
 --------------------
 
 ```bash
-poetry lock --no-update # não atualiza as versões fixadas, apenas recarrega o lock file
-poetry install --no-root # instala as dependências do projeto excluindo as de desenvolvimento
+poetry install --without dev --sync --compile # instala as dependências do projeto excluindo as de desenvolvimento
 ```
 
 Certificado teste

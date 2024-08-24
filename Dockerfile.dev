@@ -1,5 +1,7 @@
 FROM nikolaik/python-nodejs:python3.12-nodejs22
+
 WORKDIR /usr/app
+
 RUN npm install -g yuglify
 RUN apt update
 RUN apt install build-essential libbz2-dev libffi-dev libfreetype6-dev \
@@ -8,4 +10,5 @@ RUN apt install build-essential libbz2-dev libffi-dev libfreetype6-dev \
     libgdal-dev graphviz libgraphviz-dev libldap2-dev libsasl2-dev  -y
 
 RUN pip3 install -U pip wheel setuptools poetry
+
 COPY . .

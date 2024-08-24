@@ -1,4 +1,5 @@
-FROM nikolaik/python-nodejs:python3.12-nodejs22 AS build
+FROM nikolaik/python-nodejs:python3.12-nodejs22
+
 WORKDIR /usr/app
 
 RUN mkdir -p /run/gunicorn/
@@ -19,4 +20,5 @@ COPY ./docker.cfg/nginx.conf /etc/nginx/nginx.conf
 COPY ./docker.cfg/cert.pem /etc/nginx/ssl/
 COPY ./docker.cfg/key.pem /etc/nginx/ssl/
 COPY ./docker.cfg/pass /etc/nginx/ssl/
+
 RUN chmod 400 -R /etc/nginx/ssl/

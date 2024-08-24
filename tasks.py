@@ -10,7 +10,7 @@ def runserver(c, interactive=False, clear=True, verbosity=0, settings='developme
 
 
 @invoke.task
-def collectstatic(c, interactive=False, clear=True, verbosity=0, settings='development'):
+def collectstatic(c, interactive=False, clear=True, verbosity=0, settings='production'):
     args = []
     args.append('' if interactive else '--noinput')
     args.append('--clear' if clear else '')
@@ -22,16 +22,21 @@ def collectstatic(c, interactive=False, clear=True, verbosity=0, settings='devel
 
 
 @invoke.task
-def migrate(c, settings='development'):
-    cmd = f'./manage.py makemigrations --settings=projeto.settings.{settings}'
+def makemigrations(c, settings='production', merge=True):
+    merge = ' --merge' if merge else ''
+    cmd = f'./manage.py makemigrations --settings=projeto.settings.{settings}{merge}'
     c.run(cmd, echo=True, pty=True)
 
+
+@invoke.task
+def migrate(c, settings='production', merge=True):
+    makemigrations(c, settings, merge)
     cmd = f'./manage.py migrate --settings=projeto.settings.{settings}'
     c.run(cmd, echo=True, pty=True)
 
 
 @invoke.task
-def celery(c, settings='development', log_level='INFO', events=True):
+def celery(c, settings='production', log_level='INFO', events=True):
     events = "-E" if events else ""
     cmd = (f'DJANGO_SETTINGS_MODULE="projeto.settings.{settings}" celery -A projeto worker -l {log_level} '
            f'{events}')

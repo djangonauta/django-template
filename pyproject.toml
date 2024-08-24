@@ -44,9 +44,6 @@ setuptools = "*"
 weasyprint = "*"
 whitenoise = "*"
 
-[tool.poetry.group.dev]
-optional = false
-
 [tool.poetry.group.dev.dependencies]
 autopep8 = "*"
 bpython = "*"
@@ -60,7 +57,6 @@ halo = "*"
 ipython = "*"
 isort = "*"
 pyopenssl = "*"
-pywatchman = "*"
 selenium = "*"
 werkzeug = "*"
 
