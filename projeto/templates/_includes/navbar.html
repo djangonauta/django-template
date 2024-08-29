@@ -10,6 +10,12 @@
       <a href="/" class="nav-link">Home</a>
     </li>
 
+    {% if user.is_superuser %}
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{% url "admin:index" %}" class="nav-link">Admin</a>
+      </li>
+    {% endif %}
+
     <li class="nav-item d-none d-sm-inline-block">
       <a href="{% url 'account_logout' %}" class="nav-link" onclick="return confirm('Deseja sair do sistema?')">Logout</a>
     </li>
@@ -33,7 +39,7 @@
       <a class="nav-link" data-widget="fullscreen" href="#" role="button"><i class="fas fa-expand-arrows-alt"></i></a>
     </li>
 
-    <!--  <li class="nav-item dropdown">
+    <!--   <li class="nav-item dropdown">
       <a class="nav-link" data-toggle="dropdown" href="#">
         <i class="far fa-bell"></i>
         <span class="badge badge-warning navbar-badge">15</span>
@@ -64,6 +70,6 @@
       <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
         <i class="fas fa-th-large"></i>
       </a>
-    </li>  -->
+    </li>   -->
   </ul>
 </nav>
