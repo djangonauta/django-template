@@ -4,6 +4,8 @@ services:
     container_name: redis
     volumes:
       - /var/lib/docker/volumes/redis:/data
+    expose:
+      - 6379
 
   postgres:
     image: postgres:16.4
@@ -13,6 +15,8 @@ services:
     volumes:
       - ./docker.cfg/init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
       - /var/lib/docker/volumes/postgresql:/var/lib/postgresql/data
+    expose:
+      - 5432
 
   rabbitmq:
     image: rabbitmq:3.13.6
@@ -21,7 +25,7 @@ services:
       - ./docker.cfg/docker.env
     volumes:
       - /var/lib/docker/volumes/rabbitmq:/var/lib/rabbitmq
-    ports:
+    expose:
       - 5672
       - 15672
     healthcheck:
@@ -30,22 +34,53 @@ services:
       timeout: 100s
       retries: 19
 
+  celery-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: celery-worker
+    env_file:
+      - ./docker.cfg/docker.env
+    environment:
+      - POETRY_VIRTUALENVS_PATH=/usr/envs
+    volumes:
+      - .:/usr/app
+      - /usr/envs
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    entrypoint: ./docker.cfg/celery.prod.py
+
   app:
-    image: docker.io/djangonauta/django-template
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
     container_name: app
     env_file:
       - ./docker.cfg/docker.env
     environment:
       - POETRY_VIRTUALENVS_PATH=/usr/envs
-    ports:
-      - 80:80
-      - 443:443
     volumes:
       - .:/usr/app
-      - /usr/app/assets
       - /usr/envs
+      - static_volume:/usr/app/assets
+    expose:
+      - 8000
     depends_on:
       rabbitmq:
         condition: service_healthy
+    entrypoint: ./docker.cfg/prod.py
 
-    entrypoint: /usr/app/docker.cfg/prod.py
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    volumes:
+      - static_volume:/usr/app/assets
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - app
+
+volumes:
+  static_volume:
