@@ -11,9 +11,9 @@ services:
     image: postgres:16.4
     container_name: postgres
     env_file:
-      - ./docker.cfg/docker.env
+      - ./docker/docker.env
     volumes:
-      - ./docker.cfg/init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
+      - ./docker/postgres/init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
       - /var/lib/docker/volumes/postgresql:/var/lib/postgresql/data
     expose:
       - 5432
@@ -22,7 +22,7 @@ services:
     image: rabbitmq:3.13.6
     container_name: rabbitmq
     env_file:
-      - ./docker.cfg/docker.env
+      - ./docker/docker.env
     volumes:
       - /var/lib/docker/volumes/rabbitmq:/var/lib/rabbitmq
     expose:
@@ -40,7 +40,7 @@ services:
       dockerfile: Dockerfile.prod
     container_name: celery-worker
     env_file:
-      - ./docker.cfg/docker.env
+      - ./docker/docker.env
     environment:
       - POETRY_VIRTUALENVS_PATH=/usr/envs
     volumes:
@@ -49,7 +49,7 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
-    entrypoint: ./docker.cfg/celery.prod.py
+    entrypoint: ./docker/celery/celery.prod.py
 
   app:
     build:
@@ -57,7 +57,7 @@ services:
       dockerfile: Dockerfile.prod
     container_name: app
     env_file:
-      - ./docker.cfg/docker.env
+      - ./docker/docker.env
     environment:
       - POETRY_VIRTUALENVS_PATH=/usr/envs
     volumes:
@@ -69,7 +69,7 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
-    entrypoint: ./docker.cfg/prod.py
+    entrypoint: ./docker/app/prod.py
 
   nginx:
     build: ./nginx
