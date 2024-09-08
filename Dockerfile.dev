@@ -4,10 +4,10 @@ WORKDIR /usr/app
 
 RUN npm install -g yuglify
 RUN apt update
-RUN apt install build-essential libbz2-dev libffi-dev libfreetype6-dev \
+RUN apt install build-essential libbz2-dev libffi-dev libfreetype6-dev libldap2-dev \
     libjpeg-dev liblcms2-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev libssl-dev \
     libtiff5-dev libwebp-dev libxml2-dev make zlib1g-dev \
-    libgdal-dev graphviz libgraphviz-dev libldap2-dev libsasl2-dev  -y
+    libgdal-dev graphviz libgraphviz-dev libsasl2-dev  -y
 
 RUN pip3 install -U pip wheel setuptools poetry
 

@@ -72,7 +72,7 @@ services:
     entrypoint: ./docker/app/prod.py
 
   nginx:
-    build: ./nginx
+    build: ./docker/nginx
     container_name: nginx
     volumes:
       - static_volume:/usr/app/assets

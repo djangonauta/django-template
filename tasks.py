@@ -44,9 +44,16 @@ def celery(c, settings='production', log_level='INFO', events=True):
 
 
 @invoke.task
-def docker(c):
-    cmd = 'docker compose -f docker-compose-dev.yml up --build'
-    c.run(cmd, echo=True, pty=True)
+def docker(c, no_cache=False):
+    if no_cache:
+        cmd = 'docker compose -f docker-compose.dev.yml build --no-cache'
+        c.run(cmd, echo=True, pty=True)
+        cmd = 'docker compose -f docker-compose.dev.yml up'
+        c.run(cmd, echo=True, pty=True)
+
+    else:
+        cmd = 'docker compose -f docker-compose.dev.yml up --build'
+        c.run(cmd, echo=True, pty=True)
 
 
 @invoke.task
