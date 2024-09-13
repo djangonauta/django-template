@@ -10,7 +10,9 @@
           <input id="id_mensagem" type="text" class="form-control form-control-sm" name="mensagem" />
           <p class="text-muted">{{ form.mensagem.errors.0 }}</p>
         </div>
-        <button class="btn btn-primary btn-sm" type="submit">Enviar</button>
+        <button class="btn btn-primary btn-sm" type="submit" data-toggle="spinner">
+          <span class="fas fa-lock"></span> Enviar
+        </button>
       </form>
       <form class="d-inline" action="{% url 'limpar-resultado' %}" method="post">
         {% csrf_token %}
