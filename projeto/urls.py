@@ -2,14 +2,15 @@ from django import urls
 from django.conf import settings
 from django.conf.urls import static
 from django.contrib import admin
+from django.views import generic
 from rest_framework import documentation
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from . import api, views
 
 urlpatterns = [
-    urls.path('', views.index, name='index'),
-    urls.path('app/', views.index, name='app'),
+    urls.path('', generic.RedirectView.as_view(url='app')),
+    urls.path('app/', views.app, name='app'),
     urls.path('contas/', urls.include('allauth.urls')),
     urls.path('hijack/', urls.include('hijack.urls')),
     urls.path('admin/', admin.site.urls),
