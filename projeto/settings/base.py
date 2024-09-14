@@ -62,6 +62,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'auditlog',
+    'corsheaders',
     'csp',
     'django_celery_beat',
     'django_celery_results',
@@ -72,7 +73,8 @@ THIRD_PARTY_APPS = [
     'pipeline',
     'post_office',
     'rest_framework',
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'rest_auth',
     'view_breadcrumbs',
     'widget_tweaks',
@@ -81,6 +83,7 @@ INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     # 'csp.middleware.CSPMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -151,6 +154,7 @@ STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['pipeline.finders.P
 MEDIA_URL = 'downloads/'
 MEDIA_ROOT = BASE_DIR / 'downloads'
 
+# https://django-pipeline.readthedocs.io/en/latest/
 PIPELINE = {
     'PIPELINE_ENABLED': True,
     'JAVASCRIPT': {
@@ -199,6 +203,7 @@ AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
     ['django_auth_ldap.backend.LDAPBackend',
      'allauth.account.auth_backends.AuthenticationBackend']
 
+# LDAP
 # https://django-auth-ldap.readthedocs.io/en/latest/
 AUTH_LDAP_SERVER_URI = env('AUTH_LDAP_SERVER_URI', default='')
 AUTH_LDAP_USER_DN_TEMPLATE = env('AUTH_LDAP_USER_DN_TEMPLATE', default='')
@@ -229,7 +234,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 15,
@@ -242,6 +248,13 @@ REST_FRAMEWORK = {
 }
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
+
+# CORS Headers
+# https://github.com/adamchainz/django-cors-headers
+CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=['http://localhost:4200'])
+
+# Content Security Policy
+# https://django-csp.readthedocs.io/en/latest/
 CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'",)
 CSP_IMG_SRC = ("'self'", "data:")
