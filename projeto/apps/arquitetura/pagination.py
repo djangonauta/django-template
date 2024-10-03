@@ -15,7 +15,7 @@ class ExtraPaginator(pagination.PageNumberPagination):
             'page_range': list(paginator.page_range),
             'num_pages': paginator.num_pages,
             'per_page': paginator.per_page,
-            'number': self.page.number,
+            'page': self.page.number,
             'next_page_number': self.page.next_page_number() if self.page.has_next() else None,
             'previous_page_number': self.page.previous_page_number() if self.page.has_previous() else None,
         }, status=status.HTTP_200_OK)
