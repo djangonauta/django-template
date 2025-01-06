@@ -28,6 +28,7 @@ simplesmente utilizando [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
 pip3 install -U poetry
+poetry self add poetry-plugin-shell
 ```
 
 Os seguintes comandos são utilizados para instalar as dependências do projeto.
