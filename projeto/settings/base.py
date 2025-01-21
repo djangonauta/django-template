@@ -20,6 +20,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
+env.DB_SCHEMES['postgres-prometheus'] = 'django_prometheus.db.backends.postgresql'
 DATABASES = {'default': env.db()}
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
@@ -67,6 +68,7 @@ THIRD_PARTY_APPS = [
     'django_celery_beat',
     'django_celery_results',
     'django_extensions',
+    'django_prometheus',
     'drf_spectacular',
     'drf_spectacular_sidecar',
     'formtools',
@@ -85,6 +87,7 @@ INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     # 'csp.middleware.CSPMiddleware',
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -96,6 +99,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'hijack.middleware.HijackUserMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 SITE_ID = 1
@@ -226,8 +230,8 @@ GRAPH_MODELS = {
 
 # Cache
 # https://docs.djangoproject.com/en/dev/topics/cache/
-env.CACHE_SCHEMES.update(redis='django.core.cache.backends.redis.RedisCache')
 CACHES = {'default': env.cache_url()}
+CACHES['default']['BACKEND'] = 'django_prometheus.cache.backends.redis.RedisCache'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 # Serialization

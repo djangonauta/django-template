@@ -112,3 +112,18 @@ Ativar inteface web localhost:15672
 sudo rabbitmq-plugins enable rabbitmq_management # ativar o plugin
 sudo rabbitmqctl set_user_tags usuario administrator # adicionar permissão ao usuário
 ```
+
+Prometheus
+==========
+
+``/etc/prometheus/prometheus.yml``
+
+```yml
+
+scrape_configs:
+    ...
+
+  - job_name: 'django_app'
+    static_configs:
+      - targets: ['<IP_DO_SERVIDOR>:<PORTA>']
+```

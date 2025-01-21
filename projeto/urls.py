@@ -10,7 +10,9 @@ from . import api, views
 
 urlpatterns = [
     urls.path('', generic.RedirectView.as_view(url='app')),
+    urls.path('', urls.include('django_prometheus.urls')),
     urls.path('app/', views.app, name='app'),
+    urls.path('erro/', views.erro, name='erro'),
     urls.path('contas/', urls.include('allauth.urls')),
     urls.path('hijack/', urls.include('hijack.urls')),
     urls.path('admin/', admin.site.urls),
