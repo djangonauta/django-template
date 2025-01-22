@@ -127,3 +127,14 @@ scrape_configs:
     static_configs:
       - targets: ['<IP_DO_SERVIDOR>:<PORTA>']
 ```
+
+Invoke
+======
+
+O arquivo de configuração ``invoke.yaml`` pode ser colocado na raiz do projeto (ao lado de ``tasks.py``):
+
+sudo:
+  password: ""
+run:
+  echo: true
+  pty: true

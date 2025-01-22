@@ -6,7 +6,7 @@ import invoke
 def runserver(c, interactive=False, clear=True, verbosity=0, settings='development', port=8000):
     collectstatic(c, interactive, clear, verbosity, settings)
     cmd = f'./manage.py runserver 0.0.0.0:{port} --settings=projeto.settings.{settings}'
-    c.run(cmd, echo=True, pty=True)
+    c.run(cmd)
 
 
 @invoke.task
@@ -18,21 +18,21 @@ def collectstatic(c, interactive=False, clear=True, verbosity=0, settings='produ
 
     cmd = (f'./manage.py collectstatic --verbosity={verbosity} --settings=projeto.settings.{settings} '
            f'{args}')
-    c.run(cmd, echo=True, pty=True)
+    c.run(cmd)
 
 
 @invoke.task
 def makemigrations(c, settings='production', merge=True):
     merge = ' --merge' if merge else ''
     cmd = f'./manage.py makemigrations --settings=projeto.settings.{settings}{merge}'
-    c.run(cmd, echo=True, pty=True)
+    c.run(cmd)
 
 
 @invoke.task
 def migrate(c, settings='production', merge=True):
     makemigrations(c, settings, merge)
     cmd = f'./manage.py migrate --settings=projeto.settings.{settings}'
-    c.run(cmd, echo=True, pty=True)
+    c.run(cmd)
 
 
 @invoke.task
@@ -40,20 +40,20 @@ def celery(c, settings='production', log_level='INFO', events=True):
     events = "-E" if events else ""
     cmd = (f'DJANGO_SETTINGS_MODULE="projeto.settings.{settings}" celery -A projeto worker -l {log_level} '
            f'{events}')
-    c.run(cmd, echo=True, pty=True)
+    c.run(cmd)
 
 
 @invoke.task
 def docker(c, no_cache=False):
     if no_cache:
         cmd = 'docker compose -f docker-compose.dev.yml build --no-cache'
-        c.run(cmd, echo=True, pty=True)
+        c.run(cmd)
         cmd = 'docker compose -f docker-compose.dev.yml up'
-        c.run(cmd, echo=True, pty=True)
+        c.run(cmd)
 
     else:
         cmd = 'docker compose -f docker-compose.dev.yml up --build'
-        c.run(cmd, echo=True, pty=True)
+        c.run(cmd)
 
 
 @invoke.task
@@ -61,7 +61,7 @@ def runserverplus(c, interactive=False, clear=False, verbosity=0, settings='whit
     collectstatic(c, interactive, clear, verbosity, settings)
     cmd = (f'./manage.py runserver_plus --cert-file cert.crt --settings=projeto.settings.{settings} '
            f'0.0.0.0:{port}')
-    c.run(cmd, echo=True, pty=True)
+    c.run(cmd)
 
 
 @invoke.task
@@ -73,10 +73,10 @@ def tests(c, flags='-Wa', package='', settings='test', parallel=False, keepdb=Fa
 
     cmd = (f'python3 {flags} -m coverage run manage.py test {package} --settings=projeto.settings.{settings} '
            f'{args}')
-    c.run(cmd, echo=True, pty=True)
+    c.run(cmd)
 
     cmd = 'coverage report'
-    c.run(cmd, echo=True, pty=True)
+    c.run(cmd)
 
 
 @invoke.task
@@ -96,4 +96,20 @@ def gunicorn(c):
     cmd = ('gunicorn --pid /run/gunicorn/pid --access-logfile /var/log/gunicorn/acesso.log --log-file '
            '/var/log/gunicorn/app.log --capture-output --enable-stdio-inheritance --workers 4 '
            '--bind 0.0.0.0:8000 projeto.wsgi')
-    c.run(cmd, echo=True, pty=True)
+    c.run(cmd)
+
+
+@invoke.task
+def desligar_infraestrutura(c):
+    servicos = ['postgresql', 'redis-server', 'prometheus', 'grafana-server']
+    for servico in servicos:
+        cmd = f'sudo service {servico} stop'
+        c.sudo(cmd)
+
+
+@invoke.task
+def ligar_infraestrutura(c):
+    servicos = ['postgresql', 'redis-server', 'prometheus', 'grafana-server']
+    for servico in servicos:
+        cmd = f'sudo service {servico} start'
+        c.sudo(cmd)
