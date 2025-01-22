@@ -100,16 +100,16 @@ def gunicorn(c):
 
 
 @invoke.task
-def desligar_infraestrutura(c):
+def desligar_infra(c):
     servicos = ['postgresql', 'redis-server', 'prometheus', 'grafana-server']
     for servico in servicos:
-        cmd = f'sudo service {servico} stop'
+        cmd = f'service {servico} stop'
         c.sudo(cmd)
 
 
 @invoke.task
-def ligar_infraestrutura(c):
+def ligar_infra(c):
     servicos = ['postgresql', 'redis-server', 'prometheus', 'grafana-server']
     for servico in servicos:
-        cmd = f'sudo service {servico} start'
+        cmd = f'service {servico} start'
         c.sudo(cmd)
