@@ -72,6 +72,7 @@ THIRD_PARTY_APPS = [
     'drf_spectacular',
     'drf_spectacular_sidecar',
     'formtools',
+    'guardian',
     'hijack',
     'hijack.contrib.admin',
     'pipeline',
@@ -207,7 +208,8 @@ if env('DISABLE_ACCOUNT_REGISTRATION', default=False):
 
 AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
     ['django_auth_ldap.backend.LDAPBackend',
-     'allauth.account.auth_backends.AuthenticationBackend']
+     'allauth.account.auth_backends.AuthenticationBackend',
+     'guardian.backends.ObjectPermissionBackend']
 
 # LDAP
 # https://django-auth-ldap.readthedocs.io/en/latest/

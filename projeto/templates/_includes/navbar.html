@@ -10,6 +10,10 @@
       <a href="/" class="nav-link">Home</a>
     </li>
 
+    <li class="nav-item d-none d-sm-inline-block">
+      <a href="/api/v1/" class="nav-link">API</a>
+    </li>
+
     {% if user.is_superuser %}
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{% url "admin:index" %}" class="nav-link">Admin</a>

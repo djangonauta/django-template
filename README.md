@@ -138,3 +138,98 @@ sudo:
 run:
   echo: true
   pty: true
+
+
+Paginação
+=========
+
+1. Herdar de ``ElidedListView``
+2. Definir paginate_by
+3. Criar e adicionar um ``DjangoFilter``
+4. Incluir o template do paginador
+
+Exemplo:
+
+```python
+class ArtigoFilter(django_filters.FilterSet):
+    titulo = django_filters.CharFilter(lookup_expr='iexact')
+
+    class Meta:
+        model = Artigo
+        fields = ['id', 'titulo']
+
+
+class ArtigoView(ElidedListView):
+    template_name = 'artigos.html'
+    queryset = Artigo.objects.all()
+    context_object_name = 'artigos'
+    paginate_by = 3
+    filter_class = ArtigoFilter
+
+
+artigo_view = ArtigoView.as_view()
+```
+
+```html
+// tabela ou form
+// ...
+
+{% include "_includes/paginador.html" %}
+```
+
+Guardian
+========
+
+```python
+class ArtigoListView(PermissionListMixin, ElidedListView):
+    template_name = 'artigos.html'
+    queryset = Artigo.objects.all()
+    context_object_name = 'artigos'
+    permission_required = 'artigos.view_artigo'
+    get_objects_for_user_extra_kwargs = dict(
+        # leva em consideração apenas as permissões de objeto, não as globais (lista filtrada).
+        accept_global_perms=False
+    )
+    paginate_by = 3
+    filter_class = ArtigoFilter
+
+
+artigo_view = ArtigoListView.as_view()
+
+
+class ArtigoDetailView(PermissionRequiredMixin, generic.DetailView):
+    template_name = 'artigo.html'
+    model = Artigo
+    context_object_name = 'artigo'
+    permission_required = 'artigos.view_artigo'
+    # ao acessar o recurso, 403 é retornado e processado por exception.
+    return_403 = True
+    raise_exception = True
+
+
+artigo_detalhe = ArtigoDetailView.as_view()
+```
+
+DRF
+---
+
+```python
+class ArtigoSerializer(ObjectPermissionsAssignmentMixin, ModelSerializer):
+    class Meta:
+        model = models.Artigo
+        fields = '__all__'
+
+    def get_permissions_map(self, created):
+        current_user = self.context['request'].user
+        # group = Group.objects.get()
+        return {
+            'artigos.view_artigo': [current_user], # 'artigos.view_artigo': [current_user, group],
+        }
+
+
+class ArtigoViewSet(ModelViewSet):
+    serializer_class = ArtigoSerializer
+    queryset = models.Artigo.objects.all()
+    permission_classes = [CoreObjectPermissions]
+    filter_backends = [ObjectPermissionsFilter]
+```
