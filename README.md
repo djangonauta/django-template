@@ -133,12 +133,13 @@ Invoke
 
 O arquivo de configuração ``invoke.yaml`` pode ser colocado na raiz do projeto (ao lado de ``tasks.py``):
 
+```yml
 sudo:
   password: ""
 run:
   echo: true
   pty: true
-
+```
 
 Paginação
 =========
