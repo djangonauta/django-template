@@ -14,7 +14,7 @@ services:
       - ./docker/docker.env
     volumes:
       - ./docker/postgres/init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
-      - /var/lib/docker/volumes/postgresql:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - 5432:5432
 
@@ -45,7 +45,7 @@ services:
       - POETRY_VIRTUALENVS_PATH=/usr/envs
     volumes:
       - .:/usr/app
-      - /usr/envs
+      - dependencies_data:/usr/envs
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -54,7 +54,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: ./Dockerfile.dev
     container_name: app
     env_file:
       - ./docker/docker.env
@@ -64,8 +64,12 @@ services:
       - 8000:8000
     volumes:
       - .:/usr/app
-      - /usr/envs
+      - dependencies_data:/usr/envs
     depends_on:
       rabbitmq:
         condition: service_healthy
     entrypoint: ./docker/app/dev.py
+
+volumes:
+  postgres_data:
+  dependencies_data:
