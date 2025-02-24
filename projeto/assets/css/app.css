@@ -5,3 +5,7 @@
 .ponteiro {
   cursor: pointer;
 }
+
+select {
+  width: 100%;
+}

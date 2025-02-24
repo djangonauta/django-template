@@ -16,6 +16,7 @@ urlpatterns = [
     urls.path('contas/', urls.include('allauth.urls')),
     urls.path('hijack/', urls.include('hijack.urls')),
     urls.path('admin/', admin.site.urls),
+    urls.path('select2/', urls.include('django_select2.urls')),
 ]
 
 # API

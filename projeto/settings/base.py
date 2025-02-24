@@ -64,11 +64,14 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',
     'auditlog',
     'corsheaders',
+    "crispy_forms",
+    "crispy_bootstrap5",
     'csp',
     'django_celery_beat',
     'django_celery_results',
     'django_extensions',
     'django_prometheus',
+    'django_select2',
     'drf_spectacular',
     'drf_spectacular_sidecar',
     'formtools',
@@ -235,6 +238,7 @@ GRAPH_MODELS = {
 CACHES = {'default': env.cache_url()}
 CACHES['default']['BACKEND'] = 'django_prometheus.cache.backends.redis.RedisCache'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+SELECT2_CACHE_BACKEND = 'default'
 
 # Serialization
 # https://www.django-rest-framework.org/
@@ -281,6 +285,11 @@ CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'",)
 CSP_IMG_SRC = ("'self'", "data:")
 CSP_EXCLUDE_URL_PREFIXES = ("/admin",)
+
+# Django Crispy Forms
+# https://django-crispy-forms.readthedocs.io/en/latest/install.html
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
