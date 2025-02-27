@@ -1,67 +1,71 @@
 'use strict';
 
-var App = function () {
-  function passwordEye(element) {
-    $(element).click(function () {
-      var input = $(this).siblings(':first');
-      var icon = $(':first', this);
+const App = (function () {
+  const passwordEye = function (element) {
+    element.addEventListener('click', function () {
+      const input = this.previousElementSibling;
+      const icon = this.querySelector('i');
 
-      if (input.attr('type') === 'text') {
-        $(this).attr('title', 'Clique para visualizar a senha');
-        input.attr('type', 'password');
-        icon.attr('class', 'bi bi-eye');
+      if (input.type === 'text') {
+        this.title = 'Clique para visualizar a senha';
+        input.type = 'password';
+        icon.className = 'bi bi-eye';
       } else {
-        $(this).attr('title', 'Clique para esconder a senha');
-        input.attr('type', 'text');
-        icon.attr('class', 'bi bi-eye-slash');
+        this.title = 'Clique para esconder a senha';
+        input.type = 'text';
+        icon.className = 'bi bi-eye-slash';
       }
     });
-  }
+  };
 
-  function spinner(element) {
-    $(element).click(function () {
-      $(this).attr('disabled', 'disabled');
-      var spinner = $('<span>', {'class': 'spinner-border spinner-border-sm'});
-      $(':first', this).replaceWith(spinner);
-      $(this).closest('form').submit();
-    })
-  }
+  const spinner = function (element) {
+    element.addEventListener('click', function () {
+      this.disabled = true;
+      const spinner = document.createElement('span');
+      spinner.className = 'spinner-border spinner-border-sm';
+      this.replaceChild(spinner, this.firstElementChild);
+      this.closest('form').submit();
+    });
+  };
 
-  function addForm(totalFormsSelector, formSelector, destinoSelector) {
-    var totalForms = parseInt($(totalFormsSelector).val()); // total de forms inicial (zero based)
-
-    var form = $(formSelector).html();
-    form = $(form.replace(/__prefix__/g, totalForms)); // constroe um form com índice igual ao total de forms
-
-    $(totalFormsSelector).val(totalForms + 1); // incrementa o total de forms
-    $(destinoSelector).append(form); // adiciona o form construído ao elemento de destino
-    form.fadeIn('slow');
-  }
+  const addForm = function (totalFormsSelector, formSelector, destinoSelector) {
+    const totalForms = parseInt(document.querySelector(totalFormsSelector).value);
+    const form = document.querySelector(formSelector).innerHTML.replace(/__prefix__/g, totalForms);
+    document.querySelector(totalFormsSelector).value = totalForms + 1;
+    const newForm = document.createElement('div');
+    newForm.innerHTML = form;
+    document.querySelector(destinoSelector).appendChild(newForm);
+    newForm.style.opacity = 0;
+    setTimeout(() => newForm.style.opacity = 1, 10);
+  };
 
   return {
-    passwordEye: passwordEye,
-    spinner: spinner,
-    addForm: addForm
+    passwordEye,
+    spinner,
+    addForm
   };
-}();
+})();
 
-$(function () {
-  $('[data-toggle="passwordEye"').each(function (index, element) {
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('[data-password-eye]').forEach(function (element) {
     App.passwordEye(element);
   });
 
-  $('[data-toggle="spinner"]').each(function (index, element) {
+  document.querySelectorAll('[data-spinner]').forEach(function (element) {
     App.spinner(element);
   });
 
-  $('[data-toggle="addForm"]').each(function (index, element) {
-    $(element).click(function () {
-      App.addForm($(this).data('totalForms'), $(this).data('formVazio'), $(this).data('destino'));
-    })
+  document.querySelectorAll('[data-add-form]').forEach(function (element) {
+    element.addEventListener('click', function () {
+      App.addForm(
+        this.dataset.totalForms,
+        this.dataset.formVazio,
+        this.dataset.destino
+      );
+    });
   });
 
-  window.setTimeout(function () {
-    $('[primeiro_campo]').focus(),
-    500
-  });
+  setTimeout(function () {
+    document.querySelector('[primeiro_campo]').focus();
+  }, 500);
 });
