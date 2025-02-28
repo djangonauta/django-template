@@ -4,7 +4,9 @@ from django.conf.urls import static
 from django.contrib import admin
 from django.views import generic
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
+
+from projeto.apps.administrativo.usuarios.api import TokenParComPermissoesView
 
 from . import api, views
 
@@ -22,7 +24,7 @@ urlpatterns = [
 # API
 urlpatterns += [
     urls.path('api/v1/', api.urls),
-    urls.path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    urls.path('api/token/', TokenParComPermissoesView.as_view(), name='token_obtain_pair'),
     urls.path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     urls.path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     urls.path('api/schema.yml', SpectacularAPIView.as_view(), name='schema'),
