@@ -203,7 +203,7 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = ''
-if env('DISABLE_ACCOUNT_REGISTRATION', default=False):
+if env('DISABLE_ACCOUNT_REGISTRATION', default=True):
     ACCOUNT_ADAPTER = 'projeto.apps.administrativo.usuarios.adapters.DisableSignupAdapter'
     REST_AUTH_REGISTER_SERIALIZERS = {
         'REGISTER_SERIALIZER': 'projeto.apps.administrativo.usuarios.serializers.DisableSignupSerializer'
