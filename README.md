@@ -11,13 +11,21 @@ As seguintes váriaveis devem ser definidas no arquivo projeto/settings/.env (ex
     CACHE_URL='redis://127.0.0.1:6379'
     BROKER_URL='amqp://igor:123@localhost:5672/projeto'
     DISABLE_ACCOUNT_REGISTRATION='False'
-    ACCOUNT_EMAIL_VERIFICATION='none' # mandatory, optional
+    ACCOUNT_EMAIL_VERIFICATION='none'
     CSRF_TRUSTED_ORIGINS='https://localhost'
     AUTH_LDAP_SERVER_URI='ldap://localhost'
     AUTH_LDAP_USER_DN_TEMPLATE='uid=%(user)s,ou=Usuarios,dc=jus,dc=br'
 
 Essas variáveis devem ser definidas em projeto/settings/.env
 
+LOGS
+====
+
+O diretório de logs de desenvolvimento deve ser criado na raiz do projeto.
+
+```bash
+mkdir logs
+```
 
 Poetry
 ======
@@ -27,14 +35,14 @@ instalação podem ser obtidas no [site oficial](https://python-poetry.org/docs/
 simplesmente utilizando [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
-pip3 install -U poetry
+curl -sSL https://install.python-poetry.org | python3 -
 poetry self add poetry-plugin-shell
 ```
 
 Os seguintes comandos são utilizados para instalar as dependências do projeto.
 
 ```bash
-cd django-template  # move para o diretório do projeto
+cd projeto  # move para o diretório do projeto
 poetry shell  # inicializa o ambiente virtual
 ```
 
@@ -91,19 +99,19 @@ Adicionar VHOST do projeto:
 
 ```bash
 sudo rabbitmqctl delete_vhost /
-sudo rabbitmqctl add_vhost projeto
+sudo rabbitmqctl add_vhost orcamentos
 ```
 
 Adicionar usuário:
 
 ```bash
-sudo rabbitmqctl add_user usuario senha
+sudo rabbitmqctl add_user igor senha
 ```
 
 Atribuir permissões:
 
 ```bash
-sudo rabbitmqctl set_permissions -p projeto usuario ".*" ".*" ".*"
+sudo rabbitmqctl set_permissions -p orcamentos igor ".*" ".*" ".*"
 ```
 
 Ativar inteface web localhost:15672
@@ -152,7 +160,9 @@ Paginação
 Exemplo:
 
 ```python
-class ArtigoFilter(django_filters.FilterSet):
+from projeto.apps.arquitetura.filters import QueryParamFilterSet
+
+class ArtigoFilter(QueryParamFilterSet):
     titulo = django_filters.CharFilter(lookup_expr='iexact')
 
     class Meta:

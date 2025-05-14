@@ -3,9 +3,11 @@ import invoke
 
 
 @invoke.task(default=True)
-def runserver(c, interactive=False, clear=True, verbosity=0, settings='development', port=8000):
+def runserver(c, interactive=False, clear=True, verbosity=0, settings='development', port=8000,
+              noreload=False):
     collectstatic(c, interactive, clear, verbosity, settings)
-    cmd = f'./manage.py runserver 0.0.0.0:{port} --settings=projeto.settings.{settings}'
+    noreload = '--noreload' if noreload else ''
+    cmd = f'./manage.py runserver 0.0.0.0:{port} --settings=projeto.settings.{settings} {noreload}'
     c.run(cmd)
 
 
@@ -38,6 +40,7 @@ def migrate(c, settings='production', merge=True):
 @invoke.task
 def celery(c, settings='production', log_level='INFO', events=True):
     events = "-E" if events else ""
+    log_level = 'DEBUG' if settings == 'development' else log_level
     cmd = (f'DJANGO_SETTINGS_MODULE="projeto.settings.{settings}" celery -A projeto worker -l {log_level} '
            f'{events}')
     c.run(cmd)
@@ -101,7 +104,7 @@ def gunicorn(c):
 
 @invoke.task
 def desligar_infra(c):
-    servicos = ['postgresql', 'redis-server', 'prometheus', 'grafana-server']
+    servicos = ['postgresql', 'redis-server', 'rabbitmq-server']
     for servico in servicos:
         cmd = f'service {servico} stop'
         c.sudo(cmd)
@@ -109,7 +112,7 @@ def desligar_infra(c):
 
 @invoke.task
 def ligar_infra(c):
-    servicos = ['postgresql', 'redis-server', 'prometheus', 'grafana-server']
+    servicos = ['postgresql', 'redis-server', 'rabbitmq-server']
     for servico in servicos:
         cmd = f'service {servico} start'
         c.sudo(cmd)

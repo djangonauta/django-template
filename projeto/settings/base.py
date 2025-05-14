@@ -1,8 +1,9 @@
 import pathlib
 
 import environ
-from django import urls
+import structlog
 from django.conf import global_settings
+from django.contrib import messages
 
 env = environ.Env()
 environ.Env.read_env()
@@ -70,8 +71,10 @@ THIRD_PARTY_APPS = [
     'django_celery_beat',
     'django_celery_results',
     'django_extensions',
+    'django_filters',
     'django_prometheus',
     'django_select2',
+    'django_structlog',
     'drf_spectacular',
     'drf_spectacular_sidecar',
     'formtools',
@@ -104,6 +107,7 @@ MIDDLEWARE = [
     'hijack.middleware.HijackUserMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
+    'django_structlog.middlewares.RequestMiddleware',
 ]
 
 SITE_ID = 1
@@ -148,6 +152,7 @@ WSGI_APPLICATION = 'projeto.wsgi.application'
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 LANGUAGE_CODE = 'pt-br'
+USE_THOUSAND_SEPARATOR = True
 TIME_ZONE = 'America/Belem'
 USE_I18N = True
 USE_TZ = True
@@ -161,8 +166,8 @@ STATICFILES_DIRS = [BASE_DIR / 'projeto' / 'assets']
 global_settings.STORAGES['staticfiles']['BACKEND'] = 'pipeline.storage.PipelineManifestStorage'
 STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['pipeline.finders.PipelineFinder']
 
-MEDIA_URL = 'downloads/'
-MEDIA_ROOT = BASE_DIR / 'downloads'
+MEDIA_URL = 'uploads/'
+MEDIA_ROOT = BASE_DIR / 'uploads'
 
 # https://django-pipeline.readthedocs.io/en/latest/
 PIPELINE = {
@@ -176,12 +181,6 @@ PIPELINE = {
         }
     },
     'STYLESHEETS': {
-        'fonts': {
-            'source_filenames': (
-                'css/fonts.css',
-            ),
-            'output_filename': 'css/fonts.css',
-        },
         'app': {
             'source_filenames': (
                 'css/app.css',
@@ -195,15 +194,16 @@ PIPELINE = {
 # https://django-allauth.readthedocs.io/en/latest/
 AUTH_USER_MODEL = 'usuarios.Usuario'
 LOGIN_URL = 'account_login'
-LOGIN_REDIRECT_URL = urls.reverse_lazy('app')
+LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGIN_METHODS = ('username', 'email')
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 ACCOUNT_EMAIL_VERIFICATION = env('ACCOUNT_EMAIL_VERIFICATION', default='none')
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = ''
-if env('DISABLE_ACCOUNT_REGISTRATION', default=True):
+DISABLE_ACCOUNT_REGISTRATION = env('DISABLE_ACCOUNT_REGISTRATION', default=True)
+if DISABLE_ACCOUNT_REGISTRATION:
     ACCOUNT_ADAPTER = 'projeto.apps.administrativo.usuarios.adapters.DisableSignupAdapter'
     REST_AUTH_REGISTER_SERIALIZERS = {
         'REGISTER_SERIALIZER': 'projeto.apps.administrativo.usuarios.serializers.DisableSignupSerializer'
@@ -239,6 +239,16 @@ CACHES = {'default': env.cache_url()}
 CACHES['default']['BACKEND'] = 'django_prometheus.cache.backends.redis.RedisCache'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 SELECT2_CACHE_BACKEND = 'default'
+SELECT2_THEME = 'bootstrap-5'
+SELECT2_CSS = [
+    'libs/select2-4.1.0/css/select2.min.css',
+    'libs/select2-bootstrap-5-theme-1.3.0/css/select2-bootstrap-5-theme.min.css',
+]
+SELECT2_JS = [
+    'libs/select2-4.1.0/js/select2.min.js',
+]
+SELECT2_I18N_PATH = 'libs/select2-4.1.0/js/i18n'
+SELECT2_I18N_AVAILABLE_LANGUAGES = 'pt-BR.js'
 
 # Serialization
 # https://www.django-rest-framework.org/
@@ -297,7 +307,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Django breadcrumbs
 # https://github.com/tj-django/django-view-breadcrumbs
-BREADCRUMBS_TEMPLATE = '_includes/breadcrumbs.html'
+BREADCRUMBS_TEMPLATE = 'includes/breadcrumbs.html'
+BREADCRUMBS_HOME_LABEL = '<i class="fa-solid fa-home"></i> Home'
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -320,13 +335,51 @@ LOGGING = {
             '()': 'django.utils.log.ServerFormatter',
             'format': '[{server_time}] {message}',
             'style': '{',
-        }
+        },
+        'json_formatter': {
+            '()': structlog.stdlib.ProcessorFormatter,
+            'processor': structlog.processors.JSONRenderer(),
+        },
+        'plain_console': {
+            '()': structlog.stdlib.ProcessorFormatter,
+            'processor': structlog.dev.ConsoleRenderer(),
+        },
+        'key_value': {
+            '()': structlog.stdlib.ProcessorFormatter,
+            'processor': structlog.processors.KeyValueRenderer(
+                key_order=['timestamp', 'level', 'event', 'logger']
+            ),
+        },
     },
     'handlers': {
         'console': {
-            'level': 'ERROR',
-            # 'filters': ['require_debug_true'],
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
+        },
+        'struct_console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'plain_console',
+        },
+        'json_file': {
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': '/var/log/gunicorn/gunicorn.json.log',
+            'formatter': 'json_formatter',
+        },
+        'flat_line_file': {
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': '/var/log/gunicorn/gunicorn.flat_line.log',
+            'formatter': 'key_value',
+        },
+        'celery_json_file': {
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': '/var/log/celery/celery.json.log',
+            'formatter': 'json_formatter',
+        },
+        'celery_flat_line_file': {
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': '/var/log/celery/celery.flat_line.log',
+            'formatter': 'key_value',
         },
         'django.server': {
             'level': 'INFO',
@@ -341,13 +394,45 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'mail_admins'],
+            'handlers': ['struct_console', 'mail_admins'],
             'level': 'INFO',
         },
         'django.server': {
-            'handlers': ['django.server'],
+            'handlers': ['struct_console'],
             'level': 'INFO',
             'propagate': False,
         },
+        'django_structlog': {
+            'handlers': ['struct_console', 'flat_line_file', 'json_file'],
+            'level': 'INFO',
+        },
+        'projeto.apps': {
+            'handlers': ['struct_console', 'flat_line_file', 'json_file'],
+            'level': 'INFO',
+        },
+        'celery':  {
+            'handlers': ['struct_console', 'celery_flat_line_file', 'celery_json_file'],
+            'level': 'INFO',
+        },
     }
 }
+
+# Django structlog https://django-structlog.readthedocs.io/en/latest/
+DJANGO_STRUCTLOG_CELERY_ENABLED = True
+
+structlog.configure(
+    processors=[
+        structlog.contextvars.merge_contextvars,
+        structlog.stdlib.filter_by_level,
+        structlog.processors.TimeStamper(fmt="iso"),
+        structlog.stdlib.add_logger_name,
+        structlog.stdlib.add_log_level,
+        structlog.stdlib.PositionalArgumentsFormatter(),
+        structlog.processors.StackInfoRenderer(),
+        structlog.processors.format_exc_info,
+        structlog.processors.UnicodeDecoder(),
+        structlog.stdlib.ProcessorFormatter.wrap_for_formatter,
+    ],
+    logger_factory=structlog.stdlib.LoggerFactory(),
+    cache_logger_on_first_use=True,
+)

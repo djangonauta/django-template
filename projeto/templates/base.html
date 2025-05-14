@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-{% load static pipeline view_breadcrumbs %}
-<html lang="pt-br">
+<!DOCTYPE html>{% load static pipeline view_breadcrumbs %}
+<html lang="pt-BR">
   <head>
     {% block meta %}
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,75 +11,41 @@
 
     <link rel="shortcut icon" href="{% static 'images/python-logo.png' %}" />
 
-    {% stylesheet 'fonts' %}
-    <link rel="stylesheet" href="{% static 'libs/fontawesome-free-5.15.4/css/all.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'libs/adminlte-3.2.0/css/adminlte.min.css' %}" />
-
-    {% stylesheet 'app' %}
-
-    {% block styles %}{% endblock %}
-  </head>
-
-  <body class="{% block body_class %}hold-transition sidebar-mini layout-fixed{% endblock %}">
-    {% block body %}
-      <div class="wrapper">
-        {% include '_includes/navbar.html' %}
-
-        {% include '_includes/sidemenu.html' %}
-
-        <div class="content-wrapper">
-          <div class="content-header">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-lg-12">
-                  {% include '_includes/messages.html' %}
-                </div>
-              </div>
-
-              <div class="row mb-2">
-                <div class="col-sm-6">
-                  <h1 class="m-0">{{ titulo_pagina }}</h1>
-                </div>
-                {% block breadcrumbs %}
-                  {% render_breadcrumbs %}
-                {% endblock %}
-              </div>
-            </div>
-          </div>
-
-          <div class="content">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-lg-12">
-                  {% block conteudo %}{% endblock %}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <aside class="control-sidebar control-sidebar-dark">
-          <div class="p-3">
-            <h5>Title</h5>
-            <p>Sidebar content</p>
-          </div>
-        </aside>
-
-        <footer class="main-footer">
-          <div class="float-right d-none d-sm-inline">
-            <strong>Copyright &copy; 2024</strong>
-          </div>Todos os direitos reservados.
-        </footer>
-      </div>
+    {% block styles %}
+    <link rel="stylesheet" href="{% static 'libs/bootstrap-5.3.3/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'libs/bootstrap-5.3.3/css/spacelab.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'libs/fontawesome-free-6.7.2-web/css/all.min.css' %}" />
     {% endblock %}
 
-    <script src="{% static 'libs/jquery-3.6.0/js/jquery.min.js' %}"></script>
-    <script src="{% static 'libs/bootstrap-4.6.1/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'libs/adminlte-3.2.0/js/adminlte.min.js' %}"></script>
+    {% stylesheet 'app' %}
+  </head>
+
+  <body class="{% block body_class %}{% endblock %}">
+    {% block body %}
+
+    {% include "includes/navbar.html" %}
+  
+    <div class="container mt-4">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          {% block breadcrumbs %}
+            {% render_breadcrumbs %}
+          {% endblock breadcrumbs %}
+          {% include "includes/messages.html" %}
+
+          {% block conteudo %}{% endblock conteudo %}
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+
+    {% block scripts %}
+    <script src="{% static 'libs/jquery-3.7.1/js/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap-5.3.3/js/bootstrap.bundle.min.js' %}"></script>
+    {% endblock %}
 
     {% javascript 'app' %}
 
-    {% block scripts %}
-    {% endblock %}
+    {% block extra_scripts %}{% endblock extra_scripts %}
   </body>
 </html>
