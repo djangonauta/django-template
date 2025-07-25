@@ -25,6 +25,10 @@ O diretório de logs de desenvolvimento deve ser criado na raiz do projeto.
 
 ```bash
 mkdir logs
+sudo mkdir -p /var/log/celery/
+sudo chown igor:www-data -R /var/log/celery/
+sudo mkdir -p /var/log/gunicorn/
+sudo chown igor:www-data -R /var/log/gunicorn/
 ```
 
 Poetry
