@@ -18,6 +18,16 @@ As seguintes váriaveis devem ser definidas no arquivo projeto/settings/.env (ex
 
 Essas variáveis devem ser definidas em projeto/settings/.env
 
+POSTGRES
+========
+
+Criação dos schemas no docker.
+
+``bash
+docker exec -it postgresql-17 psql -U postgres -d database -c "create schema arquitetura authorization postgres;"
+docker exec -it postgresql-17 psql -U postgres -d database -c "create schema administrativo authorization postgres;"
+```
+
 LOGS
 ====
 
