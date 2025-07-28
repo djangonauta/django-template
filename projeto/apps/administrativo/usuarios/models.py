@@ -4,13 +4,12 @@ from auditlog.models import AuditlogHistoryField
 from auditlog.registry import auditlog
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django_prometheus.models import ExportModelOperationsMixin
 from model_utils.models import TimeStampedModel
 
 from . import managers
 
 
-class Usuario(ExportModelOperationsMixin('Usuario'), TimeStampedModel, AbstractUser):
+class Usuario(TimeStampedModel, AbstractUser):
 
     # Tipo do usuário automaticamente definido em save()
     class Tipo(models.IntegerChoices):

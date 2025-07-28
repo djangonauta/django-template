@@ -3,7 +3,6 @@ import pathlib
 import environ
 import structlog
 from django.conf import global_settings
-from django.contrib import messages
 
 env = environ.Env()
 environ.Env.read_env()
@@ -21,7 +20,6 @@ SECRET_KEY = env('SECRET_KEY')
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-env.DB_SCHEMES['postgres-prometheus'] = 'django_prometheus.db.backends.postgresql'
 DATABASES = {'default': env.db()}
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
@@ -60,41 +58,24 @@ PROJECT_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
     'auditlog',
     'corsheaders',
-    "crispy_forms",
-    "crispy_bootstrap5",
-    'csp',
     'django_celery_beat',
     'django_celery_results',
     'django_extensions',
     'django_filters',
-    'django_prometheus',
-    'django_select2',
     'django_structlog',
     'drf_spectacular',
     'drf_spectacular_sidecar',
-    'formtools',
-    'guardian',
     'hijack',
     'hijack.contrib.admin',
-    'pipeline',
     'post_office',
     'rest_framework',
-    # 'rest_framework.authtoken',
     'rest_framework_simplejwt',
-    'rest_auth',
-    'view_breadcrumbs',
-    'widget_tweaks',
 ]
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
-    # 'csp.middleware.CSPMiddleware',
-    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -105,8 +86,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'hijack.middleware.HijackUserMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
-    'django_prometheus.middleware.PrometheusAfterMiddleware',
     'django_structlog.middlewares.RequestMiddleware',
 ]
 
@@ -163,56 +142,14 @@ LOCALE_PATHS = [BASE_DIR / 'projeto' / 'locales']
 STATIC_URL = 'assets/'
 STATIC_ROOT = BASE_DIR / 'assets'
 STATICFILES_DIRS = [BASE_DIR / 'projeto' / 'assets']
-global_settings.STORAGES['staticfiles']['BACKEND'] = 'pipeline.storage.PipelineManifestStorage'
-STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ['pipeline.finders.PipelineFinder']
 
 MEDIA_URL = 'uploads/'
 MEDIA_ROOT = BASE_DIR / 'uploads'
 
-# https://django-pipeline.readthedocs.io/en/latest/
-PIPELINE = {
-    'PIPELINE_ENABLED': True,
-    'JAVASCRIPT': {
-        'app': {
-            'source_filenames': (
-                'js/app.js',
-            ),
-            'output_filename': 'js/app.js',
-        }
-    },
-    'STYLESHEETS': {
-        'app': {
-            'source_filenames': (
-                'css/app.css',
-            ),
-            'output_filename': 'css/app.css',
-        }
-    }
-}
-
-# Authorization/Authentication
-# https://django-allauth.readthedocs.io/en/latest/
 AUTH_USER_MODEL = 'usuarios.Usuario'
-LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = '/'
-ACCOUNT_LOGIN_METHODS = ('username', 'email')
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
-ACCOUNT_EMAIL_VERIFICATION = env('ACCOUNT_EMAIL_VERIFICATION', default='none')
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-ACCOUNT_LOGOUT_ON_GET = True
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = ''
-DISABLE_ACCOUNT_REGISTRATION = env('DISABLE_ACCOUNT_REGISTRATION', default=True)
-if DISABLE_ACCOUNT_REGISTRATION:
-    ACCOUNT_ADAPTER = 'projeto.apps.administrativo.usuarios.adapters.DisableSignupAdapter'
-    REST_AUTH_REGISTER_SERIALIZERS = {
-        'REGISTER_SERIALIZER': 'projeto.apps.administrativo.usuarios.serializers.DisableSignupSerializer'
-    }
 
-AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
-    ['django_auth_ldap.backend.LDAPBackend',
-     'allauth.account.auth_backends.AuthenticationBackend',
-     'guardian.backends.ObjectPermissionBackend']
+AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + ['django_auth_ldap.backend.LDAPBackend']
 
 # LDAP
 # https://django-auth-ldap.readthedocs.io/en/latest/
@@ -236,19 +173,7 @@ GRAPH_MODELS = {
 # Cache
 # https://docs.djangoproject.com/en/dev/topics/cache/
 CACHES = {'default': env.cache_url()}
-CACHES['default']['BACKEND'] = 'django_prometheus.cache.backends.redis.RedisCache'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
-SELECT2_CACHE_BACKEND = 'default'
-SELECT2_THEME = 'bootstrap-5'
-SELECT2_CSS = [
-    'libs/select2-4.1.0/css/select2.min.css',
-    'libs/select2-bootstrap-5-theme-1.3.0/css/select2-bootstrap-5-theme.min.css',
-]
-SELECT2_JS = [
-    'libs/select2-4.1.0/js/select2.min.js',
-]
-SELECT2_I18N_PATH = 'libs/select2-4.1.0/js/i18n'
-SELECT2_I18N_AVAILABLE_LANGUAGES = 'pt-BR.js'
 
 # Serialization
 # https://www.django-rest-framework.org/
@@ -256,7 +181,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'projeto.apps.arquitetura.pagination.ExtraPaginator',
@@ -289,30 +213,9 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 # https://github.com/adamchainz/django-cors-headers
 CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=['http://localhost:4200'])
 
-# Content Security Policy
-# https://django-csp.readthedocs.io/en/latest/
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_SCRIPT_SRC = ("'self'",)
-CSP_IMG_SRC = ("'self'", "data:")
-CSP_EXCLUDE_URL_PREFIXES = ("/admin",)
-
-# Django Crispy Forms
-# https://django-crispy-forms.readthedocs.io/en/latest/install.html
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Django breadcrumbs
-# https://github.com/tj-django/django-view-breadcrumbs
-BREADCRUMBS_TEMPLATE = 'includes/breadcrumbs.html'
-BREADCRUMBS_HOME_LABEL = '<i class="fa-solid fa-home"></i> Home'
-
-MESSAGE_TAGS = {
-    messages.ERROR: 'danger',
-}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

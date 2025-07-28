@@ -2,23 +2,16 @@ from django import urls
 from django.conf import settings
 from django.conf.urls import static
 from django.contrib import admin
-from django.views import generic
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
 from projeto.apps.administrativo.usuarios.api import TokenParComPermissoesView
 
-from . import api, views
+from . import api
 
 urlpatterns = [
-    urls.path('', generic.RedirectView.as_view(url='app')),
-    urls.path('', urls.include('django_prometheus.urls')),
-    urls.path('app/', views.app, name='app'),
-    urls.path('erro/', views.erro, name='erro'),
-    urls.path('contas/', urls.include('allauth.urls')),
     urls.path('hijack/', urls.include('hijack.urls')),
     urls.path('admin/', admin.site.urls),
-    urls.path('select2/', urls.include('django_select2.urls')),
 ]
 
 # API

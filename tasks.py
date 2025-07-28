@@ -47,19 +47,6 @@ def celery(c, settings='production', log_level='INFO', events=True):
 
 
 @invoke.task
-def docker(c, no_cache=False):
-    if no_cache:
-        cmd = 'docker compose -f docker-compose.dev.yml build --no-cache'
-        c.run(cmd)
-        cmd = 'docker compose -f docker-compose.dev.yml up'
-        c.run(cmd)
-
-    else:
-        cmd = 'docker compose -f docker-compose.dev.yml up --build'
-        c.run(cmd)
-
-
-@invoke.task
 def runserverplus(c, interactive=False, clear=False, verbosity=0, settings='whitenoise', port=8000):
     collectstatic(c, interactive, clear, verbosity, settings)
     cmd = (f'./manage.py runserver_plus --cert-file cert.crt --settings=projeto.settings.{settings} '
@@ -83,36 +70,8 @@ def tests(c, flags='-Wa', package='', settings='test', parallel=False, keepdb=Fa
 
 
 @invoke.task
-def testapps(c, flags='-Wa', package='projeto.apps', settings='test', parallel=False, keepdb=False):
-    tests(c, flags, package, settings, parallel, keepdb)
-
-
-@invoke.task
-def testfunctional(c, interactive=False, clear=False, verbosity=0, flags='-Wa',
-                   package='projeto.functional_tests', settings='test', parallel=False, keepdb=False):
-    collectstatic(c, interactive, clear, verbosity, settings)
-    tests(c, flags, package, settings, parallel, keepdb)
-
-
-@invoke.task
 def gunicorn(c):
     cmd = ('gunicorn --pid /run/gunicorn/pid --access-logfile /var/log/gunicorn/acesso.log --log-file '
            '/var/log/gunicorn/app.log --capture-output --enable-stdio-inheritance --workers 4 '
            '--bind 0.0.0.0:8000 projeto.wsgi')
     c.run(cmd)
-
-
-@invoke.task
-def desligar_infra(c):
-    servicos = ['postgresql', 'redis-server', 'rabbitmq-server']
-    for servico in servicos:
-        cmd = f'service {servico} stop'
-        c.sudo(cmd)
-
-
-@invoke.task
-def ligar_infra(c):
-    servicos = ['postgresql', 'redis-server', 'rabbitmq-server']
-    for servico in servicos:
-        cmd = f'service {servico} start'
-        c.sudo(cmd)
