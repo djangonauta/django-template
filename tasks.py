@@ -47,19 +47,6 @@ def celery(c, settings='production', log_level='INFO', events=True):
 
 
 @invoke.task
-def docker(c, no_cache=False):
-    if no_cache:
-        cmd = 'docker compose -f docker-compose.dev.yml build --no-cache'
-        c.run(cmd)
-        cmd = 'docker compose -f docker-compose.dev.yml up'
-        c.run(cmd)
-
-    else:
-        cmd = 'docker compose -f docker-compose.dev.yml up --build'
-        c.run(cmd)
-
-
-@invoke.task
 def runserverplus(c, interactive=False, clear=False, verbosity=0, settings='whitenoise', port=8000):
     collectstatic(c, interactive, clear, verbosity, settings)
     cmd = (f'./manage.py runserver_plus --cert-file cert.crt --settings=projeto.settings.{settings} '
@@ -103,16 +90,10 @@ def gunicorn(c):
 
 
 @invoke.task
-def desligar_infra(c):
-    servicos = ['postgresql', 'redis-server', 'rabbitmq-server']
-    for servico in servicos:
-        cmd = f'service {servico} stop'
-        c.sudo(cmd)
-
-
-@invoke.task
-def ligar_infra(c):
-    servicos = ['postgresql', 'redis-server', 'rabbitmq-server']
-    for servico in servicos:
-        cmd = f'service {servico} start'
-        c.sudo(cmd)
+def criar_schemas(c, database, container='postgresql-17', usuario='postgres'):
+    cmd = (f'docker exec -it {container} psql -U postgres -d {database} -c "create schema arquitetura '
+           f'authorization {usuario};"')
+    c.run(cmd)
+    cmd = (f'docker exec -it {container} psql -U postgres -d {database} -c "create schema administrativo '
+           f'authorization {usuario};"')
+    c.run(cmd)

@@ -24,11 +24,6 @@
             <i class="fa-solid fa-table"></i> Administração
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="/api/v1/">
-            <i class="fa-solid fa-table"></i> API
-          </a>
-        </li>
         {% endif %}
       </ul>
 
@@ -44,16 +39,6 @@
             <i class="fa-solid fa-circle-user"></i> {{ user.nome_completo }}
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
-            {% if user.is_superuser %}
-            <li>
-              <a
-                class="dropdown-item small"
-                href=""
-              >
-                <i class="fa-solid fa-table"></i> Processamentos
-              </a>
-            </li>
-            {% endif %}
             <li>
               <a
                 class="dropdown-item small"

@@ -1,4 +1,5 @@
 import hashlib
+import uuid
 
 from auditlog.models import AuditlogHistoryField
 from auditlog.registry import auditlog
@@ -11,6 +12,7 @@ from . import managers
 
 
 class Usuario(ExportModelOperationsMixin('Usuario'), TimeStampedModel, AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     # Tipo do usuário automaticamente definido em save()
     class Tipo(models.IntegerChoices):
