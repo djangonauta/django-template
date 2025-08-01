@@ -291,10 +291,12 @@ CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=['http://localho
 
 # Content Security Policy
 # https://django-csp.readthedocs.io/en/latest/
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_SCRIPT_SRC = ("'self'",)
-CSP_IMG_SRC = ("'self'", "data:")
-CSP_EXCLUDE_URL_PREFIXES = ("/admin",)
+CONTENT_SECURITY_POLICY = {
+    'DIRECTIVES': {'default-src': ("'self'",),
+                   'img-src': ("'self'", 'data:'),
+                   'script-src': ("'self'",)},
+    'EXCLUDE_URL_PREFIXES': ('/admin',)
+}
 
 # Django Crispy Forms
 # https://django-crispy-forms.readthedocs.io/en/latest/install.html
