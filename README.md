@@ -1,32 +1,20 @@
 Instalação
 ==========
 
-As seguintes váriaveis devem ser definidas no arquivo projeto/settings/.env (exemplos):
+As seguintes váriaveis devem ser definidas no arquivo `projeto/settings/.env` (exemplos):
 
     SECRET_KEY='ztibsdwjar1v1pnp-6osx@r(1@!mfklak0$acg9^l^ut!7!sf1'
     DATABASE_URL='postgres://postgres:admin@localhost:5432/django-template'
     ADMINS='admin=admin@domain.com'
     EMAIL_URL='consolemail://:@'
     #EMAIL_URL='postoffice://:@localhost:1025'
-    CACHE_URL='redis://127.0.0.1:6379'
-    BROKER_URL='amqp://igor:123@localhost:5672/projeto'
+    CACHE_URL='redis://:admin@localhost:6379'
+    BROKER_URL='amqp://rabbitmq:admin@localhost:5672/projeto'
     DISABLE_ACCOUNT_REGISTRATION='False'
     ACCOUNT_EMAIL_VERIFICATION='none'
     CSRF_TRUSTED_ORIGINS='https://localhost'
     AUTH_LDAP_SERVER_URI='ldap://localhost'
     AUTH_LDAP_USER_DN_TEMPLATE='uid=%(user)s,ou=Usuarios,dc=jus,dc=br'
-
-Essas variáveis devem ser definidas em projeto/settings/.env
-
-POSTGRES
-========
-
-Criação dos schemas no docker.
-
-``bash
-docker exec -it postgresql-17 psql -U postgres -d database -c "create schema arquitetura authorization postgres;"
-docker exec -it postgresql-17 psql -U postgres -d database -c "create schema administrativo authorization postgres;"
-```
 
 LOGS
 ====
@@ -36,9 +24,9 @@ O diretório de logs de desenvolvimento deve ser criado na raiz do projeto.
 ```bash
 mkdir logs
 sudo mkdir -p /var/log/celery/
-sudo chown igor:www-data -R /var/log/celery/
+sudo chown usuario:grupo -R /var/log/celery/
 sudo mkdir -p /var/log/gunicorn/
-sudo chown igor:www-data -R /var/log/gunicorn/
+sudo chown usuario:grupo -R /var/log/gunicorn/
 ```
 
 Poetry
@@ -50,50 +38,64 @@ simplesmente utilizando [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
 curl -sSL https://install.python-poetry.org | python3 -
-poetry self add poetry-plugin-shell
 ```
 
 Os seguintes comandos são utilizados para instalar as dependências do projeto.
 
 ```bash
 cd projeto  # move para o diretório do projeto
-poetry shell  # inicializa o ambiente virtual
+`poetry env activate`  # ativa o ambiente virtual. Atenção para as crases ao redor do comando.
 ```
 
-Dependências atuais
--------------------
+Caso o comando acima não funcione, utilize:
 
 ```bash
-arrow celery crispy-bootstrap5 django django-allauth django-auditlog django-auth-ldap django-celery-beat
-django-celery-results django-cors-headers django-crispy-forms django-csp django-environ django-extensions
-django-extra-fields django-filter django-formtools django-guardian django-hijack django-model-utils
-django-pipeline django-post-office django-prometheus django-redis django-rest-auth django-select2
-django-structlog[celery] django-view-breadcrumbs django-weasyprint django-widget-tweaks djangorestframework
-djangorestframework-guardian2 djangorestframework-simplejwt drf-spectacular drf-spectacular-sidecar gunicorn
-hiredis invoke pillow psycopg2-binary pygraphviz redis setuptools weasyprint whitenoise
+$(poetry env activate)
 ```
 
-Alterações no arquivo ``pyproject.toml``
-----------------------------------------
-
-Será necessário atualizar o arquivo ``poetry.lock`` caso o arquivo ``pyproject.toml`` tenha sido  alterado. 
+Dependências de produção
+------------------------
 
 ```bash
-poetry lock --no-update
+arrow celery crispy-bootstrap5 django django-allauth django-auditlog django-auth-ldap django-celery-beat django-celery-results django-cors-headers django-crispy-forms django-csp django-environ django-extensions django-extra-fields django-filter django-formtools django-guardian django-hijack django-model-utils django-pipeline django-post-office django-prometheus django-redis django-rest-auth django-select2 django-structlog[celery] django-view-breadcrumbs django-weasyprint django-widget-tweaks djangorestframework djangorestframework-guardian2 djangorestframework-simplejwt drf-spectacular drf-spectacular-sidecar gunicorn hiredis invoke pillow psycopg2-binary pygraphviz redis setuptools weasyprint whitenoise
+```
+
+Dependências de desenvolvimento
+-------------------------------
+
+```bash
+autopep8 colorama coverage django-debug-toolbar fabric factory-boy flake8 halo ipython isort pyopenssl selenium werkzeug
 ```
 
 Ambiente de Desenvolvimento
 ---------------------------
 
 ```bash
-poetry install --with dev --sync  # instala as dependências do projeto incluindo as de desenvolvimento
+poetry install --with dev  # instala as dependências do projeto incluindo as de desenvolvimento (opcionais)
 ```
 
 Ambiente de Produção
 --------------------
 
 ```bash
-poetry install --without dev --sync --compile # instala as dependências do projeto excluindo as de desenvolvimento
+poetry install  # instala as dependências do projeto excluindo as de desenvolvimento (opcionais)
+```
+
+POSTGRES
+========
+
+Criação dos schemas no docker.
+
+```bash
+docker exec -it postgresql-17 psql -U postgres -d database -c "create schema arquitetura authorization postgres;"
+docker exec -it postgresql-17 psql -U postgres -d database -c "create schema administrativo authorization postgres;"
+```
+
+Com as dependencias instaladas e o ambiente virtual ativado, é possível executar o comando acima com
+`pyinvoke`:
+
+```bash
+inv criar-schemas --database database --container postgresql-17 --usuario postgres
 ```
 
 Certificado teste
@@ -113,6 +115,12 @@ Utilizado em conjunto com whitenoise para servir arquivos estáticos.
 ./manage.py runserver_plus --cert-file cert.crt --settings projeto.settings.whitenoise 0.0.0.0:8000
 ```
 
+O comando anterior pode ser simplificado usado `pyinvoke`:
+
+```bash
+inv runserverplus
+```
+
 RabbitMQ
 ========
 
@@ -126,26 +134,26 @@ Adicionar VHOST do projeto:
 
 ```bash
 sudo rabbitmqctl delete_vhost /
-sudo rabbitmqctl add_vhost orcamentos
+sudo rabbitmqctl add_vhost <vhost_projeto>
 ```
 
 Adicionar usuário:
 
 ```bash
-sudo rabbitmqctl add_user igor senha
+sudo rabbitmqctl add_user <usuario> <senha>
 ```
 
 Atribuir permissões:
 
 ```bash
-sudo rabbitmqctl set_permissions -p orcamentos igor ".*" ".*" ".*"
+sudo rabbitmqctl set_permissions -p <vhost_projeto> <usuario> ".*" ".*" ".*"
 ```
 
 Ativar inteface web localhost:15672
 
 ```bash
 sudo rabbitmq-plugins enable rabbitmq_management # ativar o plugin
-sudo rabbitmqctl set_user_tags usuario administrator # adicionar permissão ao usuário
+sudo rabbitmqctl set_user_tags <usuario> administrator # adicionar permissão ao usuário
 ```
 
 Prometheus
@@ -170,7 +178,7 @@ O arquivo de configuração ``invoke.yaml`` pode ser colocado na raiz do projeto
 
 ```yml
 sudo:
-  password: ""
+  password: "" # apenas se alguma tarefa em tasks.py usar sudo
 run:
   echo: true
   pty: true

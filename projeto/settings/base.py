@@ -84,7 +84,6 @@ THIRD_PARTY_APPS = [
     'pipeline',
     'post_office',
     'rest_framework',
-    # 'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_auth',
     'view_breadcrumbs',
@@ -171,9 +170,8 @@ MEDIA_ROOT = BASE_DIR / 'uploads'
 
 # https://django-pipeline.readthedocs.io/en/latest/
 PIPELINE = {
-    'PIPELINE_ENABLED': True,
     'JAVASCRIPT': {
-        'app': {
+        'main': {
             'source_filenames': (
                 'js/app.js',
             ),
@@ -181,7 +179,7 @@ PIPELINE = {
         }
     },
     'STYLESHEETS': {
-        'app': {
+        'main': {
             'source_filenames': (
                 'css/app.css',
             ),
@@ -209,10 +207,12 @@ if DISABLE_ACCOUNT_REGISTRATION:
         'REGISTER_SERIALIZER': 'projeto.apps.administrativo.usuarios.serializers.DisableSignupSerializer'
     }
 
-AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + \
-    ['django_auth_ldap.backend.LDAPBackend',
-     'allauth.account.auth_backends.AuthenticationBackend',
-     'guardian.backends.ObjectPermissionBackend']
+AUTHENTICATION_BACKENDS = [
+    'django_auth_ldap.backend.LDAPBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend',
+]
 
 # LDAP
 # https://django-auth-ldap.readthedocs.io/en/latest/
@@ -253,14 +253,16 @@ SELECT2_I18N_AVAILABLE_LANGUAGES = 'pt-BR.js'
 # Serialization
 # https://www.django-rest-framework.org/
 REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'projeto.apps.arquitetura.pagination.ExtraPaginator',
-    'PAGE_SIZE': 15,
+    'PAGE_SIZE': 8,
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
     'DEFAULT_VERSION': 'v1',
     'ALLOWED_VERSIONS': ['v1'],
@@ -287,7 +289,7 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 # CORS Headers
 # https://github.com/adamchainz/django-cors-headers
-CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=['http://localhost:4200'])
+CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=['http://localhost:5173'])
 
 # Content Security Policy
 # https://django-csp.readthedocs.io/en/latest/
@@ -310,7 +312,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Django breadcrumbs
 # https://github.com/tj-django/django-view-breadcrumbs
 BREADCRUMBS_TEMPLATE = 'includes/breadcrumbs.html'
-BREADCRUMBS_HOME_LABEL = '<i class="fa-solid fa-home"></i> Home'
+BREADCRUMBS_HOME_LABEL = '<i class="fa-solid fa-house"></i> Home'
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',

@@ -20,3 +20,7 @@ LOGGING['handlers']['json_file']['filename'] = 'logs/projeto.json.log'  # noqa: 
 LOGGING['handlers']['flat_line_file']['filename'] = 'logs/projeto.flat_line.log'  # noqa: F405
 LOGGING['handlers']['celery_json_file']['filename'] = 'logs/celery.json.log'  # noqa: F405
 LOGGING['handlers']['celery_flat_line_file']['filename'] = 'logs/celery.flat_line.log'  # noqa: F405
+
+REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'].append(  # noqa: F405
+    'rest_framework.renderers.BrowsableAPIRenderer'
+)

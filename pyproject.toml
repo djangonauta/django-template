@@ -30,7 +30,7 @@ dependencies = [
     "django-hijack (>=3.7.3,<4.0.0)",
     "django-model-utils (>=5.0.0,<6.0.0)",
     "django-pipeline (>=4.0.0,<5.0.0)",
-    "django-post-office (>=3.10.0,<4.0.0)",
+    "django-post-office (>=3.10.1,<4.0.0)",
     "django-prometheus (>=2.4.1,<3.0.0)",
     "django-redis (>=6.0.0,<7.0.0)",
     "django-rest-auth (>=0.9.5,<0.10.0)",
@@ -59,10 +59,13 @@ dependencies = [
 [tool.poetry]
 package-mode = false
 
+[tool.poetry.group.dev]
+optional = true
+
 [tool.poetry.group.dev.dependencies]
 autopep8 = "^2.3.2"
 colorama = "^0.4.6"
-coverage = "^7.10.1"
+coverage = "^7.10.2"
 django-debug-toolbar = "^6.0.0"
 fabric = "^3.2.2"
 factory-boy = "^3.3.3"
