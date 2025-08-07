@@ -97,3 +97,10 @@ def criar_schemas(c, database, container='postgresql-17', usuario='postgres'):
     cmd = (f'docker exec -it {container} psql -U postgres -d {database} -c "create schema administrativo '
            f'authorization {usuario};"')
     c.run(cmd)
+
+
+@invoke.task
+def shell_plus(c, print_sql=True, settings='development'):
+    print_sql = ' --print-sql' if print_sql else ''
+    cmd = f'./manage.py shell_plus{print_sql} --settings=projeto.settings.{settings}'
+    c.run(cmd)

@@ -24,3 +24,11 @@ LOGGING['handlers']['celery_flat_line_file']['filename'] = 'logs/celery.flat_lin
 REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'].append(  # noqa: F405
     'rest_framework.renderers.BrowsableAPIRenderer'
 )
+
+SHELL_PLUS_PRINT_SQL_TRUNCATE = None
+SHELL_PLUS_SQLPARSE_FORMAT_KWARGS = {
+    'reindent': True,
+    'keyword_case': 'upper',
+    'strip_comments': True,
+    'use_space_around_operators': True,
+}
