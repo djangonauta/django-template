@@ -57,7 +57,7 @@ Dependências de produção
 ------------------------
 
 ```bash
-arrow celery crispy-bootstrap5 django django-allauth django-auditlog django-auth-ldap django-celery-beat django-celery-results django-cors-headers django-crispy-forms django-csp django-environ django-extensions django-extra-fields django-filter django-formtools django-guardian django-hijack django-model-utils django-pipeline django-post-office django-prometheus django-redis django-rest-auth django-select2 django-structlog[celery] django-view-breadcrumbs django-weasyprint django-widget-tweaks djangorestframework djangorestframework-guardian2 djangorestframework-simplejwt drf-spectacular drf-spectacular-sidecar gunicorn hiredis invoke pillow psycopg2-binary pygraphviz redis setuptools weasyprint whitenoise
+arrow celery crispy-bootstrap5 django django-allauth django-auditlog django-auth-ldap django-celery-beat django-celery-results django-cors-headers django-crispy-forms django-csp django-environ django-extensions django-extra-fields django-filter django-formtools django-guardian django-hijack django-model-utils django-pipeline django-post-office django-prometheus django-redis django-rest-auth django-select2 django-structlog[celery] django-view-breadcrumbs django-weasyprint django-widget-tweaks djangorestframework djangorestframework-guardian2 djangorestframework-simplejwt drf-spectacular drf-spectacular-sidecar gunicorn hiredis invoke pillow psycopg[binary] pygraphviz redis setuptools weasyprint whitenoise
 ```
 
 Dependências de desenvolvimento
