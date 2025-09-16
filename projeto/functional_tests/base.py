@@ -4,7 +4,6 @@ from selenium.webdriver import Chrome
 
 
 class BaseFunctionalTests(test.LiveServerTestCase):
-
     available_apps = settings.INSTALLED_APPS
 
     def setUp(self):
@@ -18,4 +17,4 @@ class BaseFunctionalTests(test.LiveServerTestCase):
         super().tearDown()
 
     def get_live_url(self, url_name):
-        return f'{self.live_server_url}{urls.reverse(url_name)}'
+        return f"{self.live_server_url}{urls.reverse(url_name)}"

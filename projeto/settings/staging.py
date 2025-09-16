@@ -2,12 +2,12 @@ from .base import *  # noqa: F403
 
 # Security
 DEBUG = False
-TEMPLATES[0]['OPTIONS']['debug'] = DEBUG   # noqa: F405
+TEMPLATES[0]["OPTIONS"]["debug"] = DEBUG  # noqa: F405
 
 # cache
-MIDDLEWARE = MIDDLEWARE + ['pipeline.middleware.MinifyHTMLMiddleware']  # noqa: F405
+MIDDLEWARE = MIDDLEWARE + ["pipeline.middleware.MinifyHTMLMiddleware"]  # noqa: F405
 
-CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[])  # noqa: F405
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")  # noqa: F405
 
 # amazon s3
 # AWS_STORAGE_BUCKET_NAME = 'igbrch-static'

@@ -64,7 +64,7 @@ Dependências de desenvolvimento
 -------------------------------
 
 ```bash
-autopep8 colorama coverage django-debug-toolbar fabric factory-boy flake8 halo ipython isort pyopenssl selenium werkzeug
+black commitizen coverage django-debug-toolbar fabric factory-boy flake8 ipython isort pyopenssl selenium werkzeug
 ```
 
 Ambiente de Desenvolvimento
@@ -189,28 +189,28 @@ Paginação
 
 1. Herdar de ``ElidedListView``
 2. Definir paginate_by
-3. Criar e adicionar um ``DjangoFilter``
+3. Criar e adicionar um ``FilterSet``
 4. Incluir o template do paginador
 
 Exemplo:
 
 ```python
-from projeto.apps.arquitetura.filters import QueryParamFilterSet
+from django_filters import CharFilter, FilterSet
 
-class ArtigoFilter(QueryParamFilterSet):
-    titulo = django_filters.CharFilter(lookup_expr='iexact')
+class ArtigoFilter(FilterSet):
+    titulo = CharFilter(lookup_expr='iexact')
 
     class Meta:
         model = Artigo
-        fields = ['id', 'titulo']
+        fields = ('id', 'titulo')
 
 
 class ArtigoView(ElidedListView):
+    model = Artigo
     template_name = 'artigos.html'
-    queryset = Artigo.objects.all()
     context_object_name = 'artigos'
     paginate_by = 3
-    filter_class = ArtigoFilter
+    filterset_class = ArtigoFilter
 
 
 artigo_view = ArtigoView.as_view()
@@ -220,7 +220,7 @@ artigo_view = ArtigoView.as_view()
 // tabela ou form
 // ...
 
-{% include "_includes/paginador.html" %}
+{% include "includes/paginador.html" %}
 ```
 
 Guardian

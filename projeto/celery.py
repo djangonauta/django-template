@@ -1,4 +1,4 @@
-import logging
+import logging.config
 import os
 
 from celery import Celery
@@ -6,12 +6,13 @@ from celery.signals import setup_logging
 from django.conf import settings
 from django_structlog.celery.steps import DjangoStructLogInitStep
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'projeto.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "projeto.settings")
 
-app = Celery('projeto')
-app.config_from_object('django.conf:settings', namespace='CELERY')
+app = Celery("projeto")
+app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()
-app.steps['worker'].add(DjangoStructLogInitStep)
+if app.steps is not None:
+    app.steps["worker"].add(DjangoStructLogInitStep)
 
 
 @setup_logging.connect

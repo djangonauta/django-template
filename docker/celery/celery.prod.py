@@ -2,7 +2,7 @@
 import os
 
 comandos = [
-    'poetry install --without dev --sync --compile',
-    'poetry run inv celery',
+    "poetry install --without dev --sync --compile",
+    "poetry run inv celery",
 ]
-os.system('\n'.join(comandos))
+os.system("\n".join(comandos))
