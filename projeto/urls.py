@@ -20,7 +20,6 @@ urlpatterns = [
     path("select2/", include("django_select2.urls")),
 ]
 
-# API
 urlpatterns += [
     path("api/v1/", api.urls),
     path("api/token/", TokenParComPermissoesView.as_view(), name="token_obtain_pair"),
@@ -30,8 +29,6 @@ urlpatterns += [
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
 ]
 
-# Media files in development
-urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 if settings.DEBUG:
+    urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += [path("__debug__/", include("debug_toolbar.urls"))]
