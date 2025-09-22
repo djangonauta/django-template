@@ -12,9 +12,9 @@
     <link rel="shortcut icon" href="{% static 'images/python-logo.png' %}" />
 
     {% block styles %}
-    <link rel="stylesheet" href="{% static 'libs/bootstrap-5.3.3/css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'libs/bootstrap-5.3.3/css/spacelab.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'libs/fontawesome-free-6.7.2-web/css/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'libs/bootstrap-5.3.8/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'libs/bootstrap-5.3.8/css/spacelab.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'libs/fontawesome-free-7.0.1-web/css/all.min.css' %}" />
     {% endblock %}
 
     {% stylesheet 'main' %}
@@ -23,15 +23,15 @@
   <body class="{% block body_class %}{% endblock %}">
     {% block body %}
 
-    {% include "includes/navbar.html" %}
-  
+    {% include "_includes/navbar.html" %}
+
     <div class="container mt-4">
       <div class="row justify-content-center">
         <div class="col-12">
           {% block breadcrumbs %}
             {% render_breadcrumbs %}
           {% endblock breadcrumbs %}
-          {% include "includes/messages.html" %}
+          {% include "_includes/messages.html" %}
 
           {% block conteudo %}{% endblock conteudo %}
         </div>
@@ -41,7 +41,7 @@
 
     {% block scripts %}
     <script src="{% static 'libs/jquery-3.7.1/js/jquery.min.js' %}"></script>
-    <script src="{% static 'libs/bootstrap-5.3.3/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap-5.3.8/js/bootstrap.bundle.min.js' %}"></script>
     {% endblock %}
 
     {% javascript 'main' %}

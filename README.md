@@ -220,7 +220,7 @@ artigo_view = ArtigoView.as_view()
 // tabela ou form
 // ...
 
-{% include "includes/paginador.html" %}
+{% include "_includes/paginador.html" %}
 ```
 
 Guardian

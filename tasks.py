@@ -32,14 +32,14 @@ def collectstatic(c, interactive=False, clear=True, verbosity=0, settings="produ
 
 
 @task
-def makemigrations(c, settings="production", merge=True):
+def makemigrations(c, settings="production", merge=False):
     merge = " --merge" if merge else ""
     cmd = f"./manage.py makemigrations --settings=projeto.settings.{settings}{merge}"
     c.run(cmd)
 
 
 @task
-def migrate(c, settings="production", merge=True):
+def migrate(c, settings="production", merge=False):
     makemigrations(c, settings, merge)
     cmd = f"./manage.py migrate --settings=projeto.settings.{settings}"
     c.run(cmd)

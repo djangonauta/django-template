@@ -330,7 +330,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Django breadcrumbs
 # https://github.com/tj-django/django-view-breadcrumbs
-BREADCRUMBS_TEMPLATE = "includes/breadcrumbs.html"
+BREADCRUMBS_TEMPLATE = "_includes/breadcrumbs.html"
 BREADCRUMBS_HOME_LABEL = '<i class="fa-solid fa-house"></i> Home'
 
 MESSAGE_TAGS = {

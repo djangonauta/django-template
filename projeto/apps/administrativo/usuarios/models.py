@@ -4,49 +4,33 @@ import uuid
 from auditlog.models import AuditlogHistoryField
 from auditlog.registry import auditlog
 from django.contrib.auth.models import AbstractUser
-from django.db import models
+from django.db.models import IntegerField, UUIDField
 from django_prometheus.models import ExportModelOperationsMixin
 from model_utils.models import TimeStampedModel
 
-from . import managers
+from .managers import TipoUsuario, UsuarioManager
 
 
 class Usuario(ExportModelOperationsMixin("Usuario"), TimeStampedModel, AbstractUser):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
-    # Tipo do usuário automaticamente definido em save()
-    class Tipo(models.IntegerChoices):
-        DEFAULT = 1, "default"
-
-    tipo = models.IntegerField(choices=Tipo.choices, default=Tipo.DEFAULT)
-    tipo_usuario = Tipo.DEFAULT
+    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    tipo = IntegerField(choices=TipoUsuario.choices, default=TipoUsuario.DEFAULT)
 
     history = AuditlogHistoryField()
-
-    objects = managers.UsuarioManager()
+    objects = UsuarioManager()
 
     class Meta:
         verbose_name = "Usuário"
         db_table = 'administrativo"."usuarios_usuario'
 
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.tipo = (
-                self.tipo_usuario
-            )  # ao herdar da classe Usuario especificar qual o tipo de usuário
-
-        return super().save(*args, **kwargs)
-
-    # Métodos assim poderiam ser definidos na subclasse para verificar o tipo
-    def is_default(self):
-        return self.tipo == self.Tipo.DEFAULT
+    def is_default(self) -> bool:
+        return self.tipo == TipoUsuario.DEFAULT
 
     @property
-    def nome_completo(self):
+    def nome_completo(self) -> str:
         return self.get_full_name() or self.username
 
     @property
-    def gravatar_url(self):
+    def gravatar_url(self) -> str:
         email_hash = hashlib.md5(bytes(self.email, "utf-8")).hexdigest()
         return f"https://gravatar.com/avatar/{email_hash}"
 

@@ -60,7 +60,7 @@ window.AppUtils = {};
         spinner.style.opacity = '1';
       }
     },
-    
+
     /**
      * Esconde o spinner de carregamento
      */
@@ -74,7 +74,7 @@ window.AppUtils = {};
         }, 300); // Tempo em ms que corresponde à transição CSS
       }
     },
-    
+
     /**
      * Wrapper para fetch que gerencia automaticamente o spinner
      * @param {string|Request} url - A URL ou objeto Request para o fetch
@@ -83,7 +83,7 @@ window.AppUtils = {};
      */
     fetchWithSpinner: function(url, options = {}) {
       this.show();
-      
+
       return fetch(url, options)
         .then(response => {
           // Captura a resposta antes de esconder o spinner
