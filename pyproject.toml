@@ -1,24 +1,24 @@
 [project]
 name = "django-template"
 version = "0.1.0"
-description = "Projeto repositório de funcionalidades."
+description = "Template django contendo alguns pacotes úteis"
 authors = [
     {name = "djangonauta", email = "igbrch@gmail.com"}
 ]
-license = "MIT"
+license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.13,<4"
 dependencies = [
     "arrow (>=1.3.0,<2.0.0)",
     "celery (>=5.5.3,<6.0.0)",
     "crispy-bootstrap5 (>=2025.6,<2026.0)",
-    "django (>=5.2.6,<6.0.0)",
+    "django (>=5.2.7,<6.0.0)",
     "django-allauth (>=65.11.2,<66.0.0)",
     "django-auditlog (>=3.2.1,<4.0.0)",
     "django-auth-ldap (>=5.2.0,<6.0.0)",
     "django-celery-beat (>=2.8.1,<3.0.0)",
     "django-celery-results (>=2.6.0,<3.0.0)",
-    "django-cors-headers (>=4.8.0,<5.0.0)",
+    "django-cors-headers (>=4.9.0,<5.0.0)",
     "django-crispy-forms (>=2.4,<3.0)",
     "django-csp (>=4.0,<5.0)",
     "django-environ (>=0.12.0,<0.13.0)",
@@ -43,7 +43,7 @@ dependencies = [
     "djangorestframework-guardian2 (>=0.7.0,<0.8.0)",
     "djangorestframework-simplejwt (>=5.5.1,<6.0.0)",
     "drf-spectacular (>=0.28.0,<0.29.0)",
-    "drf-spectacular-sidecar (>=2025.9.1,<2026.0.0)",
+    "drf-spectacular-sidecar (>=2025.10.1,<2026.0.0)",
     "gunicorn (>=23.0.0,<24.0.0)",
     "hiredis (>=3.2.1,<4.0.0)",
     "invoke (>=2.2.0,<3.0.0)",
@@ -53,7 +53,7 @@ dependencies = [
     "redis (>=6.4.0,<7.0.0)",
     "setuptools (>=80.9.0,<81.0.0)",
     "weasyprint (>=66.0,<67.0)",
-    "whitenoise (>=6.10.0,<7.0.0)"
+    "whitenoise (>=6.11.0,<7.0.0)"
 ]
 
 [tool.poetry]
@@ -62,38 +62,35 @@ package-mode = false
 [tool.poetry.group.dev]
 optional = true
 
-[tool.poetry.group.dev.dependencies]
-black = "^25.1.0"
-commitizen = "^4.9.1"
-coverage = "^7.10.6"
-django-debug-toolbar = "^6.0.0"
-fabric = "^3.2.2"
-factory-boy = "^3.3.3"
-flake8 = "^7.3.0"
-ipython = "^9.5.0"
-isort = "^6.0.1"
-pyopenssl = "^25.2.0"
-selenium = "^4.35.0"
-werkzeug = "^3.1.3"
+[dependency-groups]
+dev = [
+    "black (>=25.9.0,<26.0.0)",
+    "commitizen (>=4.9.1,<5.0.0)",
+    "coverage (>=7.10.7,<8.0.0)",
+    "django-debug-toolbar (>=6.0.0,<7.0.0)",
+    "fabric (>=3.2.2,<4.0.0)",
+    "factory-boy (>=3.3.3,<4.0.0)",
+    "flake8 (>=7.3.0,<8.0.0)",
+    "flake8-pyproject (>=1.2.3,<2.0.0)",
+    "ipython (>=9.6.0,<10.0.0)",
+    "isort (>=6.1.0,<7.0.0)",
+    "pyopenssl (>=25.3.0,<26.0.0)",
+    "selenium (>=4.35.0,<5.0.0)",
+    "werkzeug (>=3.1.3,<4.0.0)"
+]
 
 [tool.black]
 line-length = 100
+target-version = ["py313"]
 extend-exclude = '''
 /(
-  migrations
-  | venv
-  | build
-  | dist
+ migrations
+ | venv
+ | build
+ | dist
+ | __pycache__
 )/
 '''
-
-[tool.isort]
-profile = "black"
-line_length = 100
-
-[tool.flake8]
-max-line-length = 100
-extend-ignore = ["E203", "W503"]
 
 [tool.commitizen]
 name = "cz_conventional_commits"
@@ -103,6 +100,16 @@ version_provider = "pep621"
 update_changelog_on_bump = true
 major_version_zero = true
 version_files = ["pyproject.toml:project.version"]
+
+[tool.flake8]
+max-line-length = 100
+extend-ignore = ["E203", "W503"]
+exclude = [".git", "__pycache__", "venv", "build", "dist", "migrations"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+skip_gitignore = true
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
