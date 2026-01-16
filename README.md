@@ -64,7 +64,7 @@ Dependências de desenvolvimento
 -------------------------------
 
 ```bash
-black commitizen coverage django-debug-toolbar fabric factory-boy flake8 ipython isort pyopenssl selenium werkzeug
+black commitizen coverage django-debug-toolbar fabric factory-boy flake8-pyproject ipython isort pyopenssl selenium werkzeug
 ```
 
 Ambiente de Desenvolvimento

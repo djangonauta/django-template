@@ -7,87 +7,90 @@ authors = [
 ]
 license = {text = "MIT"}
 readme = "README.md"
-requires-python = ">=3.13,<4"
+requires-python = ">=3.14,<3.15"
 dependencies = [
-    "arrow (>=1.3.0,<2.0.0)",
-    "celery (>=5.5.3,<6.0.0)",
+    "arrow (>=1.4.0,<2.0.0)",
+    "celery (>=5.6.2,<6.0.0)",
     "crispy-bootstrap5 (>=2025.6,<2026.0)",
-    "django (>=5.2.7,<6.0.0)",
-    "django-allauth (>=65.11.2,<66.0.0)",
-    "django-auditlog (>=3.2.1,<4.0.0)",
-    "django-auth-ldap (>=5.2.0,<6.0.0)",
-    "django-celery-beat (>=2.8.1,<3.0.0)",
-    "django-celery-results (>=2.6.0,<3.0.0)",
+    "django (>=6.0.1,<7.0.0)",
+    "django-allauth (>=65.13.1,<66.0.0)",
+    "django-auditlog (>=3.4.1,<4.0.0)",
+    "django-auth-ldap (>=5.3.0,<6.0.0)",
     "django-cors-headers (>=4.9.0,<5.0.0)",
-    "django-crispy-forms (>=2.4,<3.0)",
+    "django-crispy-forms (>=2.5,<3.0)",
     "django-csp (>=4.0,<5.0)",
     "django-environ (>=0.12.0,<0.13.0)",
     "django-extensions (>=4.1,<5.0)",
     "django-extra-fields (>=3.0.2,<4.0.0)",
-    "django-filter (>=25.1,<26.0)",
+    "django-filter (>=25.2,<26.0)",
     "django-formtools (>=2.5.1,<3.0.0)",
     "django-guardian (>=3.2.0,<4.0.0)",
-    "django-hijack (>=3.7.4,<4.0.0)",
+    "django-hijack (>=3.7.6,<4.0.0)",
     "django-model-utils (>=5.0.0,<6.0.0)",
     "django-pipeline (>=4.1.0,<5.0.0)",
-    "django-post-office (>=3.10.1,<4.0.0)",
+    "django-post-office (>=3.11.0,<4.0.0)",
     "django-prometheus (>=2.4.1,<3.0.0)",
     "django-redis (>=6.0.0,<7.0.0)",
     "django-rest-auth (>=0.9.5,<0.10.0)",
-    "django-select2 (>=8.4.1,<9.0.0)",
-    "django-structlog[celery] (>=9.1.1,<10.0.0)",
+    "django-select2 (>=8.4.8,<9.0.0)",
+    "django-structlog[celery] (>=10.0.0,<11.0.0)",
     "django-view-breadcrumbs (>=2.5.1,<3.0.0)",
     "django-weasyprint (>=2.4.0,<3.0.0)",
-    "django-widget-tweaks (>=1.5.0,<2.0.0)",
+    "django-widget-tweaks (>=1.5.1,<2.0.0)",
     "djangorestframework (>=3.16.1,<4.0.0)",
     "djangorestframework-guardian2 (>=0.7.0,<0.8.0)",
     "djangorestframework-simplejwt (>=5.5.1,<6.0.0)",
-    "drf-spectacular (>=0.28.0,<0.29.0)",
-    "drf-spectacular-sidecar (>=2025.10.1,<2026.0.0)",
+    "drf-spectacular (>=0.29.0,<0.30.0)",
+    "drf-spectacular-sidecar (>=2026.1.1,<2027.0.0)",
     "gunicorn (>=23.0.0,<24.0.0)",
-    "hiredis (>=3.2.1,<4.0.0)",
-    "invoke (>=2.2.0,<3.0.0)",
-    "pillow (>=11.3.0,<12.0.0)",
-    "psycopg[binary] (>=3.2.10,<4.0.0)",
+    "hiredis (>=3.3.0,<4.0.0)",
+    "invoke (>=2.2.1,<3.0.0)",
+    "pillow (>=12.1.0,<13.0.0)",
+    "psycopg[binary] (>=3.3.2,<4.0.0)",
     "pygraphviz (>=1.14,<2.0)",
-    "redis (>=6.4.0,<7.0.0)",
+    "redis (>=7.1.0,<8.0.0)",
     "setuptools (>=80.9.0,<81.0.0)",
-    "weasyprint (>=66.0,<67.0)",
+    "weasyprint (>=67.0,<68.0)",
     "whitenoise (>=6.11.0,<7.0.0)"
 ]
 
 [tool.poetry]
 package-mode = false
 
+[dependency-groups]
+dev = [
+    "black (>=25.12.0,<26.0.0)",
+    "commitizen (>=4.11.6,<5.0.0)",
+    "coverage (>=7.13.1,<8.0.0)",
+    "django-debug-toolbar (>=6.1.0,<7.0.0)",
+    "fabric (>=3.2.2,<4.0.0)",
+    "factory-boy (>=3.3.3,<4.0.0)",
+    "flake8-pyproject (>=1.2.4,<2.0.0)",
+    "ipython (>=9.9.0,<10.0.0)",
+    "isort (>=7.0.0,<8.0.0)",
+    "pyopenssl (>=25.3.0,<26.0.0)",
+    "selenium (>=4.39.0,<5.0.0)",
+    "werkzeug (>=3.1.5,<4.0.0)"
+]
+
 [tool.poetry.group.dev]
 optional = true
 
-[dependency-groups]
-dev = [
-    "black (>=25.9.0,<26.0.0)",
-    "commitizen (>=4.9.1,<5.0.0)",
-    "coverage (>=7.10.7,<8.0.0)",
-    "django-debug-toolbar (>=6.0.0,<7.0.0)",
-    "fabric (>=3.2.2,<4.0.0)",
-    "factory-boy (>=3.3.3,<4.0.0)",
-    "flake8 (>=7.3.0,<8.0.0)",
-    "flake8-pyproject (>=1.2.3,<2.0.0)",
-    "ipython (>=9.6.0,<10.0.0)",
-    "isort (>=6.1.0,<7.0.0)",
-    "pyopenssl (>=25.3.0,<26.0.0)",
-    "selenium (>=4.35.0,<5.0.0)",
-    "werkzeug (>=3.1.3,<4.0.0)"
-]
-
 [tool.black]
 line-length = 100
-target-version = ["py313"]
+target-version = ['py314']
+include = '\.pyi?$'
 extend-exclude = '''
 /(
- migrations
- | venv
- | build
- | dist
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
 )/
 '''
 
