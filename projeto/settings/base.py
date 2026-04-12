@@ -2,7 +2,6 @@ import pathlib
 
 import environ
 import structlog
-from django.conf import global_settings
 from django.contrib import messages
 
 env = environ.Env(
@@ -75,12 +74,12 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "auditlog",
-    "corsheaders",
+    # "corsheaders",
     "crispy_forms",
     "crispy_bootstrap5",
     "csp",
-    # "django_celery_beat",
-    # "django_celery_results",
+    "django_celery_beat",
+    "django_celery_results",
     "django_extensions",
     "django_filters",
     "django_prometheus",
@@ -92,7 +91,6 @@ THIRD_PARTY_APPS = [
     "guardian",
     "hijack",
     "hijack.contrib.admin",
-    "pipeline",
     "post_office",
     "rest_framework",
     "rest_framework_simplejwt",
@@ -178,29 +176,12 @@ STORAGES = {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "pipeline.storage.PipelineManifestStorage",
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
     },
 }
-STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + ["pipeline.finders.PipelineFinder"]
 
 MEDIA_URL = "uploads/"
 MEDIA_ROOT = BASE_DIR / "uploads"
-
-# https://django-pipeline.readthedocs.io/en/latest/
-PIPELINE = {
-    "JAVASCRIPT": {
-        "main": {
-            "source_filenames": ("js/app.js",),
-            "output_filename": "js/app.js",
-        }
-    },
-    "STYLESHEETS": {
-        "main": {
-            "source_filenames": ("css/app.css",),
-            "output_filename": "css/app.css",
-        }
-    },
-}
 
 # Authorization/Authentication
 # https://django-allauth.readthedocs.io/en/latest/
@@ -253,17 +234,6 @@ GRAPH_MODELS = {
 CACHES = {"default": env.cache_url()}
 CACHES["default"]["BACKEND"] = "django_prometheus.cache.backends.redis.RedisCache"
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
-SELECT2_CACHE_BACKEND = "default"
-SELECT2_THEME = "bootstrap-5"
-SELECT2_CSS = [
-    "libs/select2-4.1.0/css/select2.min.css",
-    "libs/select2-bootstrap-5-theme-1.3.0/css/select2-bootstrap-5-theme.min.css",
-]
-SELECT2_JS = [
-    "libs/select2-4.1.0/js/select2.min.js",
-]
-SELECT2_I18N_PATH = "libs/select2-4.1.0/js/i18n"
-SELECT2_I18N_AVAILABLE_LANGUAGES = "pt-BR.js"
 
 # Serialization
 # https://www.django-rest-framework.org/

@@ -10,24 +10,25 @@ readme = "README.md"
 requires-python = ">=3.14,<3.15"
 dependencies = [
     "arrow (>=1.4.0,<2.0.0)",
-    "celery (>=5.6.2,<6.0.0)",
-    "crispy-bootstrap5 (>=2025.6,<2026.0)",
-    "django (>=6.0.1,<7.0.0)",
-    "django-allauth (>=65.13.1,<66.0.0)",
+    "celery (>=5.6.3,<6.0.0)",
+    "crispy-bootstrap5 (>=2026.3,<2027.0)",
+    "django (>=6.0.4,<7.0.0)",
+    "django-allauth (>=65.15.1,<66.0.0)",
     "django-auditlog (>=3.4.1,<4.0.0)",
     "django-auth-ldap (>=5.3.0,<6.0.0)",
+    "django-celery-beat (>=2.9.0,<3.0.0)",
+    "django-celery-results (>=2.6.0,<3.0.0)",
     "django-cors-headers (>=4.9.0,<5.0.0)",
-    "django-crispy-forms (>=2.5,<3.0)",
+    "django-crispy-forms (>=2.6,<3.0)",
     "django-csp (>=4.0,<5.0)",
-    "django-environ (>=0.12.0,<0.13.0)",
+    "django-environ (>=0.13.0,<0.14.0)",
     "django-extensions (>=4.1,<5.0)",
     "django-extra-fields (>=3.0.2,<4.0.0)",
     "django-filter (>=25.2,<26.0)",
     "django-formtools (>=2.5.1,<3.0.0)",
-    "django-guardian (>=3.2.0,<4.0.0)",
-    "django-hijack (>=3.7.6,<4.0.0)",
+    "django-guardian (>=3.3.1,<4.0.0)",
+    "django-hijack (>=3.7.7,<4.0.0)",
     "django-model-utils (>=5.0.0,<6.0.0)",
-    "django-pipeline (>=4.1.0,<5.0.0)",
     "django-post-office (>=3.11.0,<4.0.0)",
     "django-prometheus (>=2.4.1,<3.0.0)",
     "django-redis (>=6.0.0,<7.0.0)",
@@ -35,23 +36,22 @@ dependencies = [
     "django-select2 (>=8.4.8,<9.0.0)",
     "django-structlog[celery] (>=10.0.0,<11.0.0)",
     "django-view-breadcrumbs (>=2.5.1,<3.0.0)",
-    "django-weasyprint (>=2.4.0,<3.0.0)",
+    "django-weasyprint (>=2.5.0,<3.0.0)",
     "django-widget-tweaks (>=1.5.1,<2.0.0)",
-    "djangorestframework (>=3.16.1,<4.0.0)",
+    "djangorestframework (>=3.17.1,<4.0.0)",
     "djangorestframework-guardian2 (>=0.7.0,<0.8.0)",
     "djangorestframework-simplejwt (>=5.5.1,<6.0.0)",
     "drf-spectacular (>=0.29.0,<0.30.0)",
-    "drf-spectacular-sidecar (>=2026.1.1,<2027.0.0)",
-    "gunicorn (>=23.0.0,<24.0.0)",
-    "hiredis (>=3.3.0,<4.0.0)",
-    "invoke (>=2.2.1,<3.0.0)",
-    "pillow (>=12.1.0,<13.0.0)",
-    "psycopg[binary] (>=3.3.2,<4.0.0)",
+    "drf-spectacular-sidecar (>=2026.4.1,<2027.0.0)",
+    "gunicorn (>=25.3.0,<26.0.0)",
+    "hiredis (>=3.3.1,<4.0.0)",
+    "invoke (>=3.0.3,<4.0.0)",
+    "pillow (>=12.2.0,<13.0.0)",
+    "psycopg[binary] (>=3.3.3,<4.0.0)",
     "pygraphviz (>=1.14,<2.0)",
-    "redis (>=7.1.0,<8.0.0)",
-    "setuptools (>=80.9.0,<81.0.0)",
-    "weasyprint (>=67.0,<68.0)",
-    "whitenoise (>=6.11.0,<7.0.0)"
+    "redis (>=7.4.0,<8.0.0)",
+    "setuptools (>=82.0.1,<83.0.0)",
+    "weasyprint (>=68.1,<69.0)",
 ]
 
 [tool.poetry]
@@ -59,40 +59,40 @@ package-mode = false
 
 [dependency-groups]
 dev = [
-    "black (>=25.12.0,<26.0.0)",
-    "commitizen (>=4.11.6,<5.0.0)",
-    "coverage (>=7.13.1,<8.0.0)",
-    "django-debug-toolbar (>=6.1.0,<7.0.0)",
-    "fabric (>=3.2.2,<4.0.0)",
+    "commitizen (>=4.13.10,<5.0.0)",
+    "coverage (>=7.13.5,<8.0.0)",
+    "django-debug-toolbar (>=6.3.0,<7.0.0)",
     "factory-boy (>=3.3.3,<4.0.0)",
-    "flake8-pyproject (>=1.2.4,<2.0.0)",
-    "ipython (>=9.9.0,<10.0.0)",
-    "isort (>=7.0.0,<8.0.0)",
-    "pyopenssl (>=25.3.0,<26.0.0)",
-    "selenium (>=4.39.0,<5.0.0)",
-    "werkzeug (>=3.1.5,<4.0.0)"
+    "ipython (>=9.12.0,<10.0.0)",
+    "pyopenssl (>=26.0.0,<27.0.0)",
+    "ruff (>=0.15.10,<0.16.0)",
+    "selenium (>=4.43.0,<5.0.0)",
+    "werkzeug (>=3.1.8,<4.0.0)"
 ]
 
 [tool.poetry.group.dev]
 optional = true
 
-[tool.black]
+[tool.ruff]
 line-length = 100
-target-version = ['py314']
-include = '\.pyi?$'
-extend-exclude = '''
-/(
-  # directories
-  \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | build
-  | dist
-)/
-'''
+target-version = "py314"
+exclude = ["migrations", "venv", "build", "dist"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear — pega bugs sutis
+    "SIM",  # flake8-simplify — sugere simplificações
+    "DJ",   # flake8-django — regras específicas pro Django
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
@@ -100,18 +100,12 @@ tag_format = "$version"
 version_scheme = "semver2"
 version_provider = "pep621"
 update_changelog_on_bump = true
+changelog_incremental = true
 major_version_zero = true
+annotated_tag = true
+bump_message = "chore(release): $current_version → $new_version"
 version_files = ["pyproject.toml:project.version"]
-
-[tool.flake8]
-max-line-length = 100
-extend-ignore = ["E203", "W503"]
-exclude = [".git", "__pycache__", "venv", "build", "dist", "migrations"]
-
-[tool.isort]
-profile = "black"
-line_length = 100
-skip_gitignore = true
+pre_bump_hooks = ["ruff check .", "ruff format --check ."]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
