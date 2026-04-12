@@ -1,5 +1,5 @@
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
-from .staging import *  # noqa: F401, F40
+from .staging import *  # noqa: F403
 
 # Security
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
