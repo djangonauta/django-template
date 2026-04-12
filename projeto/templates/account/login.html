@@ -20,7 +20,7 @@
                 <span class="input-group-text">
                   <i class="fa-solid fa-user"></i>
                 </span>
-                {% render_field form.login class='form-control form-control-sm' primeiro-campo='' placeholder='Email ou usuário' required="" %}
+                {% render_field form.login class='form-control form-control-sm' data-primeiro-campo='' placeholder='Email ou usuário' required="" %}
               </div>
               <div class="text-danger mt-1">{{ form.login.errors.0 }}</div>
             </div>
@@ -38,7 +38,7 @@
             </div>
             <div class="mb-3 form-check d-flex justify-content-end">
               {% render_field form.remember class='ponteiro form-check-input' %}&nbsp;
-              <label class="form-check-label small" for="remember">Lembrar</label>
+              <label class="form-check-label small ponteiro" for="id_remember">Lembrar</label>
             </div>
             <button data-spinner type="submit" class="btn btn-primary btn-sm w-100">
               <i class="fa-solid fa-right-to-bracket"></i> Entrar

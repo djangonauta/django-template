@@ -1,6 +1,5 @@
 'use strict';
 
-// Definir o namespace global
 window.AppUtils = {};
 
 (function() {
@@ -19,21 +18,30 @@ window.AppUtils = {};
         icon.className = 'fa-solid fa-eye-slash';
       }
     });
-  };
+  }
+
+  function initPasswordEye(root = document) {
+    root.querySelectorAll('[data-password-eye]').forEach(el => {
+      if (el.dataset.passwordEyeInit) return;
+      el.dataset.passwordEyeInit = true;
+      passwordEye(el);
+    });
+  }
 
   function spinner(element) {
     element.addEventListener('click', function () {
       this.disabled = true;
       const spinner = element.querySelector('i');
       spinner.className = 'fa-solid fa-spinner fa-spin';
-      const spinnerOverlay = document.getElementById('spinner-overlay');
-      if (spinnerOverlay) {
-        spinnerOverlay.style.visibility = 'visible';
-        spinnerOverlay.style.opacity = '1';
-      }
       this.closest('form').submit();
     });
-  };
+  }
+
+  function initSpinner(root = document) {
+    root.querySelectorAll('[data-spinner]').forEach(el => {
+      spinner(el);
+    });
+  }
 
   function addForm(totalFormsSelector, formSelector, destinoSelector) {
     const totalForms = parseInt(document.querySelector(totalFormsSelector).value);
@@ -44,93 +52,90 @@ window.AppUtils = {};
     document.querySelector(destinoSelector).appendChild(newForm);
     newForm.style.opacity = 0;
     setTimeout(() => newForm.style.opacity = 1, 10);
-  };
+  }
+
+  function initAddForm(root = document) {
+    root.querySelectorAll('[data-add-form]').forEach(function (element) {
+      element.addEventListener('click', function () {
+        addForm(
+          this.dataset.totalForms,
+          this.dataset.formVazio,
+          this.dataset.destino
+        );
+      });
+    });
+  }
 
   /**
-   * Utilitário para gerenciar a exibição do spinner em requisições AJAX
+   <select data-tom
+      data-tom-url="/api/v1/usuarios/?search="
+      data-tom-remove
+      name="cliente_id">
+    </select>
    */
-  const SpinnerManager = {
-    /**
-     * Exibe o spinner de carregamento
-     */
-    show: function() {
-      const spinner = document.getElementById('spinner-overlay');
-      if (spinner) {
-        spinner.style.visibility = 'visible';
-        spinner.style.opacity = '1';
+  function initTomSelect(root = document) {
+    root.querySelectorAll('[data-tom]').forEach(el => {
+      if (el.tomselect) return;
+
+      const config = {};
+      const plugins = {};
+
+      if (el.dataset.tomRemove !== undefined) {
+        plugins.remove_button = { title: el.dataset.tomRemove || 'Remover' };
       }
-    },
 
-    /**
-     * Esconde o spinner de carregamento
-     */
-    hide: function() {
-      const spinner = document.getElementById('spinner-overlay');
-      if (spinner) {
-        spinner.style.opacity = '0';
-        // Aguardamos a transição para definir a visibilidade como hidden
-        setTimeout(() => {
-          spinner.style.visibility = 'hidden';
-        }, 300); // Tempo em ms que corresponde à transição CSS
+      if (Object.keys(plugins).length) {
+        config.plugins = plugins;
       }
-    },
 
-    /**
-     * Wrapper para fetch que gerencia automaticamente o spinner
-     * @param {string|Request} url - A URL ou objeto Request para o fetch
-     * @param {Object} options - Opções para o fetch (opcional)
-     * @returns {Promise} - Promise do fetch
-     */
-    fetchWithSpinner: function(url, options = {}) {
-      this.show();
+      if (el.dataset.tomUrl) {
+        config.valueField = el.dataset.tomValue || 'id';
+        config.labelField = el.dataset.tomLabel || 'texto';
+        config.searchField = el.dataset.tomSearch || 'texto';
 
-      return fetch(url, options)
-        .then(response => {
-          // Captura a resposta antes de esconder o spinner
-          return response;
-        })
-        .catch(error => {
-          console.log('Erro ao tentar executar chamada remota', error)
-          // Re-throw do erro para ser tratado pelo caller
-          throw error;
-        })
-        .finally(() => {
-          // Sempre esconde o spinner, independente de sucesso ou erro
-          this.hide();
-        });
-    }
-  };
+        config.onItemAdd = function () {
+          this.setTextboxValue('');
+          this.refreshOptions(false);
+        };
 
-  // Expor as funções ao namespace global AppUtils
-  window.AppUtils.passwordEye = passwordEye;
-  window.AppUtils.spinner = spinner;
-  window.AppUtils.addForm = addForm;
-  window.AppUtils.SpinnerManager = SpinnerManager;
+        config.load = function (query, callback) {
+          let url = el.dataset.tomUrl;
+          if (query) {
+            url += encodeURIComponent(query);
+          }
+          fetch(url)
+            .then(r => r.json())
+            .then(json => callback(json.results || json))
+            .catch(() => callback());
+        };
+      }
+      new TomSelect(el, config);
+    });
+  }
+
+  function initAll(root = document) {
+    initPasswordEye(root);
+    initSpinner(root);
+    initAddForm(root);
+    initTomSelect(root);
+  }
+
+  window.AppUtils = {
+    initAll,
+  }
 })();
 
 document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('[data-password-eye]').forEach(function (element) {
-    window.AppUtils.passwordEye(element);
-  });
-
-  document.querySelectorAll('[data-spinner]').forEach(function (element) {
-    window.AppUtils.spinner(element);
-  });
-
-  document.querySelectorAll('[data-add-form]').forEach(function (element) {
-    element.addEventListener('click', function () {
-      window.AppUtils.addForm(
-        this.dataset.totalForms,
-        this.dataset.formVazio,
-        this.dataset.destino
-      );
-    });
-  });
+  window.AppUtils.initAll();
 
   setTimeout(function () {
-    const el = document.querySelector('[primeiro-campo]')
+    const el = document.querySelector('[data-primeiro-campo]');
     if (el) {
-      el.focus();
+      el.tomselect ? el.tomselect.focus() : el.focus();
     }
   }, 300);
+});
+
+document.body.addEventListener('htmx:afterSwap', e => {
+  window.AppUtils.initAll(e.detail.target);
 });

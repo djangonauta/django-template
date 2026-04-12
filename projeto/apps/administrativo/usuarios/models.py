@@ -25,7 +25,6 @@ class Usuario(ExportModelOperationsMixin("Usuario"), TimeStampedModel, AbstractU
     def is_default(self) -> bool:
         return self.tipo == TipoUsuario.DEFAULT
 
-    @property
     def nome_completo(self) -> str:
         return self.get_full_name() or self.username
 

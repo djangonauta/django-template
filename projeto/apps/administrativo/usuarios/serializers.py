@@ -4,13 +4,12 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
-    def to_representation(self, instance):
-        # return dict(id=instance.id, text=instance.nome_completo) # select2
-        return super().to_representation(instance)
-
     class Meta:
         model = auth.get_user_model()
         fields = ("id", "username", "nome_completo")
+
+    def to_representation(self, instance):
+        return dict(id=instance.id, texto=instance.nome_completo)
 
 
 class DisableSignupSerializer(serializers.Serializer):

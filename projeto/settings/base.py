@@ -257,7 +257,8 @@ REST_FRAMEWORK = {
         "rest_framework.filters.OrderingFilter",
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "DATETIME_FORMAT": "%Y-%m-%d",
+    "DATE_FORMAT": "%Y-%m-%d",
+    "DATETIME_FORMAT": "%Y-%m-%dT%H:%M:%S",
 }
 
 # Open API
