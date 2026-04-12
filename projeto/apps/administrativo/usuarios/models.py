@@ -4,6 +4,7 @@ import uuid
 from auditlog.models import AuditlogHistoryField
 from auditlog.registry import auditlog
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 from django.db.models import IntegerField, UUIDField
 from django_prometheus.models import ExportModelOperationsMixin
 from model_utils.models import TimeStampedModel
@@ -35,3 +36,14 @@ class Usuario(ExportModelOperationsMixin("Usuario"), TimeStampedModel, AbstractU
 
 
 auditlog.register(Usuario)
+
+
+class Produto(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    descricao = models.TextField()
+    preco = models.DecimalField(decimal_places=2, max_digits=7)
+
+    history = AuditlogHistoryField()
+
+    def __str__(self) -> str:
+        return f"{self.descricao}, R$ {self.preco}"

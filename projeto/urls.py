@@ -17,6 +17,7 @@ urlpatterns = [
     path("contas/", include("allauth.urls")),
     path("hijack/", include("hijack.urls")),
     path("admin/", admin.site.urls),
+    path("produtos/", views.produto_list_view, name="produtos"),  # remover
 ]
 
 urlpatterns += [

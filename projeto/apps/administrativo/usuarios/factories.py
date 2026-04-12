@@ -3,6 +3,8 @@ from factory import django
 from factory.faker import Faker
 from factory.helpers import lazy_attribute
 
+from .models import Produto
+
 
 class UsuarioFactory(django.DjangoModelFactory):
     username = Faker("first_name")
@@ -14,4 +16,12 @@ class UsuarioFactory(django.DjangoModelFactory):
 
     @lazy_attribute
     def email(self):
-        return "{}@domain.com".format(self.username)
+        return f"{self.username}@domain.com"
+
+
+class ProdutoFactory(django.DjangoModelFactory):
+    descricao = Faker("sentence", nb_words=5)
+    preco = Faker("pydecimal", left_digits=3, right_digits=2, positive=True, min_value=1)
+
+    class Meta:
+        model = Produto

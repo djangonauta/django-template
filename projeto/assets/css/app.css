@@ -1,3 +1,4 @@
+/* Estilo gerais */
 .ponteiro {
   cursor: pointer;
 }
@@ -5,3 +6,30 @@
 select {
   width: 100%;
 }
+
+/* Classe personalizada para paginação com botões circulares */
+.pagination-rounded .page-link {
+  border-radius: 50% !important;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.pagination-rounded.pagination-lg .page-link {
+  width: 3rem;
+  height: 3rem;
+}
+/* HTMX */
+.htmx-swapping {
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+
+.htmx-settling {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+
