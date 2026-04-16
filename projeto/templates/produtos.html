@@ -1,20 +1,49 @@
 {% extends "base.html" %}
 
 {% block conteudo %}
-  {% partialdef produtos_table inline %}
+  <input type="search" name="descricao"
+      class="form-control mb-3"
+      placeholder="Buscar produtos..."
+      hx-get="{% url 'produtos' %}"
+      hx-target="#produtos-container"
+      hx-swap="outerHTML"
+      hx-trigger="input changed delay:300ms, search"
+      autofocus>
+  {% partialdef produtos_partial inline %}
   <div id="produtos-container">
+    {% include "_includes/messages.html" %}
     <table class="table table-bordered table-hover">
+      <caption>Produtos ({{ paginator.count }})</caption>
       <thead>
         <th>ID</th>
         <th>Descrição</th>
         <th>Preço</th>
+        <th></th>
       </thead>
       <tbody>
         {% for produto in produtos %}
           <tr>
             <td>{{ produto.id }}</td>
             <td>{{ produto.descricao }}</td>
-            <td>{{ produto.preco }}</td>
+            <td>R$ {{ produto.preco }}</td>
+            <td>
+              <a onclick="return confirm('Remover?')" class="btn btn-primary btn-sm" style="border-radius: 50%;"
+                hx-delete="{% url 'produto_delete' produto.id %}"
+                hx-target="#produtos-container"
+                hx-swap="outerHTML"
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+                <i class="fa fa-remove"></i>
+              </a>
+
+              <a class="btn btn-primary btn-sm" style="border-radius: 50%;"
+                hx-get="{% url 'update_produto_modal' produto.id %}"
+                hx-target="#produto-modal"
+                hx-trigger="click"
+                data-bs-toggle="modal"
+                data-bs-target="#produto-modal">
+                <i class="fa fa-edit"></i>
+              </a>
+            </td>
           </tr>
         {% endfor %}
       </tbody>
@@ -22,4 +51,15 @@
     {% include "_includes/paginador.html" with hx_target="#produtos-container" %}
   </div>
   {% endpartialdef %}
+
+  <button class="btn btn-sm btn-primary"
+      hx-get="{% url 'create_produto_modal' %}"
+      hx-target="#produto-modal"
+      hx-trigger="click"
+      data-bs-toggle="modal"
+      data-bs-target="#produto-modal">
+    Novo Produto <i class="fa fa-plus"></i>
+  </button>
+
+  {% include "_includes/modal.html" with id_modal="produto-modal" %}
 {% endblock conteudo %}

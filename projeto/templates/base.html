@@ -22,7 +22,7 @@
     {% block extra_css %}{% endblock extra_css %}
   </head>
 
-  <body class="{% block body_class %}{% endblock %}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+  <body class="{% block body_class %}{% endblock %}">
     {% block body %}
 
     {% include "_includes/navbar.html" %}
@@ -33,7 +33,6 @@
           {% block breadcrumbs %}
             {% render_breadcrumbs %}
           {% endblock breadcrumbs %}
-          {% include "_includes/messages.html" %}
 
           {% block conteudo %}{% endblock conteudo %}
         </div>

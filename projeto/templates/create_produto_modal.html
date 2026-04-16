@@ -1,0 +1,47 @@
+<form id="novo-produto-form"
+      hx-post="{% url 'create_produto_modal' %}"
+      hx-target="#novo-produto-form"
+      hx-swap="outerHTML"
+      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+      novalidate>
+  <div class="modal-dialog modal-dialog-centered">{% load crispy_forms_tags %}
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Novo Produto</h5>
+      </div>
+      <div class="modal-body">
+        {{ form | crispy }}
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-primary">
+          Adicionar <i class="fa fa-plus"></i>
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+          Fechar <i class="fa fa-close"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+{% partialdef sucesso %}
+  <div class="modal-dialog modal-dialog-centered">{% load crispy_forms_tags %}
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Sucesso</h5>
+      </div>
+      <div class="modal-body">
+        {% include "_includes/messages.html" %}
+        <p>Ao fechar este modal a listagem de produtos será recarregada.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"
+            hx-get="{% url 'produtos' %}"
+            hx-target="#produtos-container"
+            hx-swap="outerHTML">
+          Fechar <i class="fa fa-close"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+{% endpartialdef %}

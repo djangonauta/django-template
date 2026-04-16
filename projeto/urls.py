@@ -17,7 +17,13 @@ urlpatterns = [
     path("contas/", include("allauth.urls")),
     path("hijack/", include("hijack.urls")),
     path("admin/", admin.site.urls),
-    path("produtos/", views.produto_list_view, name="produtos"),  # remover
+    # remover abaixo
+    path("produtos/", views.produto_list_view, name="produtos"),
+    path("produtos/delete/<uuid:pk>/", views.produto_delete_view, name="produto_delete"),
+    path("create-produto-modal/", views.create_produto_modal, name="create_produto_modal"),
+    path(
+        "update-produto-modal/<uuid:pk>/", views.update_produto_modal, name="update_produto_modal"
+    ),
 ]
 
 urlpatterns += [

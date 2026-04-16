@@ -38,7 +38,7 @@ class Usuario(ExportModelOperationsMixin("Usuario"), TimeStampedModel, AbstractU
 auditlog.register(Usuario)
 
 
-class Produto(models.Model):
+class Produto(TimeStampedModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     descricao = models.TextField()
     preco = models.DecimalField(decimal_places=2, max_digits=7)

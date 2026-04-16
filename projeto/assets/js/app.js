@@ -139,3 +139,8 @@ document.addEventListener('DOMContentLoaded', function () {
 document.body.addEventListener('htmx:afterSwap', e => {
   window.AppUtils.initAll(e.detail.target);
 });
+
+document.body.addEventListener("shown.bs.modal", function (e) {
+  const input = e.target.querySelector("input, textarea, select");
+  if (input) input.focus();
+});
