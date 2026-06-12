@@ -8,10 +8,7 @@ def runserver(
 ):
     collectstatic(c, interactive, clear, verbosity, settings)
     noreload = "--noreload" if noreload else ""
-    cmd = (
-        f"./manage.py runserver 0.0.0.0:{port} "
-        f"--settings=projeto.settings.{settings} {noreload}"
-    )
+    cmd = f"./manage.py runserver 0.0.0.0:{port} --settings=projeto.settings.{settings} {noreload}"
     c.run(cmd)
 
 
@@ -121,7 +118,7 @@ def gunicorn(c):
 
 
 @task
-def criar_schemas(c, database, container="postgresql-17", usuario="postgres"):
+def criar_schemas(c, database, container="postgresql-18", usuario="postgres"):
     cmd = (
         f"docker exec -it {container} psql -U postgres -d {database} "
         f'-c "create schema arquitetura authorization {usuario};"'

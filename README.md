@@ -19,10 +19,9 @@ As seguintes váriaveis devem ser definidas no arquivo `projeto/settings/.env` (
 LOGS
 ====
 
-O diretório de logs de desenvolvimento deve ser criado na raiz do projeto.
+Criação dos diretórios de log locais ao projeto:
 
 ```bash
-mkdir logs
 sudo mkdir -p /var/log/celery/
 sudo chown usuario:grupo -R /var/log/celery/
 sudo mkdir -p /var/log/gunicorn/
@@ -57,7 +56,7 @@ Dependências de produção
 ------------------------
 
 ```bash
-arrow celery crispy-bootstrap5 django django-allauth django-auditlog django-auth-ldap django-celery-beat django-celery-results django-cors-headers django-crispy-forms django-csp django-environ django-extensions django-extra-fields django-filter django-formtools django-guardian django-hijack django-model-utils django-post-office django-prometheus django-redis django-rest-auth django-select2 django-structlog[celery] django-view-breadcrumbs django-weasyprint django-widget-tweaks djangorestframework djangorestframework-guardian2 djangorestframework-simplejwt drf-spectacular drf-spectacular-sidecar gunicorn hiredis invoke pillow psycopg[binary] pygraphviz redis setuptools weasyprint whitenoise
+arrow celery crispy-bootstrap5 django django-allauth django-auditlog django-auth-ldap django-celery-beat django-celery-results django-cors-headers django-crispy-forms django-csp django-environ django-extensions django-extra-fields django-filter django-formtools django-guardian django-hijack django-model-utils django-post-office django-prometheus django-redis django-rest-auth django-select2 django-structlog[celery] django-view-breadcrumbs django-weasyprint django-widget-tweaks djangorestframework djangorestframework-guardian2 djangorestframework-simplejwt drf-spectacular drf-spectacular-sidecar gunicorn hiredis invoke pillow psycopg[binary] redis setuptools weasyprint whitenoise
 ```
 
 Dependências de desenvolvimento
@@ -87,15 +86,15 @@ POSTGRES
 Criação dos schemas no docker.
 
 ```bash
-docker exec -it postgresql-17 psql -U postgres -d database -c "create schema arquitetura authorization postgres;"
-docker exec -it postgresql-17 psql -U postgres -d database -c "create schema administrativo authorization postgres;"
+docker exec -it postgresql-18 psql -U postgres -d database -c "create schema arquitetura authorization postgres;"
+docker exec -it postgresql-18 psql -U postgres -d database -c "create schema administrativo authorization postgres;"
 ```
 
 Com as dependencias instaladas e o ambiente virtual ativado, é possível executar o comando acima com
 `pyinvoke`:
 
 ```bash
-inv criar-schemas --database database --container postgresql-17 --usuario postgres
+inv criar-schemas --database database --container postgresql-18 --usuario postgres
 ```
 
 Certificado teste
